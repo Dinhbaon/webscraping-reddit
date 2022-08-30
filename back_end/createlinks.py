@@ -36,7 +36,7 @@ for j in range(get_size()):
             links.append(jsonfile['data'][i]['full_link']) 
             print(jsonfile['data'][i]['full_link'])
     df = pd.DataFrame(links)
-    df.to_csv("../csvfiles/rawlinks.csv",header=None, index=None,mode='a')       
+    df.to_csv("/csvfiles/rawlinks.csv",header=None, index=None,mode='a')       
     if len(jsonfile['data']) == 0:
         break   
     before_date.append(jsonfile['data'][-1]['created_utc'])
@@ -55,7 +55,7 @@ for i in range(len(links)):
         driver.find_element(By.XPATH,"//div[contains(text(),'Sorry, this post was deleted by') or contains(text(),'Moderators remove posts from feeds for a variety of reasons') or contains(text(),'automated bots frequently filter posts') or contains(text(),'[deleted]')]")
         deadlinks.append(links[i])
         df=pd.DataFrame(deadlinks)
-        df.to_csv("../csvfiles/deadlinks.csv",header=None, index=None)
+        df.to_csv("/csvfiles/deadlinks.csv",header=None, index=None)
     except NoSuchElementException: 
         continue
 
