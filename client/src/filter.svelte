@@ -1,9 +1,8 @@
 <script context='module'>
 import { writable} from "svelte/store";
-import { setContext } from "svelte";
 
 import Genderbreakdown from './genderbreakdown.svelte'
-
+import {unilist, majorlist} from './list'
 
 </script>
 
@@ -12,9 +11,7 @@ import { each } from "svelte/internal";
 
     
     const jq = window.$; 
-    let unilist = ['Princeton', 'Harvard', ' Mit ', 'Yale', 'Stanford', 'Uchicago', 'Upenn', 'Caltech', 'Duke', 'Jhu', 'Northwestern', 'Dartmouth', 'Brown', 'Vanderbilt', 'Washu', 'Cornell', 'Rice', 'University of notre dame', 'Ucla', 'Emory', 'Uc berkeley', 'Georgetown', 'Umich', 'Cmu', ' uva ', ' usc ', 'Nyu', 'Tufts', 'Ucsb', ' uf ', 'Unc', 'Wake forest', 'Ucsd', 'University of rochester', 'Boston college', 'Uci', 'Gatech', 'Uc davis', 'Ut austin', 'William & mary', ' bu ', 'Brandeis', 'Cwru', 'Tulane', 'Uw madison', 'Uiuc', 'Uga', 
-'Lehigh', 'Northeastern', 'Osu', 'Pepperdine', 'Purdue', 'Villanova', 'Williams', 'Amherst college', 'Swarthmore', 'Pomona', 'Wellesley', 'Bowdoin', 'Claremont', 'Carleton', 'Middlebury', 'Washington & lee', 'Davidson', 'Grinnell', 'Hamilton', 'Haverford', 'Barnard', 'Colby', 'Colgate', 'Smith', 'Wesleyan']
-    let majorlist = ['Math', 'Physics', 'Bio', 'Premed', 'Neuroscience', 'Chemistry', 'Computer science', 'Mechanical engineer', 'Chemical engineer', 'Computer engineering', 'Electrical engineering', 'Aerospace engineering', 'Econ', 'Finance', 'Business', 'Marketing', 'History', 'Political science', 'Philosophy', 'Law', 'English', 'Undecided', 'Arts', 'Anthropology', 'Environmental', ' international relations', 'Nursing', 'Sociology', 'Psychology']
+    
     let satchecked = false;
     let actchecked = false; 
     let acceptchecked = false; 
@@ -65,7 +62,7 @@ var actfilteron = () => {
 } 
 </script>
 
-<div>
+<div style="float: left; transform: translateX(20%); ">
   <h2 style= "font-size: 1.7vmax">Filter by: </h2>
 <div style="display: flex; flex-wrap: nowrap ;  justify-content: center;">
 <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width:12vw; "> 
@@ -135,19 +132,19 @@ var actfilteron = () => {
 
 <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; ">
   <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  "> 
-  <div>
-    <label for='majors' style="float:left;font-size: 2.5vmin; " >Major</label>
-     <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='majors' name='majors' bind:checked={majorchecked}/></span>
-  </div>
-     {#if majorchecked== true}  
+    <div>
+      <label for='majors' style="float:left;font-size: 2.5vmin; " >Major</label>
+      <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='majors' name='majors' bind:checked={majorchecked}/></span>
+    </div>
+  {#if majorchecked== true}  
     <label for = 'majorselect' ></label>
-    <select multiple name ="major" id="majorselect" class="dropdown"on:change:value={$majorselected} style="height: 15vw;">
+    <select multiple name ="major" id="majorselect" class="dropdown"bind:value={$majorselected} style="height: 15vw;">
   {#each majorlist as majors}
     <option value={majors} style="font-size:1.1vmax">{majors}</option>
   {/each}
     </select>
   {/if}
-</div>
+  </div>
 <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  ">  </div>
 </div>
 
@@ -174,8 +171,11 @@ var actfilteron = () => {
   padding:0; 
 }
 </style>
+
+<div style="position: absolute; left: 50%; transform: translateX(-50%); width: 35vw; height: 35vw; display:block;">
 <Genderbreakdown {satchecked} {satuservalue} 
 {actuservalue} {actchecked} 
 {acceptselected} {acceptchecked} 
 {rejectchecked} {rejectselected}
 {majorchecked} {majorselected}/>
+</div>

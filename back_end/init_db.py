@@ -1,10 +1,9 @@
 import pandas as pd
 from app import attributes, Major, Ecs, Race, Acceptances,Rejections, db 
-from ast import literal_eval
 df = pd.read_csv('.\csvfiles\processeddata.csv')
 db.drop_all()
 for i in range(len(df['Gender'])): 
-    applicant = attributes(Gender = df['Gender'].iloc[i],SAT = df['SAT'].iloc[i], ACT = df['ACT'].iloc[i])
+    applicant = attributes(Gender = df['Gender'].iloc[i],SAT = df['SAT'].iloc[i], ACT = df['ACT'].iloc[i], URL = df['url'].iloc[i])
     db.session.add(applicant)
     for racevalues in eval(df['Race'].iloc[i]): 
         race = Race(racelist = racevalues, Attributeid = i+1)

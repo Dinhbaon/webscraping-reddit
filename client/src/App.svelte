@@ -1,10 +1,7 @@
 <script context='module'>
 
-	import Genderbreakdown from './genderbreakdown.svelte'
-	
-	import Filters from './filter.svelte'
-	import { writable } from 'svelte/store';
 import Filter from './filter.svelte';
+import Filterhisto from './filterhisto.svelte'
 
 </script>
 
@@ -18,14 +15,12 @@ import Filter from './filter.svelte';
 	<h1 style="font-size:5vh;">Data from r/collegeresults </h1>	
 	</div> 
 
-	
-<div style=" height:35vh; width:35vw; position:absolute; transform : translateX(-50%); left: 50% "> 
 
-	<Genderbreakdown />
-</div>
-<div style="float: left; transform: translateX(5vw)">
 <Filter/>
-</div>
+<Filterhisto/>
+
+
+
 
 		
 
@@ -45,6 +40,7 @@ import Filter from './filter.svelte';
 		font-size: 0.9rem; 
 		font-family: RockoFLF; 
 		width: 100vw; 
+		z-index: 2; 
 		
 	}
 	.introbar h1{ 

@@ -1,12 +1,30 @@
 
-<canvas id = 'myChart'  bind:this={ctx}/>
+
+    <canvas id = 'myChart'  bind:this={ctx}/>
+
+    <div id="firsturlsidebar"class="urlsidebar " class:opened={open} transition:fade>
+    <ol>
+        {#each urlfilter as url}
+       <li> <a style="font-size: 2vmin "target="_blank" href="{url}">
+        {url}
+        </a>
+        {/each}
+    </ol>
+        </div>
+
 
 
 <script>
+
+let urlfilter= [];  
+let open = false; 
+console.log(open);
 import { onMount, afterUpdate } from 'svelte';
 import Chart from 'chart.js/auto';
 import { tick } from 'svelte';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { writable } from 'svelte/store';
+import {fade} from 'svelte/transition'
 export let satchecked;
 export let satuservalue; 
 export let actchecked; 
@@ -17,6 +35,7 @@ export let rejectselected;
 export let rejectchecked; 
 export let majorchecked; 
 export let majorselected
+
 
 async function fetchGender(){ 
     let countresponse = await fetch(`http://127.0.0.1:5000/api/Gender`);
@@ -51,30 +70,27 @@ async function fetchMajor(){
     return majordata
 }
 
-let myChart = null
-let ctx
+var myChart
+var ctx 
 
 
-onMount(
-    async function drawGraph(){
- ctx = document.getElementById('myChart');
+async function drawGraph(){
+    if(myChart) myChart.destroy();
+
 let genderCount = {}
-console.log(myChart)
 let genderlist = await fetchGender();
-    if(myChart != null) {
-        
-        await tick()
+    await tick()
     if(satchecked == true){ 
         let satdata = await fetchSAT();
         let satindex = []
-        satindex = Object.entries(satdata).filter(([, i]) => i <= $satuservalue[0] || i>= $satuservalue[1] || i == "[]" ).map(([k]) => k);
+        satindex = Object.entries(satdata).filter(([, i]) => i < $satuservalue[0] || i> $satuservalue[1] || i == "[]" ).map(([k]) => k);
         satindex.forEach(a=>delete genderlist[a])
 }
 
     if(actchecked == true){ 
         let actdata = await fetchACT();
         let actindex = []
-        actindex = Object.entries(actdata).filter(([, i]) => i <= $actuservalue[0] || i>= $actuservalue[1] || i == "[]" ).map(([k]) => k);
+        actindex = Object.entries(actdata).filter(([, i]) => i < $actuservalue[0] || i> $actuservalue[1] || i == "[]" ).map(([k]) => k);
         actindex.forEach(a=>delete genderlist[a])
 }
     if( acceptchecked == true){ 
@@ -90,23 +106,26 @@ let genderlist = await fetchGender();
     if (majorchecked == true){ 
         let majordata = await fetchMajor(); 
         let majorindex = Object.entries(majordata).filter(([, i]) => $majorselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
-        console.log(majorindex)
         Object.keys(genderlist).forEach((key) => majorindex.includes(key) || delete genderlist[key]) 
     }
 
-    let data = Object.values(genderlist).forEach(function (x) { genderCount[x] = (genderCount[x] || 0) + 1; });
-    myChart.data.datasets.data = data
-    myChart.update();
-}else{
+    
+
+
+Object.values(genderlist).forEach(function (x) { genderCount[x] = (genderCount[x] || 0) + 1; });
+let number  = Object.values(genderCount).reduce((a,b)=>a+b)
+
+
+
 myChart = new Chart(ctx, {
     type: 'doughnut',
     data: { 
-        labels: Object.keys(await genderCount),
+        labels: Object.keys(genderCount),
         datasets: [{
-            label: '# of Votes',
-            data: Object.values(await genderlist),
+            label: '# Gender ',
+            data: Object.values(genderCount),
         backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',  
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
            
@@ -117,12 +136,60 @@ myChart = new Chart(ctx, {
         font: {
             size: 20
         }
-    }
+    },title:{
+        display: true, 
+        text: 'Demographics - Gender makeup'
+    },    subtitle: {
+                display: true,
+                text: 'n=' + number
+            }
 }
     }
     , plugins: [ChartDataLabels]} 
     
-);}});
+);
+myChart.canvas.onclick = clickHandler
+async function clickHandler(click){ 
+    open = true; 
+    let urljson = await fetch('http://127.0.0.1:5000/api/URL')
+    let url = await urljson.json(); 
+    const points = myChart.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true)
+    if (points[0]){
+        const index = points[0].index; 
+        const label = myChart.data.labels[index];
+        let clickfilter = Object.keys(genderlist).filter(function(key) {
+        return genderlist[key] === label;
+    });
+    urlfilter = clickfilter.map(x=> {return url[x]})
+
+    }
+}
+
+}
 
 
+
+
+afterUpdate(drawGraph)
   </script>
+  
+<style> 
+.urlsidebar{ 
+    float: right; 
+    width: 20vw; 
+    overflow-y: auto; 
+    position: relative; 
+    height: 100%; 
+    left: 91%;
+    transform: translateY(-100%); 
+    transition: 2s; 
+    visibility: hidden; 
+}
+.opened{ 
+    visibility: visible 
+
+}
+
+
+
+</style>
