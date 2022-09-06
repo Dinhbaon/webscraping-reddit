@@ -150,6 +150,7 @@ myChart = new Chart(ctx, {
 );
 myChart.canvas.onclick = clickHandler
 async function clickHandler(click){ 
+
     open = true; 
     let urljson = await fetch('http://127.0.0.1:5000/api/URL')
     let url = await urljson.json(); 
@@ -160,6 +161,7 @@ async function clickHandler(click){
         let clickfilter = Object.keys(genderlist).filter(function(key) {
         return genderlist[key] === label;
     });
+    console.log(clickfilter)
     urlfilter = clickfilter.map(x=> {return url[x]})
 
     }

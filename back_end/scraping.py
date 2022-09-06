@@ -38,9 +38,9 @@ final_major=[]
 final_sat = []
 final_act=[]
 final_ecs = []
-for i in range(numofloops): 
+for i in range(1): 
     
-        driver.get(filteredlinks[i])
+        driver.get(filteredlinks[3])
         
         accepts = []
         prohook = []
@@ -149,8 +149,7 @@ for i in range(numofloops):
             if any(b in ' '.join(rejectsonly[0]) for b in unilist[i]): 
                 prorejectsonly.append(unilist[i][0])
         rejectlist.append(prorejectsonly)
-        print(prouni)
-        print(rejectlist)
+
 
         #filter unis in post with rejections
         
@@ -165,22 +164,23 @@ for i in range(numofloops):
         #     race[0] = race[0].lower().partition("demographics")
         major[0] = major[0].lower().partition('major')
 ## make in to dictionary
-        
         submajor = []
         for j in range(len(majorlist)):
             if any(a in major[0][2] for a in majorlist[j]): 
                 submajor.append(majorlist[j][0])
-            else: 
-                submajor.append('Other')
         final_major.append(submajor)
-
-            
-        if len(ecslist.intersection(set(re.split(r'[);,.:/\s]\s*',full_post[0].lower()))))>0: 
-            final_ecs.append(ecslist.intersection(set(re.split(r'[);,.:/\s]\s*',full_post[0].lower()))))
-        else: 
-            final_ecs.append(' ')
+    
+        subecs = []
 
 
+
+        for j in range(len(ecslist)):
+            if any(a in full_post[0].lower() for a in ecslist[j]): 
+                subecs.append(ecslist[j][0])
+
+        final_ecs.append(subecs)
+        # print(full_post[0])
+        # print(final_ecs)
 
         final_accept.append(accepts[0])
         
@@ -222,6 +222,7 @@ dftotal['url'] = list(np.array(filteredlinks)[[x for x in dftotal.index.tolist()
 dftotal = dftotal.astype(str).replace(["[]",' ',''], np.nan)
 dftotal = dftotal.dropna(thresh=6 )
 dftotal = dftotal.replace(np.nan,'[]',regex=True)
+print(dftotal['Extracurriculars'])
 # dftotal.to_csv('.\csvfiles\processeddata.csv')
      
 

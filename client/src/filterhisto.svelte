@@ -77,13 +77,13 @@ var actfilteron = () => {
 </script>
 
     
-<div style="position: relative; top: 100%; ">
+<div style="position: relative; top: 160%; ">
     <div style="position: relative;width: 80vw; height: auto; display: flex; justify-content:center; width: 100%">  
 
-            <div style="display: grid; grid-template: auto auto/ auto auto; position: absolute; right:75%;  ">
+            <div style="display: grid; grid-template: auto auto/ auto auto; position: absolute; right:75%; top:20% ">
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;">
                 <div>
-                    <label for='accepts' style="float:left; font-size: 2.5vmin;">Acceptances</label>
+                    <label for='accepts' style="float:left; font-size: 1.2rem;">Acceptances</label>
                     <span style="display: block; overflow: hidden; padding: 0 1vw 0 1vw ;text-align:left;"><input type= 'checkbox' id='accepts' value='accepts' name='accepts' bind:checked={acceptchecked}/></span>
                 </div>
                
@@ -92,21 +92,21 @@ var actfilteron = () => {
                     <label for = 'acceptselect' ></label>
                     <select multiple name ="accept" id="acceptselect" class="dropdown"bind:value={$acceptselected} style="height: 15vw; margin-bottom: 2vw;">
                 {#each unilist as uni}
-                    <option value={uni} style="font-size:1.1vmax">{uni}</option>
+                    <option value={uni} style="font-size:0.75rem">{uni}</option>
                 {/each}
                     </select>
                 {/if}
             </div>
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;">
                 <div>
-                    <label for='majors' style="float:left;font-size: 2.5vmin; " >Major</label>
+                    <label for='majors' style="float:left;font-size: 1.2rem; " >Major</label>
                     <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='majors' name='majors' bind:checked={majorchecked}/></span>
                 </div>
                 {#if majorchecked== true}  
                     <label for = 'majorselect' ></label>
                     <select multiple name ="major" id="majorselect" class="dropdown"bind:value={$majorselected} style="height: 15vw;">
                 {#each majorlist as majors}
-                    <option value={majors} style="font-size:1.1vmax">{majors}</option>
+                    <option value={majors} style="font-size:0.75rem">{majors}</option>
                 {/each}
                     </select>
                 {/if}
@@ -115,7 +115,7 @@ var actfilteron = () => {
         
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;">
                 <div>
-                    <label for='rejects' style="float:left; font-size: 2.5vmin;">Rejections</label>
+                    <label for='rejects' style="float:left; font-size: 1.2rem;">Rejections</label>
                     <span style="display: block; overflow: hidden; padding: 0 1vw 0 1vw ;text-align:left;"><input type= 'checkbox' id='accepts' value='accepts' name='accepts' bind:checked={rejectchecked}/></span>
                 </div>
                
@@ -124,22 +124,22 @@ var actfilteron = () => {
                     <label for = 'rejectselect' ></label>
                     <select multiple name ="reject" id="rejectselect" class="dropdown"bind:value={$rejectselected} style="height: 15vw; margin-bottom: 2vw;">
                 {#each unilist as uni}
-                    <option value={uni} style="font-size:1.1vmax">{uni}</option>
+                    <option value={uni} style="font-size:0.75rem">{uni}</option>
                 {/each}
                     </select>
                 {/if}
             </div>
             <div style="width: 12vw;">
                 <div>
-                    <label for='genders' style="float:left;font-size: 2.5vmin; " >Gender</label>
+                    <label for='genders' style="float:left;font-size: 1.2rem; " >Gender</label>
                     <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='majors' name='majors' bind:checked={genderchecked}/></span>
                 </div>
                 {#if genderchecked== true}  
                     <label for = 'genderselect' ></label>
-                    <select name ="gender" id="genderselect" bind:value={$genderselected} style="height: 3vw;">
-                        <option value='Male' style="font-size:1.1vmax">Male</option>
-                        <option value='Female' style="font-size:1.1vmax">Female</option>
-                        <option value='Other/LGBTQ+' style="font-size:1.1vmax">Other/LGBTQ+</option>
+                    <select class="dropdown" name ="gender" id="genderselect" bind:value={$genderselected} style="height: 3vw;">
+                        <option value='Male' style="font-size:0.75rem">Male</option>
+                        <option value='Female' style="font-size:0.75rem">Female</option>
+                        <option value='Other/LGBTQ+' style="font-size:0.75rem">Other/LGBTQ+</option>
                     </select>
                 {/if}
             </div>
@@ -167,13 +167,13 @@ var actfilteron = () => {
                 <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; gap:10vw; position: absolute; left: 50%; transform: translateX(-50%); margin:0; bottom:-25%;">
                     <div style = "width:12vw; margin:0; transform: translateX(50%); position: relative"> 
                         <div>
-                            <label for='SAT' style="float:left; font-size: 2.5vmin;">SAT</label>
+                            <label for='SAT' style="float:left; font-size: 1.2rem;">SAT</label>
                                 <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='SAT' value='SAT' name='SAT' bind:checked={satchecked} on:change={satfilteron} /></span>
                         </div>
                         {#if satchecked == true}
                             <span class = "slider" >
                                 <div  id="satrangesliderhisto"></div>
-                                <div id="satrangedval" style="font-size: 2vmin;">
+                                <div id="satrangedval" style="font-size: 1rem;">
                                     SAT range: <span id="satrangevalhisto" style="white-space: nowrap; ">800 - 1600</span>
                                 </div>
                             </span>
@@ -182,13 +182,13 @@ var actfilteron = () => {
 
                     <div style = "width: 12vw;  margin:0; left:50%; transform: translateX(-50)"> 
                         <div>
-                            <label for='ACT' style="float:left;font-size: 2.5vmin;">ACT</label>
+                            <label for='ACT' style="float:left;font-size: 1.2rem;">ACT</label>
                             <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw;text-align:left;"><input type= 'checkbox' id='ACT' value='ACT' name='ACT' bind:checked={actchecked} on:change={actfilteron}/></span>
                         </div>
                         {#if actchecked == true}
                         <div class = "slider">
                             <div  id="actrangeslider"></div>
-                            <div id="actrangedval" style="font-size: 2vmin;">
+                            <div id="actrangedval" style="font-size: 1rem;">
                             ACT range: <span id="actrangeval" style="white-space: nowrap;">1 - 36</span>
                             </div>
                         </div>

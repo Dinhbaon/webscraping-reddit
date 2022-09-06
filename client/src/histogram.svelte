@@ -1,5 +1,5 @@
 {#if satchecked == true||actchecked == true}
-<div style="width: 55%; height:40%; justify-content: center;  transform: translateX(20%);"> <canvas id="histogram" bind:this = {ctx} ></canvas></div>
+<div style="width: 50%; height:40%; justify-content: center;  transform: translateX(20%);"> <canvas id="histogram" bind:this = {ctx} ></canvas></div>
 {:else}
 
 
@@ -113,6 +113,7 @@ async function drawHistogram(){
             if(acceptchecked == true){ 
                 let acceptdata = await fetchAccept(); 
                 let acceptindex = Object.entries(acceptdata).filter(([, i]) => $acceptselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
+                console.log(acceptindex)
                 Object.keys(scoredata).forEach((key) => acceptindex.includes(key) || delete scoredata[key])  
             }
             if(majorchecked == true){ 
@@ -142,7 +143,6 @@ async function drawHistogram(){
                     });
         let scorecount = {}
         Object.values(scoredata).forEach(function (x) { scorecount[x] = (scorecount[x] || 0) + 1; });
-        // let average = (Object.entries(scorecount).forEach(x=>x[0]*x[1]).reduce((a,b)=>a+b))/(Object.entries(scorecount).length())
         let number = Object.values(scorecount).slice(0,-1).reduce((a,b)=>a+b)
         let average = (Object.entries(scorecount).map(x=>parseInt(x[0])*x[1]).slice(0,-1).reduce((a,b)=>a+b))/number
 histogram = new Chart(ctx, {
@@ -202,7 +202,6 @@ async function clickHandler(click){
     if (points[0]){
         const index = points[0].index; 
         const label = histogram.data.labels[index];
-        console.log(label)
         let clickfilter = Object.keys(scoredata).filter(function(key) {
         return scoredata[key] === label;
 
@@ -223,7 +222,8 @@ afterUpdate(drawHistogram)
     width: 20vw; 
     overflow-y: auto; 
     position: relative; 
-    height: 25%; 
+    height: 50vh;
+    top: 20%; 
     transition: 2s; 
     visibility: hidden; 
     left: 12%; 

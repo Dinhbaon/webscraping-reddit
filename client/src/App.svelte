@@ -2,6 +2,9 @@
 
 import Filter from './filter.svelte';
 import Filterhisto from './filterhisto.svelte'
+import Filtermajorbreakdown from './filtermajorbreakdown.svelte';
+import Filteraccept from './filteraccept.svelte'
+
 
 </script>
 
@@ -12,12 +15,14 @@ import Filterhisto from './filterhisto.svelte'
 <body>
 	<div class = 'introbar'>
 	<img src='..\college results logo.png' alt= 'logo of r/collegeresults'/>
-	<h1 style="font-size:5vh;">Data from r/collegeresults </h1>	
+	<h1 style="font-size:2.5rem;">Data from r/collegeresults </h1>	
 	</div> 
 
 
 <Filter/>
 <Filterhisto/>
+<Filtermajorbreakdown/>
+<Filteraccept/>
 
 
 

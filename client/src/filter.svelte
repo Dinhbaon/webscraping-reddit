@@ -7,7 +7,7 @@ import {unilist, majorlist} from './list'
 </script>
 
 <script >
-import { each } from "svelte/internal";
+
 
     
     const jq = window.$; 
@@ -63,17 +63,17 @@ var actfilteron = () => {
 </script>
 
 <div style="float: left; transform: translateX(20%); ">
-  <h2 style= "font-size: 1.7vmax">Filter by: </h2>
+  <h2 style= "font-size: clamp(3re,1.7vmax,2rem)">Filter by: </h2>
 <div style="display: flex; flex-wrap: nowrap ;  justify-content: center;">
 <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width:12vw; "> 
 <div>
-  <label for='SAT' style="float:left; font-size: 2.5vmin;">SAT</label>
+  <label for='SAT' style="float:left; font-size: 1.2rem">SAT</label>
   <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='SAT' value='SAT' name='SAT' bind:checked={satchecked} on:change = {satfilteron}/></span>
 </div>
 {#if satchecked == true}
 <span class = "slider" >
   <div  id="satrangeslider"></div>
-  <div id="satrangedval" style="font-size: 2vmin;">
+  <div id="satrangedval" style="font-size: 1rem;">
     SAT range: <span id="satrangeval" style="white-space: nowrap; ">800 - 1600</span>
   </div>
 </span>
@@ -81,14 +81,14 @@ var actfilteron = () => {
 </div>
 <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw; "> 
 <div>
-  <label for='ACT' style="float:left;font-size: 2.5vmin;">ACT</label>
+  <label for='ACT' style="float:left;font-size: 1.2rem;">ACT</label>
   <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw;text-align:left;"><input type= 'checkbox' id='ACT' value='ACT' name='ACT' bind:checked={actchecked} on:change = {actfilteron}/></span>
 </div>
 
 {#if actchecked == true}
 <div class = "slider">
     <div  id="actrangeslider"></div>
-    <div id="actrangedval" style="font-size: 2vmin;">
+    <div id="actrangedval" style="font-size: 1rem;">
       ACT range: <span id="actrangeval" style="white-space: nowrap;">1 - 36</span>
     </div>
   </div>
@@ -102,28 +102,28 @@ var actfilteron = () => {
 <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; ">
   <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  "> 
 <div>
-  <label for='accepts' style="float:left; font-size: 2.5vmin;">Acceptances</label>
+  <label for='accepts' style="float:left;font-size: 1.2rem;">Acceptances</label>
   <span style="display: block; overflow: hidden; padding: 0 1vw 0 1vw ;text-align:left;"><input type= 'checkbox' id='accepts' value='accepts' name='accepts' bind:checked={acceptchecked}/></span>
 </div>
   {#if acceptchecked == true}
   <label for = 'acceptselect' ></label>
   <select multiple name ="accept" id="acceptselect" class="dropdown"bind:value={$acceptselected} style="height: 15vw; margin-bottom: 2vw;">
 {#each unilist as uni}
-  <option value={uni} style="font-size:1.1vmax">{uni}</option>
+  <option value={uni} style="font-size: 0.75rem">{uni}</option>
 {/each}
   </select>
 {/if}
 </div>
 <div style = "display: grid; grid-template-column: auto auto; column-gap: 10vw; width: 12vw; "> 
 <div>
-  <label for='rejects' style="float:left;font-size: 2.5vmin; " >Rejections</label>
+  <label for='rejects' style="float:left;font-size: 1.2rem; " >Rejections</label>
    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='rejects' value='rejects' name='rejects' bind:checked={rejectchecked}/></span>
 </div>
    {#if rejectchecked== true}
   <label for = 'rejectselect' ></label>
   <select multiple name ="reject" id="rejectselect" class="dropdown"bind:value={$rejectselected} style="height: 15vw;">
 {#each unilist as uni}
-  <option value={uni} style="font-size:1.1vmax">{uni}</option>
+  <option value={uni} style="font-size:0.75rem">{uni}</option>
 {/each}
   </select>
 {/if}
@@ -133,14 +133,14 @@ var actfilteron = () => {
 <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; ">
   <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  "> 
     <div>
-      <label for='majors' style="float:left;font-size: 2.5vmin; " >Major</label>
+      <label for='majors' style="float:left;font-size: 1.2rem; " >Major</label>
       <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='majors' name='majors' bind:checked={majorchecked}/></span>
     </div>
   {#if majorchecked== true}  
     <label for = 'majorselect' ></label>
     <select multiple name ="major" id="majorselect" class="dropdown"bind:value={$majorselected} style="height: 15vw;">
   {#each majorlist as majors}
-    <option value={majors} style="font-size:1.1vmax">{majors}</option>
+    <option value={majors} style="font-size:0.75rem">{majors}</option>
   {/each}
     </select>
   {/if}
