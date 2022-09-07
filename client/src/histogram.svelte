@@ -1,5 +1,5 @@
 {#if satchecked == true||actchecked == true}
-<div style="width: 50%; height:40%; justify-content: center;  transform: translateX(20%);"> <canvas id="histogram" bind:this = {ctx} ></canvas></div>
+<div style="width: 40%; height:40%; justify-content: center;  transform: translateX(-50%); position:absolute; left:50%"> <canvas id="histogram" bind:this = {ctx} ></canvas></div>
 {:else}
 
 

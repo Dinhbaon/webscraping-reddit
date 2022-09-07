@@ -30,7 +30,7 @@ class attributes(db.Model):
     Acceptances = db.relationship('Acceptances', backref = 'attributes')
     Rejections = db.relationship('Rejections', backref = 'attributes')
     def get_gender(): 
-        # ec = db.session.query(attributes).filter(Ecs.Attributeid == attributes.id).all()
+
         # races = db.session.query(attributes).filter(Race.Attributeid==attributes.id).all()
 
         data = db.session.query(attributes.Gender, attributes.id).all()
@@ -40,18 +40,12 @@ class attributes(db.Model):
         gender = {}
         for row in data: 
             gender[row.id] = row.Gender
-        # for row in ec:
-        #     extracurriculars[row.id]  = []
-        #     for extrac in row.ecs: 
-        #         extracurriculars[extrac.Attributeid].append(extrac.listofecs)
         # for row in races: 
         #     race[row.id] = []
         #     for r in row.Race: 
         #         race[r.Attributeid].append(r.racelist)
 
 
-        # dataset ={gender}
-        # 'SAT':sat, 'ACT':act,'Majors': majors,'Ecs':extracurriculars,'Race':race, 'Acceptances':acceptances, 'Rejections':rejections, "URL": links}
         return gender
     def get_SAT(): 
         sat = {}
@@ -95,7 +89,14 @@ class attributes(db.Model):
             for reject in row.Rejections: 
                 rejections[reject.Attributeid].append(reject.rejectlist)
         return rejections
-        
+    def get_ecs(): 
+        ec = db.session.query(attributes).filter(Ecs.Attributeid == attributes.id).all()
+        extracurriculars = {}
+        for row in ec:
+            extracurriculars[row.id]  = []
+            for extrac in row.ecs: 
+                extracurriculars[extrac.Attributeid].append(extrac.listofecs)
+        return extracurriculars
 
 class Ecs(db.Model):
     id = Column(Integer, primary_key = True)
@@ -154,6 +155,9 @@ def accept():
 @app.route('/api/Rejections', methods = ['GET'])
 def reject(): 
     return attributes.get_reject()
+@app.route('/api/Extracurriculars', method = ['GET'])
+def ecs(): 
+    return attributes.get_ecs()
 
 
 # @app.route('/api/<string:column>/value/count',methods = ['GET'])

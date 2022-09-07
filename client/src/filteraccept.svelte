@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 import {unilist, majorlist} from './list'
 import Acceptrate from './acceptrate.svelte'
 
-let acceptselected = writable([])
+let acceptselected = writable(['Princeton'])
 const jq = window.$; 
     
     let satchecked = false;
@@ -59,7 +59,7 @@ var actfilteron = () => {
 <div style="top: 200%; position: relative; ; display:grid; grid-template-rows: auto auto; grid-template-columns: auto">
     <Acceptrate {acceptselected} {actchecked} {satchecked} {satuservalue} {actuservalue} {majorselected} {majorchecked}/>
     
-        <div style=" position: relative;  left:50%; transform:translateX(-50%); top:50vh; width: 12vw;">
+        <div style=" position: relative;  left:50%; transform:translateX(-50%); top:40vh; width: 12vw;">
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw;  ">
                 <div>
                     <label for='accepts' style="float:left; font-size: 1.2rem;">Acceptances</label>

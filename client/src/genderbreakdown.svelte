@@ -162,7 +162,6 @@ async function clickHandler(click){
         return genderlist[key] === label;
     });
     
-    console.log(clickfilter)
     urlfilter = clickfilter.map(x=> {return url[x]})
 
     }

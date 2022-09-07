@@ -96,15 +96,16 @@ console.log($acceptselected.map(x=>Object.values(acceptdata).filter((i)=>i.inclu
 let label = $acceptselected
 
 
-let average = acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100))
-
+let acceptancerate = acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100))
+let number = acceptcount.reduce((a,b)=>a+b)+rejectcount.reduce((a,b)=>a+b)  
+let total  = acceptcount.map((x,i)=>x+rejectcount[i])
 myChartAccept = new Chart(ctx, {
     type: 'bar',
     data: { 
         labels: label,
         datasets: [{
-            label: '# Acceptance rate ',
-            data: average,
+            label: 'Acceptance rate %',
+            data: acceptancerate,
         backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',  
                 'rgba(54, 162, 235, 0.2)',
@@ -113,31 +114,46 @@ myChartAccept = new Chart(ctx, {
             ],
         }]
     },options: { 
+        plugins: {
+        tooltip:{ 
+          callbacks:{ 
+            afterLabel: (tooltipItems)=> {console.log(tooltipItems); return 'Total: '+total[tooltipItems.dataIndex]+ '\n# of Acceptances: ' +acceptcount[tooltipItems.dataIndex]+ '\n# of Rejections: '+rejectcount[tooltipItems.dataIndex]}
+            
+          }
+
+        },
+        datalabels:{
+            font: {
+                size: 20
+            }
+        },title:{
+            display: true, 
+            text: 'Acceptance rate by university'
+        },    subtitle: {
+                    display: true,
+                    text: 'n=' + number
+                }
+},
         scales:{
                 y: {
                     min: 0,
                     max: 100,
-  
+                    callbacks: function(acceptancerate) {
+               return acceptancerate + "%"
+           },
+           
         maintainAspectRatio:  false, 
         responsive:  true,    
-    plugins: {datalabels:{
-        font: {
-            size: 20
-        }
-    },title:{
-        display: true, 
-        text: 'Demographics - Most popular Major combination'
-    }
 
-       
-
-       }
     }  
 }
-    }
+
+        }
     , plugins: [ChartDataLabels]} 
     
 );
+
+
 myChartAccept.canvas.onclick = clickHandler
 async function clickHandler(click){ 
     open = true; 
@@ -149,10 +165,10 @@ async function clickHandler(click){
         const label = myChartAccept.data.labels[index];
         console.log(label)
         let clickfilter = Object.keys(acceptdata).filter(function(key) {
-        return acceptdata[key].toString() === label;
+        return acceptdata[key].includes(label.toLowerCase());
     });
 
-   console.log(acceptdata)
+   console.log(clickfilter)
     urlfilter = clickfilter.map(x=> {return url[x]})
 
     }
@@ -162,3 +178,24 @@ async function clickHandler(click){
 
 afterUpdate(drawGraphAccept)
 </script>
+
+<style> 
+    .urlsidebar{ 
+        float: right; 
+        width: 20vw; 
+        overflow-y: auto; 
+        position: relative; 
+        height: 100%; 
+        left: 100%;
+        position: absolute; 
+        transition: 2s; 
+        visibility: hidden; 
+    }
+    .opened{ 
+        visibility: visible 
+    
+    }
+    
+    
+    
+    </style>

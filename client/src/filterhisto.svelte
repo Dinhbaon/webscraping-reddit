@@ -17,6 +17,7 @@ let genderselected = writable([])
 const jq = window.$; 
 
 
+
     
 if (satchecked == true){
     actchecked = false; 
@@ -80,7 +81,7 @@ var actfilteron = () => {
 <div style="position: relative; top: 160%; ">
     <div style="position: relative;width: 80vw; height: auto; display: flex; justify-content:center; width: 100%">  
 
-            <div style="display: grid; grid-template: auto auto/ auto auto; position: absolute; right:75%; top:20% ">
+            <div style="display: grid; grid-template: auto auto/ auto auto; position: absolute; right:70%; top:20% ">
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;">
                 <div>
                     <label for='accepts' style="float:left; font-size: 1.2rem;">Acceptances</label>
