@@ -91,7 +91,7 @@ if(satchecked == true){
 
 acceptcount = $acceptselected.map(x=>Object.values(acceptdata).filter((i)=>i.includes(x.toLowerCase())).length)
 rejectcount = $acceptselected.map(x=>Object.values(rejectdata).filter((i)=>i.includes(x.toLowerCase())).length)
-
+console.log($acceptselected.map(x=>Object.values(acceptdata).filter((i)=>i.includes(x.toLowerCase()))))
 
 let label = $acceptselected
 
@@ -147,11 +147,12 @@ async function clickHandler(click){
     if (points[0]){
         const index = points[0].index; 
         const label = myChartAccept.data.labels[index];
+        console.log(label)
         let clickfilter = Object.keys(acceptdata).filter(function(key) {
         return acceptdata[key].toString() === label;
     });
 
-   
+   console.log(acceptdata)
     urlfilter = clickfilter.map(x=> {return url[x]})
 
     }
