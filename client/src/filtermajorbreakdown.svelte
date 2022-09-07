@@ -147,3 +147,17 @@ var actfilteron = () => {
     <Majorbreakdown {satchecked} {satuservalue} {actchecked} {actuservalue} {acceptchecked} {acceptselected} {rejectchecked} {rejectselected} {genderchecked} {genderselected}/></div>
 </div>
 
+<style> 
+  .slider{ 
+      display: block;
+      width: 10vw; 
+      overflow: hidden; 
+      margin:0; 
+      padding: 0;
+  }
+  .dropdown{ 
+    width: 10vw; 
+    margin: 0; 
+    padding:0; 
+  }
+  </style>

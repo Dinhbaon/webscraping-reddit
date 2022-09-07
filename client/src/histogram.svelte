@@ -3,7 +3,7 @@
 {:else}
 
 
-<div style="width 60%; text-align: center; font-size: 3rem; position: relative">Please choose an x-axis</div>
+<div style="text-align: center; font-size: 3rem;     position: absolute;left: 50%;transform: translateX(-50%);margin: 0;top: 40%;">Please choose an x-axis</div>
 {/if}
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open} transition:fade>
     <ol>

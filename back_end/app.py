@@ -29,49 +29,73 @@ class attributes(db.Model):
     Race = db.relationship('Race',backref = 'attributes')
     Acceptances = db.relationship('Acceptances', backref = 'attributes')
     Rejections = db.relationship('Rejections', backref = 'attributes')
-    def get_data(): 
-        ec = db.session.query(attributes).filter(Ecs.Attributeid == attributes.id).all()
-        major = db.session.query(attributes).filter(Major.Attributeid == attributes.id).all()
-        races = db.session.query(attributes).filter(Race.Attributeid==attributes.id).all()
-        accepts = db.session.query(attributes).filter(Acceptances.Attributeid == attributes.id).all()
-        rejects = db.session.query(attributes).filter(Rejections.Attributeid == attributes.id).all()
-        data = db.session.query(attributes).all()
-        majors = {}
-        extracurriculars = {}
-        race = {}
-        acceptances = {}
-        rejections = {}
-        sat = {}
-        act = {}
+    def get_gender(): 
+        # ec = db.session.query(attributes).filter(Ecs.Attributeid == attributes.id).all()
+        # races = db.session.query(attributes).filter(Race.Attributeid==attributes.id).all()
+
+        data = db.session.query(attributes.Gender, attributes.id).all()
+        # extracurriculars = {}
+        # race = {}
+
         gender = {}
-        links = {}
         for row in data: 
-            sat[row.id] = row.SAT
-            act[row.id] = row.ACT
             gender[row.id] = row.Gender
+        # for row in ec:
+        #     extracurriculars[row.id]  = []
+        #     for extrac in row.ecs: 
+        #         extracurriculars[extrac.Attributeid].append(extrac.listofecs)
+        # for row in races: 
+        #     race[row.id] = []
+        #     for r in row.Race: 
+        #         race[r.Attributeid].append(r.racelist)
+
+
+        # dataset ={gender}
+        # 'SAT':sat, 'ACT':act,'Majors': majors,'Ecs':extracurriculars,'Race':race, 'Acceptances':acceptances, 'Rejections':rejections, "URL": links}
+        return gender
+    def get_SAT(): 
+        sat = {}
+        datasat = db.session.query(attributes.SAT,attributes.id).all()
+        for row in datasat: 
+            sat[row.id] = row.SAT
+        return sat
+    def get_ACT(): 
+        dataact = db.session.query(attributes.ACT,attributes.id).all()
+        act={}
+        for row in dataact: 
+            act[row.id] = row.ACT
+        return act
+    def get_links(): 
+        links = {}
+        datalinks = db.session.query(attributes.URL,attributes.id).all()
+        for row in datalinks: 
             links[row.id] = row.URL
+        return links
+    def get_major():
+        major = db.session.query(attributes).filter(Major.Attributeid == attributes.id).all()
+        majors = {} 
         for row in major: 
             majors[row.id] = []
             for maj in row.major:
                 majors[maj.Attributeid].append(maj.majorlist)
-        for row in ec:
-            extracurriculars[row.id]  = []
-            for extrac in row.ecs: 
-                extracurriculars[extrac.Attributeid].append(extrac.listofecs)
-        for row in races: 
-            race[row.id] = []
-            for r in row.Race: 
-                race[r.Attributeid].append(r.racelist)
+        return majors
+    def get_accept(): 
+        accepts = db.session.query(attributes).filter(Acceptances.Attributeid == attributes.id).all()
+        acceptances = {}
         for row in accepts: 
             acceptances[row.id] =[]
             for accept in row.Acceptances: 
                 acceptances[accept.Attributeid].append(accept.acceptlist)
+        return acceptances
+    def get_reject(): 
+        rejects = db.session.query(attributes).filter(Rejections.Attributeid == attributes.id).all()
+        rejections = {}
         for row in rejects: 
             rejections[row.id] = []
             for reject in row.Rejections: 
                 rejections[reject.Attributeid].append(reject.rejectlist)
-        dataset ={'Gender':gender, 'SAT':sat, 'ACT':act,'Majors': majors,'Ecs':extracurriculars,'Race':race, 'Acceptances':acceptances, 'Rejections':rejections, "URL": links}
-        return dataset
+        return rejections
+        
 
 class Ecs(db.Model):
     id = Column(Integer, primary_key = True)
@@ -105,15 +129,33 @@ class Rejections(db.Model):
     def __repr__(self):
         return f'<rejections "{self.title}">'
 
-@app.route('/api/<string:column>/value', methods = ['GET'])
-def home(column : str): 
-    return list(attributes.get_data()[column].values())
+# @app.route('/api/<string:column>/value', methods = ['GET'])
+# def home(column : str): 
+#     return list(attributes.get_data()[column].values())
 
-@app.route('/api/<string:column>', methods = ['GET'])
-def dict(column : str): 
-    return attributes.get_data()[column]
+@app.route('/api/Gender', methods = ['GET'])
+def gender(): 
+    return attributes.get_gender()
+@app.route('/api/URL', methods = ['GET'])
+def url(): 
+    return attributes.get_links()
+@app.route('/api/SAT', methods = ['GET'])
+def sat(): 
+    return attributes.get_SAT()
+@app.route('/api/ACT',methods = ['GET'])
+def act(): 
+    return attributes.get_ACT
+@app.route('/api/Majors', methods = ['GET'])
+def major(): 
+    return attributes.get_major()
+@app.route('/api/Acceptances', methods = ['GET'])
+def accept(): 
+    return attributes.get_accept()
+@app.route('/api/Rejections', methods = ['GET'])
+def reject(): 
+    return attributes.get_reject()
 
 
-@app.route('/api/<string:column>/value/count',methods = ['GET'])
-def count(column:str): 
-    return Counter(attributes.get_data()[column].values())
+# @app.route('/api/<string:column>/value/count',methods = ['GET'])
+# def count(column:str): 
+#     return Counter(attributes.get_data()[column].values())

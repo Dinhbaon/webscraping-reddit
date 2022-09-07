@@ -16,6 +16,13 @@ options.headless = True
 options.add_argument("--disable-web-security") 
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
+options.add_argument("start-maximized")
+options.add_argument("enable-automation")
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--disable-browser-side-navigation")
+options.add_argument("--disable-gpu")
 driver  = webdriver.Chrome(service = Service(ChromeDriverManager().install()),options = options)
 
 filteredlinkscsv =  pd.read_csv("./csvfiles/filteredlinks.csv")
@@ -30,7 +37,7 @@ filteredlinks = filteredlinkscsv.iloc[:,0].to_list()
 final_accept = []
 final_reject = []
 url = [] 
-numofloops = 400
+numofloops = 1000
 driver.implicitly_wait(20)
 final_gender = []
 final_race=[]
@@ -38,9 +45,9 @@ final_major=[]
 final_sat = []
 final_act=[]
 final_ecs = []
-for i in range(1): 
+for i in range(numofloops): 
     
-        driver.get(filteredlinks[3])
+        driver.get(filteredlinks[i])
         
         accepts = []
         prohook = []
@@ -223,7 +230,7 @@ dftotal = dftotal.astype(str).replace(["[]",' ',''], np.nan)
 dftotal = dftotal.dropna(thresh=6 )
 dftotal = dftotal.replace(np.nan,'[]',regex=True)
 print(dftotal['Extracurriculars'])
-# dftotal.to_csv('.\csvfiles\processeddata.csv')
+dftotal.to_csv('.\csvfiles\processeddata.csv')
      
 
 
