@@ -1,8 +1,6 @@
 {#if satchecked == true||actchecked == true}
 <div style="width: 40%; height:40%; justify-content: center;  transform: translateX(-50%); position:absolute; left:50%"> <canvas id="histogram" bind:this = {ctx} ></canvas></div>
 {:else}
-
-
 <div style="text-align: center; font-size: 3rem;     position: absolute;left: 50%;transform: translateX(-50%);margin: 0;top: 40%;">Please choose an x-axis</div>
 {/if}
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open} transition:fade>
@@ -33,6 +31,8 @@ export let majorselected
 export let acceptselected; 
 export let rejectselected; 
 export let genderselected; 
+export let ecschecked; 
+export let ecselected;
 let ctx
 async function fetchSAT(){ 
     let satdatajson = await fetch(`http://127.0.0.1:5000/api/SAT`)
@@ -65,6 +65,12 @@ async function fetchReject(){
     let rejectdatajson = await fetch('http://127.0.0.1:5000/api/Rejections')
     let rejectdata = await rejectdatajson.json()
     return rejectdata
+}
+
+async function fetchEcs(){ 
+    let ecdatajson = await fetch('http://127.0.0.1:5000/api/Extracurriculars')
+    let ecdata = await ecdatajson.json()
+    return ecdata
 }
 function steprange(start, end, step) {
   const len = Math.floor((end - start) / step) + 1
@@ -104,6 +110,11 @@ async function drawHistogram(){
                 let rejectindex = Object.entries(rejectdata).filter(([, i]) => $rejectselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
                 Object.keys(scoredata).forEach((key) => rejectindex.includes(key) || delete scoredata[key]) 
             }
+            if (ecschecked == true){ 
+                let ecdata = await fetchEcs(); 
+                let ecindex = Object.entries(ecdata).filter(([, i]) => $ecselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
+                Object.keys(scoredata).forEach((key) => ecindex.includes(key) || delete scoredata[key]) 
+    }
 
         }   
         if (actchecked == true){ 
@@ -132,6 +143,11 @@ async function drawHistogram(){
                 let rejectindex = Object.entries(rejectdata).filter(([, i]) => $rejectselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
                 Object.keys(scoredata).forEach((key) => rejectindex.includes(key) || delete scoredata[key]) 
             }
+            if (ecschecked == true){ 
+                let ecdata = await fetchEcs(); 
+                let ecindex = Object.entries(ecdata).filter(([, i]) => $ecselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
+                Object.keys(scoredata).forEach((key) => ecindex.includes(key) || delete scoredata[key]) 
+    }
         }
         Object.values(scoredata).forEach(function (x) { count[x] = (count[x] || 0) + 1; });
         let labelzero = label.map(key => ({[key]:0 }))
@@ -226,7 +242,7 @@ afterUpdate(drawHistogram)
     top: 20%; 
     transition: 2s; 
     visibility: hidden; 
-    left: 12%; 
+    left: 40%; 
 }
 .opened{ 
     visibility: visible 

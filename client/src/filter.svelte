@@ -2,7 +2,7 @@
 import { writable} from "svelte/store";
 
 import Genderbreakdown from './genderbreakdown.svelte'
-import {unilist, majorlist} from './list'
+import {unilist, majorlist, eclist} from './list'
 
 </script>
 
@@ -17,11 +17,13 @@ import {unilist, majorlist} from './list'
     let acceptchecked = false; 
     let rejectchecked = false; 
     let majorchecked = false; 
+    let ecschecked = false; 
     let majorselected = writable([])
     let satuservalue = writable([]);
     let actuservalue = writable([]);
     let acceptselected = writable([]);
     let rejectselected = writable([]);
+    let ecselected = writable([])
 
 var satfilteron = () => {
     $satuservalue = [800,1600];
@@ -145,7 +147,21 @@ var actfilteron = () => {
     </select>
   {/if}
   </div>
-<div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  ">  </div>
+<div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  ">  
+  <div>
+    <label for='ecs' style="float:left;font-size: 1.2rem; " >Ecs</label>
+    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='ecs' value='ecs' name='ecs' bind:checked={ecschecked}/></span>
+  </div>
+{#if ecschecked== true}  
+  <label for = 'majorselect' ></label>
+  <select multiple name ="major" id="majorselect" class="dropdown"bind:value={$ecselected} style="height: 15vw;">
+{#each eclist as ecs}
+  <option value={ecs} style="font-size:0.75rem">{ecs}</option>
+{/each}
+  </select>
+{/if}
+
+</div>
 </div>
 
 
@@ -177,5 +193,6 @@ var actfilteron = () => {
 {actuservalue} {actchecked} 
 {acceptselected} {acceptchecked} 
 {rejectchecked} {rejectselected}
-{majorchecked} {majorselected}/>
+{majorchecked} {majorselected}
+{ecschecked} {ecselected}/>
 </div>

@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir,'appli
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
 cors = CORS(app)
 db = SQLAlchemy(app)
-app.run(debug=True)
+
 
 class attributes(db.Model): 
     __tablename__ = 'attributes'
@@ -137,25 +137,32 @@ class Rejections(db.Model):
 @app.route('/api/Gender', methods = ['GET'])
 def gender(): 
     return attributes.get_gender()
+
 @app.route('/api/URL', methods = ['GET'])
 def url(): 
     return attributes.get_links()
+
 @app.route('/api/SAT', methods = ['GET'])
 def sat(): 
     return attributes.get_SAT()
+
 @app.route('/api/ACT',methods = ['GET'])
 def act(): 
-    return attributes.get_ACT
+    return attributes.get_ACT()
+
 @app.route('/api/Majors', methods = ['GET'])
 def major(): 
     return attributes.get_major()
+
 @app.route('/api/Acceptances', methods = ['GET'])
 def accept(): 
     return attributes.get_accept()
+
 @app.route('/api/Rejections', methods = ['GET'])
 def reject(): 
     return attributes.get_reject()
-@app.route('/api/Extracurriculars', method = ['GET'])
+
+@app.route('/api/Extracurriculars', methods = ['GET'])
 def ecs(): 
     return attributes.get_ecs()
 

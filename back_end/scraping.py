@@ -56,6 +56,7 @@ for i in range(numofloops):
         prorejects = []
         proacceptances = []
         rejectsonly = []
+        acceptsonly = []
         scrape_rejects = []
         scrape_accept = []
         gender =[]       
@@ -135,15 +136,15 @@ for i in range(numofloops):
         if len(prorejects)>1: 
             prorejects.pop()
         rejectsonly.append(list(filter(lambda x : len(x)<200,prorejects)))
-        
+        acceptsonly.append(list(filter(lambda x : len(x)<200,proacceptances)))
         
         #check all unis in the post       
         prouni = []
         prouniappend = []
         for i in range(len(unilist)):
-            if not proacceptances: 
-                proacceptances.append('')
-            if any(a in ' '.join(proacceptances) for a in unilist[i]): 
+            if not acceptsonly: 
+                acceptsonly.append('')
+            if any(a in ' '.join(acceptsonly) for a in unilist[i]): 
                 prouniappend.append(unilist[i][0])
         prouni.append(prouniappend)
 

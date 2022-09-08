@@ -1,9 +1,9 @@
 <script>
 import { writable } from 'svelte/store';
-import {unilist, majorlist} from './list'
+import {unilist, majorlist, eclist} from './list'
 import Acceptrate from './acceptrate.svelte'
 
-let acceptselected = writable(['Princeton'])
+let acceptselected = writable(['Princeton','Harvard'])
 const jq = window.$; 
     
     let satchecked = false;
@@ -11,9 +11,11 @@ const jq = window.$;
     let acceptchecked = false; 
     let rejectchecked = false; 
     let majorchecked = false; 
-    let majorselected = writable([])
+    let ecschecked = false; 
+    let majorselected = writable([]);
     let satuservalue = writable([]);
     let actuservalue = writable([]);
+    let ecselected = writable([])
 
 var satfilteron = () => {
     $satuservalue = [800,1600];
@@ -122,6 +124,23 @@ var actfilteron = () => {
                 </select>
             {/if}
         </div>
+        <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  "> 
+          <div style="width: 12vw;">
+            <div>
+                <label for='Ecs' style="float:left;font-size: 1.2rem; " >Ecs</label>
+                <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='ecs' name='ecs' bind:checked={ecschecked}/></span>
+            </div>
+            {#if ecschecked== true}  
+            <label for = 'ecselect' ></label>
+            <select multiple name ="ec" id="ecselect" class="dropdown"bind:value={$ecselected} style="height: 15vw;">
+          {#each eclist as ecs}
+            <option value={ecs} style="font-size:0.75rem">{ecs}</option>
+          {/each}
+            </select>
+          {/if}
+        </div>   
+        </div>
+        
     </div>
           
           

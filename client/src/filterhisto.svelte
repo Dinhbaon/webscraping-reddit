@@ -1,6 +1,6 @@
 <script> 
 import Histogram from './histogram.svelte'
-import {unilist, majorlist} from './list'
+import {unilist, majorlist, eclist} from './list'
 import { writable} from "svelte/store";
 let satchecked = true; 
 let actchecked = false; 
@@ -8,12 +8,14 @@ let majorchecked = false;
 let acceptchecked = false; 
 let rejectchecked = false; 
 let genderchecked = false; 
+let ecschecked = false; 
 let satuservalue = writable([800,1600]);
 let actuservalue = writable([0,36]);
-let majorselected  = writable([])
-let acceptselected =writable([])
-let rejectselected = writable([])
-let genderselected = writable([])
+let majorselected  = writable([]);
+let acceptselected =writable([]);
+let rejectselected = writable([]);
+let genderselected = writable([]);
+let ecselected = writable([]);
 const jq = window.$; 
 
 
@@ -133,7 +135,7 @@ var actfilteron = () => {
             <div style="width: 12vw;">
                 <div>
                     <label for='genders' style="float:left;font-size: 1.2rem; " >Gender</label>
-                    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='majors' name='majors' bind:checked={genderchecked}/></span>
+                    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='genders' value='genders' name='majors' bind:checked={genderchecked}/></span>
                 </div>
                 {#if genderchecked== true}  
                     <label for = 'genderselect' ></label>
@@ -144,6 +146,20 @@ var actfilteron = () => {
                     </select>
                 {/if}
             </div>
+            <div style="width: 12vw;">
+                <div>
+                    <label for='Ecs' style="float:left;font-size: 1.2rem; " >Ecs</label>
+                    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='ecs' name='ecs' bind:checked={ecschecked}/></span>
+                </div>
+                {#if ecschecked== true}  
+                <label for = 'majorselect' ></label>
+                <select multiple name ="major" id="majorselect" class="dropdown"bind:value={$ecselected} style="height: 15vw;">
+              {#each eclist as ecs}
+                <option value={ecs} style="font-size:0.75rem">{ecs}</option>
+              {/each}
+                </select>
+              {/if}
+            </div>
         </div>
  
          
@@ -152,12 +168,13 @@ var actfilteron = () => {
                     {majorchecked} {majorselected}
                     {acceptchecked} {acceptselected}
                     {genderchecked} {genderselected}
-                    {rejectchecked} {rejectselected}/>
+                    {rejectchecked} {rejectselected}
+                    {ecschecked} {ecselected}/>
              
 
                    
     </div>
-    <h2 style= "font-size: 1.7vmax; margin: 0; position: absolute; left:50%">X-axis: </h2>
+    <!-- <h2 style= "font-size: 1.7vmax; margin: 0; position: absolute; left:50%">X-axis: </h2> -->
     <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; float: left; position: relative; transform: translateY(-900%); left: 2vw;">  
         
   
@@ -165,7 +182,7 @@ var actfilteron = () => {
   </div>
 
         <div>    
-                <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; gap:10vw; position: absolute; left: 50%; transform: translateX(-50%); margin:0; bottom:-25%;">
+                <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; gap:10vw; position: absolute; left: 50%; transform: translateX(-50%); margin:0; ">
                     <div style = "width:12vw; margin:0; transform: translateX(50%); position: relative"> 
                         <div>
                             <label for='SAT' style="float:left; font-size: 1.2rem;">SAT</label>

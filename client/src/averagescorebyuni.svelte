@@ -1,5 +1,8 @@
+
+
+
 <div style="position: absolute; left: 50%; transform: translate(-50%); width: 35vw; height: 50vh; overflow-y: auto">
-    <canvas id="mychartAccept" bind:this = {ctx} ></canvas>
+    <canvas id="mychartAveragescores" bind:this = {ctx} ></canvas>
 </div>
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open}>
     <ol>
@@ -16,6 +19,7 @@ import { afterUpdate, onMount } from 'svelte';
 import { tick } from 'svelte';
 
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { object_without_properties } from 'svelte/internal';
 let urlfilter= []
 let open = false; 
 export let acceptselected
@@ -55,53 +59,43 @@ async function fetchMajor(){
 }
 
 let ctx 
-let myChartAccept
+let myChartAveragescores
 
-async function drawGraphAccept(){
-    if(myChartAccept) myChartAccept.destroy();
-let acceptcount = []
-let rejectcount = []
-let acceptdata = await fetchAccept()
-let rejectdata = await fetchReject()
+async function drawGraphAveragescore(){
+    if(myChartAveragescores) myChartAveragescores.destroy();
+let average = [] 
+let acceptdata = await fetchAccept();
+// let acceptindex = $acceptselected.map(x=>Object.values(acceptdata).filter((i)=>i.includes(x.toLowerCase()))).map(a=>{return Object.keys(a)})
 
-if(satchecked == true){ 
+    if(satchecked == true){ 
         let satdata = await fetchSAT();
-        let satindex = []
-        satindex = Object.entries(satdata).filter(([, i]) => i < $satuservalue[0] || i> $satuservalue[1] || i == "[]" ).map(([k]) => k);
-        satindex.forEach(a=>delete acceptdata[a])
-        satindex.forEach(a=>delete  rejectdata[a])
+        let satdatafiltered = $acceptselected.map(x=>Object.entries(acceptdata).filter(([k,i])=>i.includes(x.toLowerCase()))).map(a=>a.map(b=> satdata[b[0]]).filter( Number ))
+        average = Object.values(satdatafiltered).map((x,i)=>Math.round(x.reduce((a,b)=>a+b)/(satdatafiltered[i].length)*10)/10)  
 }
 
     if(actchecked == true){ 
         let actdata = await fetchACT();
-        let actindex = []
-        actindex = Object.entries(actdata).filter(([, i]) => i < $actuservalue[0] || i> $actuservalue[1] || i == "[]" ).map(([k]) => k);
-        actindex.forEach(a=>delete acceptdata[a])
-        actindex.forEach(a=>delete rejectdata[a])
+        let actdatafiltered = $acceptselected.map(x=>Object.entries(acceptdata).filter(([k,i])=>i.includes(x.toLowerCase()))).map(a=>a.map(b=> actdata[b[0]]).filter( Number ))
+        average = Object.values(actdatafiltered).map((x,i)=>Math.round(x.reduce((a,b)=>a+b)/(actdatafiltered[i].length)*10)/10)
 }
-    if(majorchecked == true){ 
-        let majordata = await fetchMajor(); 
-        let majorindex = Object.entries(majordata).filter(([, i]) => $majorselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
-        Object.keys(acceptdata).forEach((key) => majorindex.includes(key) || delete acceptdata[key])  
-        Object.keys(rejectdata).forEach((key) => majorindex.includes(key) || delete rejectdata[key])  
-    }
 
-acceptcount = $acceptselected.map(x=>Object.values(acceptdata).filter((i)=>i.includes(x.toLowerCase())).length)
-rejectcount = $acceptselected.map(x=>Object.values(rejectdata).filter((i)=>i.includes(x.toLowerCase())).length)
+
+console.log(average)
+
 
 
 let label = $acceptselected
 
 
-let acceptancerate = acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100))
-let total  = acceptcount.map((x,i)=>x+rejectcount[i])
-myChartAccept = new Chart(ctx, {
+// let acceptancerate = acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100))
+// let total  = acceptcount.map((x,i)=>x+rejectcount[i])
+myChartAveragescores = new Chart(ctx, {
     type: 'bar',
     data: { 
         labels: label,
         datasets: [{
-            label: 'Acceptance rate %',
-            data: acceptancerate,
+            label: 'Test scores',
+            data: average,
         backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',  
                 'rgba(54, 162, 235, 0.2)',
@@ -111,34 +105,34 @@ myChartAccept = new Chart(ctx, {
         }]
     },options: { 
         plugins: {
-        tooltip:{ 
-          callbacks:{ 
-            afterLabel: (tooltipItems)=> {console.log(tooltipItems); return 'Total: '+total[tooltipItems.dataIndex]+ '\n# of Acceptances: ' +acceptcount[tooltipItems.dataIndex]+ '\n# of Rejections: '+rejectcount[tooltipItems.dataIndex]}
+        // tooltip:{ 
+        //   callbacks:{ 
+        //     afterLabel: (tooltipItems)=> {console.log(tooltipItems); return 'Total: '+total[tooltipItems.dataIndex]+ '\n# of Acceptances: ' +acceptcount[tooltipItems.dataIndex]+ '\n# of Rejections: '+rejectcount[tooltipItems.dataIndex]}
             
-          }
+        //   }
 
-        },
+        // },
         datalabels:{
             font: {
                 size: 20
             }
         },title:{
             display: true, 
-            text: 'Acceptance rate by university'
+            text: 'Average test scores by university'
         },    
 },
         scales:{
-                y: {
-                    min: 0,
-                    max: 100,
-                    callbacks: function(acceptancerate) {
-               return acceptancerate + "%"
-           },
+        //         y: {
+        //             min: 0,
+        //             max: 100,
+        //             callbacks: function(acceptancerate) {
+        //        return acceptancerate + "%"
+        //    },
            
-        maintainAspectRatio:  false, 
-        responsive:  true,    
+    //     maintainAspectRatio:  false, 
+    //     responsive:  true,    
 
-    }  
+    // }  
 }
 
         }
@@ -147,15 +141,15 @@ myChartAccept = new Chart(ctx, {
 );
 
 
-myChartAccept.canvas.onclick = clickHandler
+myChartAveragescores.canvas.onclick = clickHandler
 async function clickHandler(click){ 
     open = true; 
     let urljson = await fetch('http://127.0.0.1:5000/api/URL')
     let url = await urljson.json(); 
-    const points = myChartAccept.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true)
+    const points = myChartAveragescores.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true)
     if (points[0]){
         const index = points[0].index; 
-        const label = myChartAccept.data.labels[index];
+        const label = myChartAveragescores.data.labels[index];
         console.log(label)
         let clickfilter = Object.keys(acceptdata).filter(function(key) {
         return acceptdata[key].includes(label.toLowerCase());
@@ -169,7 +163,7 @@ async function clickHandler(click){
 
 }
 
-afterUpdate(drawGraphAccept)
+afterUpdate(drawGraphAveragescore)
 </script>
 
 <style> 

@@ -35,6 +35,8 @@ export let rejectselected;
 export let rejectchecked; 
 export let majorchecked; 
 export let majorselected
+export let ecschecked; 
+export let ecselected; 
 
 
 async function fetchGender(){ 
@@ -68,6 +70,11 @@ async function fetchMajor(){
     let majordatajson = await fetch('http://127.0.0.1:5000/api/Majors')
     let majordata = await  majordatajson.json()
     return majordata
+}
+async function fetchEcs(){ 
+    let ecdatajson = await fetch('http://127.0.0.1:5000/api/Extracurriculars')
+    let ecdata = await ecdatajson.json()
+    return ecdata
 }
 
 var myChart
@@ -108,6 +115,12 @@ let genderlist = await fetchGender();
         let majorindex = Object.entries(majordata).filter(([, i]) => $majorselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
         Object.keys(genderlist).forEach((key) => majorindex.includes(key) || delete genderlist[key]) 
     }
+    if (ecschecked == true){ 
+        let ecdata = await fetchEcs(); 
+        let ecindex = Object.entries(ecdata).filter(([, i]) => $ecselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
+        Object.keys(genderlist).forEach((key) => ecindex.includes(key) || delete genderlist[key]) 
+    }
+    
 
     
 
@@ -120,13 +133,13 @@ let number  = Object.values(genderCount).reduce((a,b)=>a+b)
 myChart = new Chart(ctx, {
     type: 'doughnut',
     data: { 
-        labels: Object.keys(genderCount),
+        labels: ['Male','Female','Other/LGBTQ+'],
         datasets: [{
             label: '# Gender ',
-            data: Object.values(genderCount),
+            data: [genderCount['Male'],genderCount['Female'],genderCount['Other/LGBTQ+']],
         backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',  
                 'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)',  
                 'rgba(255, 206, 86, 0.2)',
            
             ],

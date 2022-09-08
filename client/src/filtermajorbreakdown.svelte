@@ -1,6 +1,6 @@
 <script> 
 import Majorbreakdown from './majorbreakdown.svelte'
-import {unilist, majorlist} from './list'
+import {unilist, majorlist, eclist} from './list'
 import { writable } from 'svelte/store';
 
 let satchecked = false; 
@@ -8,11 +8,13 @@ let actchecked = false
 let acceptchecked = false; 
 let rejectchecked = false; 
 let genderchecked = false; 
+let ecschecked = false; 
 let satuservalue  = writable([])
 let actuservalue = writable([])
 let acceptselected = writable([]);
 let rejectselected = writable([]);
-let genderselected = writable([])
+let genderselected = writable([]); 
+let ecselected = writable([]);
 
 const jq = window.$; 
 var satfilteron = () => {
@@ -138,13 +140,34 @@ var actfilteron = () => {
     </select>
     {/if}
     </div>
-  <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  ">  </div>
+  <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  "> 
+    <div style="width: 12vw;">
+      <div>
+          <label for='Ecs' style="float:left;font-size: 1.2rem; " >Ecs</label>
+          <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='ecs' name='ecs' bind:checked={ecschecked}/></span>
+      </div>
+      {#if ecschecked== true}  
+      <label for = 'ecselect' ></label>
+      <select multiple name ="ec" id="ecselect" class="dropdown"bind:value={$ecselected} style="height: 15vw;">
+    {#each eclist as ecs}
+      <option value={ecs} style="font-size:0.75rem">{ecs}</option>
+    {/each}
+      </select>
+    {/if}
+  </div>   
+  </div>
   </div>
   
   
   </div>
 
-    <Majorbreakdown {satchecked} {satuservalue} {actchecked} {actuservalue} {acceptchecked} {acceptselected} {rejectchecked} {rejectselected} {genderchecked} {genderselected}/></div>
+    <Majorbreakdown {satchecked} {satuservalue} 
+                    {actchecked} {actuservalue} 
+                    {acceptchecked} {acceptselected} 
+                    {rejectchecked} {rejectselected} 
+                    {genderchecked} {genderselected}
+                    {ecschecked} {ecselected}/>
+                  </div>
 </div>
 
 <style> 

@@ -4,6 +4,7 @@ import Filter from './filter.svelte';
 import Filterhisto from './filterhisto.svelte'
 import Filtermajorbreakdown from './filtermajorbreakdown.svelte';
 import Filteraccept from './filteraccept.svelte'
+import Filteraveragescore from './filteraveragescore.svelte'
 
 
 </script>
@@ -14,8 +15,9 @@ import Filteraccept from './filteraccept.svelte'
 </head> 
 <body>
 	<div class = 'introbar'>
-	<img src='..\college results logo.png' alt= 'logo of r/collegeresults'/>
+	<img class='collegeresultslogo' src='..\college results logo.png' alt= 'logo of r/collegeresults'/>
 	<h1 style="font-size:2.5rem;">Data from r/collegeresults </h1>	
+	<a href='https://github.com/Dinhbaon/webscraping-reddit' target="_blank"><img class='githublogo' src='..\githublogo.png' alt="github logo"></a> 
 	</div> 
 
 
@@ -23,6 +25,8 @@ import Filteraccept from './filteraccept.svelte'
 <Filterhisto/>
 <Filtermajorbreakdown/>
 <Filteraccept/>
+<Filteraveragescore/>
+
 
 
 
@@ -58,10 +62,19 @@ import Filteraccept from './filteraccept.svelte'
 		transform: translateY(-50%);
 		margin: 0; 
 	}
-	.introbar img{ 
+	.collegeresultslogo{ 
 		float: left; 
 		height: 10vh; 
 		padding-left: 2vw; 
+	}
+	.githublogo{ 
+		float: right; 
+		height: 10vh; 
+		margin-right: 10vw; 
+		border-left: solid black 1px;
+		border-right: solid black 1px;
+		border-radius: 1vh
+
 	}
 	
 	body {

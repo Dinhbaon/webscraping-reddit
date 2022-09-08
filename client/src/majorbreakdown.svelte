@@ -31,6 +31,8 @@ export let rejectselected;
 export let rejectchecked; 
 export let genderchecked; 
 export let genderselected; 
+export let ecschecked; 
+export let ecselected; 
 
 async function fetchMajor(){ 
     let majordatajson = await fetch('http://127.0.0.1:5000/api/Majors')
@@ -63,6 +65,11 @@ async function fetchReject(){
     let rejectdatajson = await fetch('http://127.0.0.1:5000/api/Rejections')
     let rejectdata = await rejectdatajson.json()
     return rejectdata
+}
+async function fetchEcs(){ 
+    let ecdatajson = await fetch('http://127.0.0.1:5000/api/Extracurriculars')
+    let ecdata = await ecdatajson.json()
+    return ecdata
 }
 
 var ctx
@@ -101,6 +108,11 @@ let majorlist = await fetchMajor();
         let genderdata = await fetchGender(); 
         let genderindex = Object.entries(genderdata).filter(([, i]) => $genderselected == i ).map(([k]) => k)
         Object.keys(majorlist).forEach((key) => genderindex.includes(key) || delete majorlist[key]) 
+    }
+    if (ecschecked == true){ 
+        let ecdata = await fetchEcs(); 
+        let ecindex = Object.entries(ecdata).filter(([, i]) => $ecselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
+        Object.keys(majorlist).forEach((key) => ecindex.includes(key) || delete majorlist[key]) 
     }
 
     
