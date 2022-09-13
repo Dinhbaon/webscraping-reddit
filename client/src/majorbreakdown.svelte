@@ -1,5 +1,5 @@
-<div style="position: absolute; left: 50%; transform: translateX(-50%); width: 35vw; height: 70vh; display:block; overflow-y: auto">
-<div style="position: absolute; left: 50%; transform: translateX(-50%); width: 35vw; height: 1000vh; display:block; overflow-y: auto">
+<div style="position: absolute; left: 50%; transform: translate(-50%,50%); width: 35vw; height: 70vh;  overflow-y: auto">
+<div style="position: absolute; left: 50%; transform: translateX(-50%); width: 35vw; height: 1000vh; overflow-y: auto">
     <canvas id = 'myChartMajor' style="width: 100%; height: 100%"    bind:this={ctx}/>
 </div>
 </div> 
@@ -197,6 +197,7 @@ afterUpdate(drawGraphMajor)
     height: 50vh; 
     transition: 2s; 
     visibility: hidden; 
+    transform: translateY(60%);
 
 }
 .opened{ 

@@ -16,39 +16,45 @@ options.headless = True
 options.add_argument("--disable-web-security") 
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
-options.add_argument("start-maximized")
-options.add_argument("enable-automation")
+options.add_argument("--start-maximized")
+options.add_argument("--enable-automation")
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-browser-side-navigation")
 options.add_argument("--disable-gpu")
+options.add_argument('--blink-settings=imagesEnabled=false')
 driver  = webdriver.Chrome(service = Service(ChromeDriverManager().install()),options = options)
 
 filteredlinkscsv =  pd.read_csv("./csvfiles/filteredlinks.csv")
 filteredlinks = filteredlinkscsv.iloc[:,0].to_list()
 
 
-# hooks = []
+
+
+# f = open(".\csvfiles\processeddata.csv", "w")
+# f.truncate()
+# f.close()
 
 
 
+numofloops = len(filteredlinks)
 
-final_accept = []
-final_reject = []
-url = [] 
-numofloops = 1000
-driver.implicitly_wait(20)
-final_gender = []
-final_race=[]
-final_major=[]
-final_sat = []
-final_act=[]
-final_ecs = []
-for i in range(numofloops): 
-    
+for i in range(2159,numofloops): 
+
         driver.get(filteredlinks[i])
-        
+        # https://www.reddit.com/r/collegeresults/comments/tvk76r/a_roller_coaster_ride_with_a_happy_outcome/
+        url = [] 
+        print(f'the links is {filteredlinks[i]}')
+        url.append(filteredlinks[i])
+        final_accept = []
+        final_reject = []
+        final_gender = []
+        final_race=[]
+        final_major=[]
+        final_sat = []
+        final_act=[]
+        final_ecs = []
         accepts = []
         prohook = []
         major = []
@@ -64,15 +70,14 @@ for i in range(numofloops):
         SAT = []
         ACT = []
         full_post = []
-        
+        print(gender)
 
         try: 
-            scrape_rejects = driver.find_elements(By.XPATH,'//div[@class="_3xX726aBn29LDbsDtzr_6E _1Ap4F5maDtT1E1YuCiaO0r D3IL3FD0RFy_mkKLPwL4"]/descendant::p[preceding::*[contains(.,"Waitlist") or contains(.,"Reject")]or self::p[contains(.,"Waitlist") or contains(.,"Reject")]]')
+            scrape_rejects = driver.find_elements(By.XPATH,'//div[@class="_3xX726aBn29LDbsDtzr_6E _1Ap4F5maDtT1E1YuCiaO0r D3IL3FD0RFy_mkKLPwL4"]/descendant::p[preceding::*[contains(.,"Waitlist") or contains(.,"Reject") or contains(.,"Rejections") or contains(.,"Denied")]or self::p[contains(.,"Waitlist") or contains(.,"Reject") or contains(.,"Denied")]]')
         except NoSuchElementException: 
             scrape_rejects = [' ']
-            
         try: 
-            scrape_accept = driver.find_elements(By.XPATH,'//div[@class="_3xX726aBn29LDbsDtzr_6E _1Ap4F5maDtT1E1YuCiaO0r D3IL3FD0RFy_mkKLPwL4"]/descendant::p[preceding::*[contains(.,"Acceptance")]or self::p[contains(.,"Acceptance")]]')
+            scrape_accept = driver.find_elements(By.XPATH,'//div[@class="_3xX726aBn29LDbsDtzr_6E _1Ap4F5maDtT1E1YuCiaO0r D3IL3FD0RFy_mkKLPwL4"]/descendant::p[preceding::*[contains(.,"Acceptance") or contains(.,"Accept")]or self::p[contains(.,"Acceptance") or contains(.,"Accept")]]')
         except NoSuchElementException: 
             scrape_accept = [' ']
             
@@ -83,12 +88,14 @@ for i in range(numofloops):
             full_post = [' ']
         
         try: 
-            gender.append(driver.find_element(By.XPATH,'//p[@class="_1qeIAgB0cPwnLhDF9XSiJM"][contains(.,"Gender:") or contains(.,"gender:")]').text)
+            gender.append(driver.find_element(By.XPATH,'//div[@class="_3xX726aBn29LDbsDtzr_6E _1Ap4F5maDtT1E1YuCiaO0r D3IL3FD0RFy_mkKLPwL4"]/descendant::p[contains(.,"Gender:") or contains(.,"gender:")]').text)
         except NoSuchElementException: 
-            gender.append("[]")
-            # try: 
-            #     gender.append(driver.find_element(By.XPATH,'//p[@class="_1qeIAgB0cPwnLhDF9XSiJM"][contains(.,"emographics")]'))
-            # except NoSuchElementException: 
+            # gender.append("[]")
+            try: 
+                gender.append(driver.find_element(By.XPATH,'//div[@class="_3xX726aBn29LDbsDtzr_6E _1Ap4F5maDtT1E1YuCiaO0r D3IL3FD0RFy_mkKLPwL4"]/descendant::p[contains(.,"emographics")]').text)
+            except NoSuchElementException: 
+                gender.append("[]")
+        print(gender)
             
        
         try: 
@@ -104,7 +111,7 @@ for i in range(numofloops):
             ACT.append("")
        
         try: 
-            race.append(driver.find_element(By.XPATH,'//p[@class="_1qeIAgB0cPwnLhDF9XSiJM"][contains(.,"Race") or contains(.,"Ethnicity")]').text)
+            race.append(driver.find_element(By.XPATH,'//div[@class="_3xX726aBn29LDbsDtzr_6E _1Ap4F5maDtT1E1YuCiaO0r D3IL3FD0RFy_mkKLPwL4"]/descendant::p[contains(.,"Race") or contains(.,"Ethnicity")]').text)
         except NoSuchElementException:
             race.append(" ")
             # try: 
@@ -119,52 +126,61 @@ for i in range(numofloops):
         
        
         try: 
-            major.append(driver.find_element(By.XPATH,'//p[@class="_1qeIAgB0cPwnLhDF9XSiJM"][contains(.,  "Intended Major") or contains(., "Major:")]').text)
+            major.append(driver.find_element(By.XPATH,'//p[@class="_1qeIAgB0cPwnLhDF9XSiJM"][contains(.,  "Intended Major") or contains(., "Major:") or contains(.,"major")] ').text)
         except  NoSuchElementException:
             major.append("") 
             
     
 
         ## append text in to list (make webobject into text)
+ 
         for elementp in scrape_rejects: 
             prorejects.append(elementp.text.lower())
         for elementp in scrape_accept: 
             proacceptances.append(elementp.text.lower())
+
         #filter out paragraphs
-        if len(proacceptances)>1: 
-            proacceptances.pop()
-        if len(prorejects)>1: 
-            prorejects.pop()
         rejectsonly.append(list(filter(lambda x : len(x)<200,prorejects)))
         acceptsonly.append(list(filter(lambda x : len(x)<200,proacceptances)))
-        
+        if len(acceptsonly[0])>1: 
+            for element in range(len(acceptsonly[0])): 
+                if re.match('rejections',acceptsonly[0][element]) or re.match('defer', acceptsonly[0][element]) or re.match('waitlist',acceptsonly[0][element]) or re.match('to be determined',acceptsonly[0][element]) or re.match('waiting',acceptsonly[0][element] or re.match('denied', acceptsonly[0][element])): 
+                    acceptsonly  =acceptsonly[0][0:element]
+                    break
+        if len(rejectsonly[0])>1: 
+            for element in range(len(rejectsonly[0])): 
+                if re.match('additional info.',rejectsonly[0][element]) or re.match('accept.',rejectsonly[0][element]) or re.match('final thoughts',rejectsonly[0][element]): 
+                    rejectsonly  =rejectsonly[0][0:element]
+                    break
+
         #check all unis in the post       
         prouni = []
         prouniappend = []
         for i in range(len(unilist)):
             if not acceptsonly: 
                 acceptsonly.append('')
-            if any(a in ' '.join(acceptsonly) for a in unilist[i]): 
+            if any(a in ' '.join(map(str, acceptsonly))for a in unilist[i]): 
                 prouniappend.append(unilist[i][0])
         prouni.append(prouniappend)
 
-        
+
     
         prorejectsonly = []
         for i in range(len(unilist)):
-            if not rejectsonly[0]: 
-                rejectsonly[0].append('')
-            if any(b in ' '.join(rejectsonly[0]) for b in unilist[i]): 
+            if not rejectsonly: 
+                rejectsonly.append('')
+            if any(b in ' '.join(map(str, rejectsonly)) for b in unilist[i]): 
                 prorejectsonly.append(unilist[i][0])
         rejectlist.append(prorejectsonly)
 
 
         #filter unis in post with rejections
-        
+        print(gender[0])
         accepts.append(list(set(prouni[0])-set(rejectlist[0])))
         gender[0] = gender[0].lower().partition("gender") 
-        # if not gender[0][2]: 
-        #     gender[0] = gender[0].lower().partition("demographics") 
+        print(gender[0])
+        if not gender[0][2]: 
+            gender[0] = gender[0][0].lower().partition("demographics") 
         SAT[0] = SAT[0].partition("SAT")
         ACT[0] = ACT[0].partition("ACT")
         race[0] = race[0].lower().partition('race')
@@ -200,6 +216,7 @@ for i in range(numofloops):
             final_gender.append('Male')
         else: 
             final_gender.append('Other/LGBTQ+') 
+        print(final_gender)
     
                 
        
@@ -216,22 +233,20 @@ for i in range(numofloops):
             final_act.append('')
         
 
-
-dftotal['Gender'] = final_gender
-dftotal['SAT'] = final_sat
-dftotal['ACT'] = final_act
-dftotal['Race']=final_race
-dftotal['Major'] = final_major
-dftotal['Extracurriculars'] = final_ecs
-dftotal['Acceptances'] = final_accept
-dftotal['Rejections'] = final_reject
-
-dftotal['url'] = list(np.array(filteredlinks)[[x for x in dftotal.index.tolist()]])
-dftotal = dftotal.astype(str).replace(["[]",' ',''], np.nan)
-dftotal = dftotal.dropna(thresh=6 )
-dftotal = dftotal.replace(np.nan,'[]',regex=True)
-print(dftotal['Extracurriculars'])
-dftotal.to_csv('.\csvfiles\processeddata.csv')
+        dftotal['Gender'] = final_gender
+        dftotal['SAT'] = final_sat
+        dftotal['ACT'] = final_act
+        dftotal['Race']=final_race
+        dftotal['Major'] = final_major
+        dftotal['Extracurriculars'] = final_ecs
+        dftotal['Acceptances'] = final_accept
+        dftotal['Rejections'] = final_reject
+        dftotal['url'] = url
+        list(np.array(filteredlinks)[[x for x in dftotal.index.tolist()]])
+        dftotal = dftotal.astype(str).replace(["[]",' ',''], np.nan)
+        dftotal = dftotal.dropna(thresh=6 )
+        dftotal = dftotal.replace(np.nan,'[]',regex=True)
+        dftotal.to_csv('.\csvfiles\processeddata.csv',mode='a', header=False,index=False)
      
 
 

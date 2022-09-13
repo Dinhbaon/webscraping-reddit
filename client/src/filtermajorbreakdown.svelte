@@ -56,15 +56,16 @@ var actfilteron = () => {
 } 
 
 </script>
+
 <div style="top:20%; position: relative">
 <div style="margins: 10vh, 0; ">
-<div style="float: left; transform: translateX(20%); ">
+<div style="float: left; transform: translate(20%,350%); height:10vh;  ">
 
   <div style="display: flex; flex-wrap: nowrap ;  justify-content: center;">
   <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width:12vw; "> 
   <div>
-    <label for='SAT' style="float:left; font-size: 1.2rem;">SAT</label>
-    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='SAT' value='SAT' name='SAT' bind:checked={satchecked} on:change = {satfilteron}/></span>
+    <label for='SATmajor' style="float:left; font-size: 1.2rem;">SAT</label>
+    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='SATmajor' value='SAT' name='SAT' bind:checked={satchecked} on:change = {satfilteron}/></span>
   </div>
   {#if satchecked == true}
   <span class = "slider" >
@@ -77,8 +78,8 @@ var actfilteron = () => {
   </div>
   <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw; "> 
   <div>
-    <label for='ACT' style="float:left;font-size:1.2rem;">ACT</label>
-    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw;text-align:left;"><input type= 'checkbox' id='ACT' value='ACT' name='ACT' bind:checked={actchecked} on:change = {actfilteron}/></span>
+    <label for='ACTmajor' style="float:left;font-size:1.2rem;">ACT</label>
+    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw;text-align:left;"><input type= 'checkbox' id='ACTmajor' value='ACT' name='ACT' bind:checked={actchecked} on:change = {actfilteron}/></span>
   </div>
   
   {#if actchecked == true}
@@ -98,8 +99,8 @@ var actfilteron = () => {
   <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; ">
     <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  "> 
   <div>
-    <label for='accepts' style="float:left; font-size: 1.2rem;">Acceptances</label>
-    <span style="display: block; overflow: hidden; padding: 0 1vw 0 1vw ;text-align:left;"><input type= 'checkbox' id='accepts' value='accepts' name='accepts' bind:checked={acceptchecked}/></span>
+    <label for='acceptsmajor' style="float:left; font-size: 1.2rem;">Acceptances</label>
+    <span style="display: block; overflow: hidden; padding: 0 1vw 0 1vw ;text-align:left;"><input type= 'checkbox' id='acceptsmajor' value='accepts' name='accepts' bind:checked={acceptchecked}/></span>
   </div>
     {#if acceptchecked == true}
     <label for = 'acceptselect' ></label>
@@ -112,8 +113,8 @@ var actfilteron = () => {
   </div>
   <div style = "display: grid; grid-template-column: auto auto; column-gap: 10vw; width: 12vw; "> 
   <div>
-    <label for='rejects' style="float:left;font-size: 1.2rem; " >Rejections</label>
-     <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='rejects' value='rejects' name='rejects' bind:checked={rejectchecked}/></span>
+    <label for='rejectsmajor' style="float:left;font-size: 1.2rem; " >Rejections</label>
+     <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='rejectsmajor' value='rejects' name='rejects' bind:checked={rejectchecked}/></span>
   </div>
      {#if rejectchecked== true}
     <label for = 'rejectselect' ></label>
@@ -129,8 +130,8 @@ var actfilteron = () => {
   <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; ">
     <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  "> 
       <div>
-        <label for='genders' style="float:left;font-size: 1.2rem; " >Gender</label>
-        <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='genders' value='genders' name='genders' bind:checked={genderchecked}/></span>
+        <label for='gendersmajor' style="float:left;font-size: 1.2rem; " >Gender</label>
+        <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='gendersmajor' value='genders' name='genders' bind:checked={genderchecked}/></span>
       </div>
     {#if genderchecked== true}   
     <select  class="dropdown" name ="gender" id="genderselect" bind:value={$genderselected} style="height: 3vw;">
@@ -140,13 +141,12 @@ var actfilteron = () => {
     </select>
     {/if}
     </div>
-  <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  "> 
-    <div style="width: 12vw;">
+    <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  ">  
       <div>
-          <label for='Ecs' style="float:left;font-size: 1.2rem; " >Ecs</label>
-          <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='ecs' name='ecs' bind:checked={ecschecked}/></span>
+        <label for='ecsmajor' style="float:left;font-size: 1.2rem; " >Ecs</label>
+        <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='ecsmajor' value='ecs' name='ecs' bind:checked={ecschecked}/></span>
       </div>
-      {#if ecschecked== true}  
+    {#if ecschecked== true}  
       <label for = 'ecselect' ></label>
       <select multiple name ="ec" id="ecselect" class="dropdown"bind:value={$ecselected} style="height: 15vw;">
     {#each eclist as ecs}
@@ -154,8 +154,8 @@ var actfilteron = () => {
     {/each}
       </select>
     {/if}
-  </div>   
-  </div>
+    
+    </div>
   </div>
   
   

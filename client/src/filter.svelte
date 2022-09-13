@@ -64,7 +64,7 @@ var actfilteron = () => {
 } 
 </script>
 
-<div style="float: left; transform: translateX(20%); ">
+<div style="float: left; transform: translateX(20%); position: absolute;  ">
   <h2 style= "font-size: clamp(3re,1.7vmax,2rem)">Filter by: </h2>
 <div style="display: flex; flex-wrap: nowrap ;  justify-content: center;">
 <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width:12vw; "> 
@@ -153,8 +153,8 @@ var actfilteron = () => {
     <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='ecs' value='ecs' name='ecs' bind:checked={ecschecked}/></span>
   </div>
 {#if ecschecked== true}  
-  <label for = 'majorselect' ></label>
-  <select multiple name ="major" id="majorselect" class="dropdown"bind:value={$ecselected} style="height: 15vw;">
+  <label for = 'ecselect' ></label>
+  <select multiple name ="ec" id="ecselect" class="dropdown"bind:value={$ecselected} style="height: 15vw;">
 {#each eclist as ecs}
   <option value={ecs} style="font-size:0.75rem">{ecs}</option>
 {/each}

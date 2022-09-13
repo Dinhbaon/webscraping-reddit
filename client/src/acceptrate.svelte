@@ -25,6 +25,8 @@ export let satuservalue
 export let actuservalue
 export let majorselected
 export let majorchecked
+export let genderchecked
+export let genderselected
 
 async function fetchAccept(){
     let acceptdatajson = await fetch('http://127.0.0.1:5000/api/Acceptances')
@@ -53,6 +55,11 @@ async function fetchMajor(){
     let majordata = await majordatajson.json()
     return majordata
 }
+async function fetchGender(){ 
+    let genderdatajson = await fetch('http://127.0.0.1:5000/api/Gender')
+    let genderdata = await genderdatajson.json()
+    return genderdata
+}
 
 let ctx 
 let myChartAccept
@@ -64,7 +71,7 @@ let rejectcount = []
 let acceptdata = await fetchAccept()
 let rejectdata = await fetchReject()
 
-if(satchecked == true){ 
+    if(satchecked == true){ 
         let satdata = await fetchSAT();
         let satindex = []
         satindex = Object.entries(satdata).filter(([, i]) => i < $satuservalue[0] || i> $satuservalue[1] || i == "[]" ).map(([k]) => k);
@@ -85,6 +92,13 @@ if(satchecked == true){
         Object.keys(acceptdata).forEach((key) => majorindex.includes(key) || delete acceptdata[key])  
         Object.keys(rejectdata).forEach((key) => majorindex.includes(key) || delete rejectdata[key])  
     }
+    if(genderchecked == true){ 
+        let genderdata = await fetchGender(); 
+        let genderindex = Object.entries(genderdata).filter(([, i]) => $genderselected == i ).map(([k]) => k)
+        Object.keys(acceptdata).forEach((key) => genderindex.includes(key) || delete acceptdata[key])  
+        Object.keys(rejectdata).forEach((key) => genderindex.includes(key) || delete rejectdata[key]) 
+
+            }
 
 acceptcount = $acceptselected.map(x=>Object.values(acceptdata).filter((i)=>i.includes(x.toLowerCase())).length)
 rejectcount = $acceptselected.map(x=>Object.values(rejectdata).filter((i)=>i.includes(x.toLowerCase())).length)

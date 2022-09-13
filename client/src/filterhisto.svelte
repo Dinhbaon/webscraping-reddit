@@ -80,14 +80,14 @@ var actfilteron = () => {
 </script>
 
     
-<div style="position: relative; top: 160%; ">
+<div style="position: relative; top: 200%; ">
     <div style="position: relative;width: 80vw; height: auto; display: flex; justify-content:center; width: 100%">  
 
             <div style="display: grid; grid-template: auto auto/ auto auto; position: absolute; right:70%; top:20% ">
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;">
                 <div>
-                    <label for='accepts' style="float:left; font-size: 1.2rem;">Acceptances</label>
-                    <span style="display: block; overflow: hidden; padding: 0 1vw 0 1vw ;text-align:left;"><input type= 'checkbox' id='accepts' value='accepts' name='accepts' bind:checked={acceptchecked}/></span>
+                    <label for='acceptshisto' style="float:left; font-size: 1.2rem;">Acceptances</label>
+                    <span style="display: block; overflow: hidden; padding: 0 1vw 0 1vw ;text-align:left;"><input type= 'checkbox' id='acceptshisto' value='accepts' name='accepts' bind:checked={acceptchecked}/></span>
                 </div>
                
         
@@ -102,8 +102,8 @@ var actfilteron = () => {
             </div>
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;">
                 <div>
-                    <label for='majors' style="float:left;font-size: 1.2rem; " >Major</label>
-                    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='majors' name='majors' bind:checked={majorchecked}/></span>
+                    <label for='majorshisto' style="float:left;font-size: 1.2rem; " >Major</label>
+                    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majorshisto' value='majors' name='majors' bind:checked={majorchecked}/></span>
                 </div>
                 {#if majorchecked== true}  
                     <label for = 'majorselect' ></label>
@@ -118,8 +118,8 @@ var actfilteron = () => {
         
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;">
                 <div>
-                    <label for='rejects' style="float:left; font-size: 1.2rem;">Rejections</label>
-                    <span style="display: block; overflow: hidden; padding: 0 1vw 0 1vw ;text-align:left;"><input type= 'checkbox' id='accepts' value='accepts' name='accepts' bind:checked={rejectchecked}/></span>
+                    <label for='rejectshisto' style="float:left; font-size: 1.2rem;">Rejections</label>
+                    <span style="display: block; overflow: hidden; padding: 0 1vw 0 1vw ;text-align:left;"><input type= 'checkbox' id='rejectshisto' value='rejectshisto' name='rejectshisto' bind:checked={rejectchecked}/></span>
                 </div>
                
         
@@ -138,28 +138,29 @@ var actfilteron = () => {
                     <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='genders' value='genders' name='majors' bind:checked={genderchecked}/></span>
                 </div>
                 {#if genderchecked== true}  
-                    <label for = 'genderselect' ></label>
-                    <select class="dropdown" name ="gender" id="genderselect" bind:value={$genderselected} style="height: 3vw;">
-                        <option value='Male' style="font-size:0.75rem">Male</option>
+                    <label for = 'genderselecthisto' ></label>
+                    <select class="dropdown" name ="gender" id="genderselecthisto" bind:value={$genderselected} style="height: 3vw;">
+                        <option selected value='Male' style="font-size:0.75rem">Male</option>
                         <option value='Female' style="font-size:0.75rem">Female</option>
                         <option value='Other/LGBTQ+' style="font-size:0.75rem">Other/LGBTQ+</option>
                     </select>
                 {/if}
             </div>
-            <div style="width: 12vw;">
+            <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  ">  
                 <div>
-                    <label for='Ecs' style="float:left;font-size: 1.2rem; " >Ecs</label>
-                    <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='majors' value='ecs' name='ecs' bind:checked={ecschecked}/></span>
+                  <label for='ecshisto' style="float:left;font-size: 1.2rem; " >Ecs</label>
+                  <span style="display: block; overflow: hidden;  padding: 0 1vw 0 1vw; text-align:left;"><input type= 'checkbox' id='ecshisto' value='ecshisto' name='ecshisto' bind:checked={ecschecked}/></span>
                 </div>
-                {#if ecschecked== true}  
-                <label for = 'majorselect' ></label>
-                <select multiple name ="major" id="majorselect" class="dropdown"bind:value={$ecselected} style="height: 15vw;">
+              {#if ecschecked== true}  
+                <label for = 'ecselect' ></label>
+                <select multiple name ="ec" id="ecselect" class="dropdown"bind:value={$ecselected} style="height: 15vw;">
               {#each eclist as ecs}
                 <option value={ecs} style="font-size:0.75rem">{ecs}</option>
               {/each}
                 </select>
               {/if}
-            </div>
+              
+              </div>
         </div>
  
          
