@@ -11,7 +11,7 @@ from collections import Counter
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir,'applicant.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Kimthanh142?@localhost/applicant'
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
 cors = CORS(app)
 db = SQLAlchemy(app)
