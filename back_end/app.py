@@ -11,7 +11,8 @@ from collections import Counter
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Kimthanh142?@localhost/applicant'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir,'applicant.db')
+#mysql+pymysql://root:Kimthanh142@34.92.247.23/applicants'
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
 cors = CORS(app)
 db = SQLAlchemy(app)
@@ -21,9 +22,9 @@ class attributes(db.Model):
     __tablename__ = 'attributes'
     id = Column(Integer, primary_key=True)
     URL = Column(Text)
-    Gender = Column(String(10))
-    SAT =Column(Integer)
-    ACT = Column(Integer)
+    Gender = Column(String(20))
+    SAT =Column(String(10))
+    ACT = Column(String(10))
     major =db.relationship('Major',backref = 'attributes') 
     ecs = db.relationship('Ecs', backref = 'attributes')
     Race = db.relationship('Race',backref = 'attributes')

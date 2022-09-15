@@ -95,7 +95,9 @@ let total = []
 
             }
         let satdatafiltered = $acceptselected.map(x=>Object.entries(acceptdata).filter(([k,i])=>i.includes(x.toLowerCase()))).map(a=>a.map(b=> satdata[b[0]]).filter( Number ))
-        average = Object.values(satdatafiltered).map((x,i)=>Math.round(x.reduce((a,b)=>a+b,0)/(satdatafiltered[i].length)*10)/10)  
+        console.log(satdatafiltered)
+        average = satdatafiltered.map((x,i)=>Math.round(x.reduce((a,b)=>parseInt(a)+parseInt(b),0)/(satdatafiltered[i].length)*10)/10)
+        console.log(satdatafiltered.map((x,i)=>x.reduce((a,b)=>a+b,0)))
         let satindex = []
         satindex = Object.entries(satdata).filter(([, i]) => i == "[]" ).map(([k]) => k);
         satindex.forEach(a=>delete acceptdata[a])
@@ -124,7 +126,7 @@ let total = []
 
             }
         let actdatafiltered = $acceptselected.map(x=>Object.entries(acceptdata).filter(([k,i])=>i.includes(x.toLowerCase()))).map(a=>a.map(b=> actdata[b[0]]).filter( Number ))
-        average = Object.values(actdatafiltered).map((x,i)=>Math.round(x.reduce((a,b)=>a+b,0)/(actdatafiltered[i].length)*10)/10)
+        average = actdatafiltered.map((x,i)=>Math.round(x.reduce((a,b)=>parseInt(a)+parseInt(b),0)/(actdatafiltered[i].length)*10)/10)
         let actindex = []
         actindex = Object.entries(actdata).filter(([, i]) => i == "[]" ).map(([k]) => k);
         actindex.forEach(a=>delete acceptdata[a])

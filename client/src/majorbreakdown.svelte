@@ -35,7 +35,7 @@ export let ecschecked;
 export let ecselected; 
 
 async function fetchMajor(){ 
-    let majordatajson = await fetch('http://127.0.0.1:5000/api/Majors')
+    let majordatajson = await fetch('http://dinhbaon.pythonanywhere.com/api/Majors')
     let majordata = await majordatajson.json()
     return majordata 
 }

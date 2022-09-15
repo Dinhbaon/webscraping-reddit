@@ -23,3 +23,4 @@ for i in range(len(df.iloc[:,0])):
 
 db.create_all()
 db.session.commit()
+print('done')
