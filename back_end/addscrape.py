@@ -26,21 +26,15 @@ options.add_argument("--disable-gpu")
 options.add_argument('--blink-settings=imagesEnabled=false')
 driver  = webdriver.Chrome(service = Service(ChromeDriverManager().install()),options = options)
 
-filteredlinkscsv =  pd.read_csv("./csvfiles/filteredlinks.csv")
+filteredlinkscsv =  pd.read_csv("./csvfiles/newfilteredlinks.csv")
 filteredlinks = filteredlinkscsv.iloc[:,0].to_list()
 
-
-
-
-# f = open(".\csvfiles\processeddata.csv", "w")
-# f.truncate()
-# f.close()
-
+existing_processed_data = pd.read_csv("./csvfiles/processeddata.csv")
 
 
 numofloops = len(filteredlinks)
-
-for i in range(2159,numofloops): 
+appended_data = pd.DataFrame([])
+for i in range(numofloops): 
 
         driver.get(filteredlinks[i])
         # https://www.reddit.com/r/collegeresults/comments/tvk76r/a_roller_coaster_ride_with_a_happy_outcome/
@@ -231,8 +225,6 @@ for i in range(2159,numofloops):
             final_act.append(re.search(r"\b[2-3]{1}[0-6]{1}\s",ACT[0][2]).group(0))
         except: 
             final_act.append('')
-        
-
         dftotal['Gender'] = final_gender
         dftotal['SAT'] = final_sat
         dftotal['ACT'] = final_act
@@ -246,20 +238,7 @@ for i in range(2159,numofloops):
         dftotal = dftotal.astype(str).replace(["[]",' ',''], np.nan)
         dftotal = dftotal.dropna(thresh=6 )
         dftotal = dftotal.replace(np.nan,'[]',regex=True)
-        dftotal.shift(periods=1)
-        dftotal.to_csv('.\csvfiles\processeddata.csv',mode='a', header=False,index=False)
-     
-
-
-
-
-
-
-
-
-
-
-#for act regex
-# x = re.findall(r"\b[2-3]{1}[0-5]{1}", txt)
-#for gpa number extraction 
-#https://pythonguides.com/python-find-number-in-string/#:~:text=To%20find%20numbers%20from%20a,then%20it%20will%20return%20False.
+        appended_data = pd.concat([dftotal,appended_data])
+print(appended_data)
+newdata = pd.DataFrame(np.concatenate([appended_data,existing_processed_data]))
+newdata.to_csv('./csvfiles/processeddata.csv', header=None)

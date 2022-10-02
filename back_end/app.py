@@ -5,32 +5,41 @@ from sqlalchemy import Table, Column, Integer,VARCHAR, String, MetaData, Text
 from ast import literal_eval
 import os
 import pandas as pd
+import sshtunnel
 from collections import Counter
 
-    
+
 
 app = Flask(__name__)
+tunnel = sshtunnel.SSHTunnelForwarder(
+    ('ssh.pythonanywhere.com'), ssh_username='Dinhbaon', ssh_password = 'Kimthanh142?',
+    remote_bind_address=('Dinhbaon.mysql.pythonanywhere-services.com', 3306)
+    )
+tunnel.start()
+
+
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir,'applicant.db')
-#mysql+pymysql://root:Kimthanh142@34.92.247.23/applicants'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@127.0.0.1:{}/Dinhbaon$applicant'.format(tunnel.local_bind_port)
+#
+#mysql+pymysql://root:Kimthanh142@127.0.0.1:{}/applicants'.format(tunnel.local_bind_port)
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
 cors = CORS(app)
 db = SQLAlchemy(app)
 
 
-class attributes(db.Model): 
+class attributes(db.Model):
     __tablename__ = 'attributes'
     id = Column(Integer, primary_key=True)
     URL = Column(Text)
     Gender = Column(String(20))
     SAT =Column(String(10))
     ACT = Column(String(10))
-    major =db.relationship('Major',backref = 'attributes') 
+    major =db.relationship('Major',backref = 'attributes')
     ecs = db.relationship('Ecs', backref = 'attributes')
     Race = db.relationship('Race',backref = 'attributes')
     Acceptances = db.relationship('Acceptances', backref = 'attributes')
     Rejections = db.relationship('Rejections', backref = 'attributes')
-    def get_gender(): 
+    def get_gender():
 
         # races = db.session.query(attributes).filter(Race.Attributeid==attributes.id).all()
 
@@ -39,63 +48,63 @@ class attributes(db.Model):
         # race = {}
 
         gender = {}
-        for row in data: 
+        for row in data:
             gender[row.id] = row.Gender
-        # for row in races: 
+        # for row in races:
         #     race[row.id] = []
-        #     for r in row.Race: 
+        #     for r in row.Race:
         #         race[r.Attributeid].append(r.racelist)
 
 
         return gender
-    def get_SAT(): 
+    def get_SAT():
         sat = {}
         datasat = db.session.query(attributes.SAT,attributes.id).all()
-        for row in datasat: 
+        for row in datasat:
             sat[row.id] = row.SAT
         return sat
-    def get_ACT(): 
+    def get_ACT():
         dataact = db.session.query(attributes.ACT,attributes.id).all()
         act={}
-        for row in dataact: 
+        for row in dataact:
             act[row.id] = row.ACT
         return act
-    def get_links(): 
+    def get_links():
         links = {}
         datalinks = db.session.query(attributes.URL,attributes.id).all()
-        for row in datalinks: 
+        for row in datalinks:
             links[row.id] = row.URL
         return links
     def get_major():
         major = db.session.query(attributes).filter(Major.Attributeid == attributes.id).all()
-        majors = {} 
-        for row in major: 
+        majors = {}
+        for row in major:
             majors[row.id] = []
             for maj in row.major:
                 majors[maj.Attributeid].append(maj.majorlist)
         return majors
-    def get_accept(): 
+    def get_accept():
         accepts = db.session.query(attributes).filter(Acceptances.Attributeid == attributes.id).all()
         acceptances = {}
-        for row in accepts: 
+        for row in accepts:
             acceptances[row.id] =[]
-            for accept in row.Acceptances: 
+            for accept in row.Acceptances:
                 acceptances[accept.Attributeid].append(accept.acceptlist)
         return acceptances
-    def get_reject(): 
+    def get_reject():
         rejects = db.session.query(attributes).filter(Rejections.Attributeid == attributes.id).all()
         rejections = {}
-        for row in rejects: 
+        for row in rejects:
             rejections[row.id] = []
-            for reject in row.Rejections: 
+            for reject in row.Rejections:
                 rejections[reject.Attributeid].append(reject.rejectlist)
         return rejections
-    def get_ecs(): 
+    def get_ecs():
         ec = db.session.query(attributes).filter(Ecs.Attributeid == attributes.id).all()
         extracurriculars = {}
         for row in ec:
             extracurriculars[row.id]  = []
-            for extrac in row.ecs: 
+            for extrac in row.ecs:
                 extracurriculars[extrac.Attributeid].append(extrac.listofecs)
         return extracurriculars
 
@@ -106,7 +115,7 @@ class Ecs(db.Model):
     def __repr__(self):
         return f'<Ecs "{self.title}">'
 
-class Major(db.Model): 
+class Major(db.Model):
     id = Column(Integer, primary_key = True)
     majorlist = Column(Text)
     Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
@@ -132,42 +141,42 @@ class Rejections(db.Model):
         return f'<rejections "{self.title}">'
 
 # @app.route('/api/<string:column>/value', methods = ['GET'])
-# def home(column : str): 
+# def home(column : str):
 #     return list(attributes.get_data()[column].values())
 
 @app.route('/api/Gender', methods = ['GET'])
-def gender(): 
+def gender():
     return attributes.get_gender()
 
 @app.route('/api/URL', methods = ['GET'])
-def url(): 
+def url():
     return attributes.get_links()
 
 @app.route('/api/SAT', methods = ['GET'])
-def sat(): 
+def sat():
     return attributes.get_SAT()
 
 @app.route('/api/ACT',methods = ['GET'])
-def act(): 
+def act():
     return attributes.get_ACT()
 
 @app.route('/api/Majors', methods = ['GET'])
-def major(): 
+def major():
     return attributes.get_major()
 
 @app.route('/api/Acceptances', methods = ['GET'])
-def accept(): 
+def accept():
     return attributes.get_accept()
 
 @app.route('/api/Rejections', methods = ['GET'])
-def reject(): 
+def reject():
     return attributes.get_reject()
 
 @app.route('/api/Extracurriculars', methods = ['GET'])
-def ecs(): 
+def ecs():
     return attributes.get_ecs()
 
 
 # @app.route('/api/<string:column>/value/count',methods = ['GET'])
-# def count(column:str): 
+# def count(column:str):
 #     return Counter(attributes.get_data()[column].values())
