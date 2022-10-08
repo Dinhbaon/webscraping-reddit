@@ -1,10 +1,10 @@
 <script context='module'>
 
-import Filter from './filter.svelte';
-import Filterhisto from './filterhisto.svelte'
-import Filtermajorbreakdown from './filtermajorbreakdown.svelte';
-import Filteraccept from './filteraccept.svelte'
-import Filteraveragescore from './filteraveragescore.svelte'
+import Filter from './1_Filter_Donut_Gender.svelte';
+import Filterhisto from './3_Filter_Histo_Scores.svelte'
+import Filtermajorbreakdown from './2_Filter_Bar_Major.svelte';
+import Filteraccept from './4_Filter_Bar_Acceptrate.svelte'
+import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 
 
 </script>

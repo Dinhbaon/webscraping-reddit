@@ -1,7 +1,7 @@
 <script context='module'>
 import { writable} from "svelte/store";
 
-import Genderbreakdown from './genderbreakdown.svelte'
+import Genderbreakdown from './1_Chart_Donut_Gender.svelte'
 import {unilist, majorlist, eclist} from './list'
 
 </script>

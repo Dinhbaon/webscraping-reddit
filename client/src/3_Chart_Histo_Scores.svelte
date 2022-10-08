@@ -35,13 +35,13 @@ export let ecschecked;
 export let ecselected;
 let ctx
 async function fetchSAT(){ 
-    let satdatajson = await fetch(`http://127.0.0.1:5000/api/SAT`)
+    let satdatajson = await fetch(`https://dinhbaon.pythonanywhere.com/api/SAT`)
     let satdata = await satdatajson.json()
     return satdata
 }
 
 async function fetchACT(){ 
-    let actdatajson = await fetch('http://127.0.0.1:5000/api/ACT')
+    let actdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/ACT')
     let actdata = await actdatajson.json();
     return actdata 
 }
@@ -88,6 +88,7 @@ async function drawHistogram(){
         if (satchecked == true){ 
             scoredata = await fetchSAT() 
             label = steprange($satuservalue[0],$satuservalue[1],10)
+            console.log(scoredata)
             if(acceptchecked == true){ 
                 let acceptdata = await fetchAccept(); 
                 let acceptindex = Object.entries(acceptdata).filter(([, i]) => $acceptselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
@@ -115,11 +116,11 @@ async function drawHistogram(){
                 let ecindex = Object.entries(ecdata).filter(([, i]) => $ecselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
                 Object.keys(scoredata).forEach((key) => ecindex.includes(key) || delete scoredata[key]) 
     }
+            Object.values(scoredata).forEach(function (x) { count[x] = (count[x] || 0) + 1; });
 
         }   
         if (actchecked == true){ 
             scoredata = await fetchACT(); 
-
             label = steprange($actuservalue[0],$actuservalue[1],1)
             if(acceptchecked == true){ 
                 let acceptdata = await fetchAccept(); 
@@ -148,8 +149,16 @@ async function drawHistogram(){
                 let ecindex = Object.entries(ecdata).filter(([, i]) => $ecselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
                 Object.keys(scoredata).forEach((key) => ecindex.includes(key) || delete scoredata[key]) 
     }
-        }
         Object.values(scoredata).forEach(function (x) { count[x] = (count[x] || 0) + 1; });
+        
+        count = Object.fromEntries(
+        Object.entries(count).map(([k, v]) => [k.slice(0,-1), v]))
+
+        }
+
+
+        Object.keys(count).forEach(x =>  x=1)
+        console.log(count)
         let labelzero = label.map(key => ({[key]:0 }))
         filtered = Object.assign({},...labelzero)
         Object.keys(filtered).forEach(key => {
@@ -157,6 +166,7 @@ async function drawHistogram(){
                         filtered[key] = count[key];
                         }
                     });
+        console.log(filtered)
         let scorecount = {}
         Object.values(scoredata).forEach(function (x) { scorecount[x] = (scorecount[x] || 0) + 1; });
         let number = Object.values(scorecount).slice(0,-1).reduce((a,b)=>a+b)
@@ -219,9 +229,10 @@ async function clickHandler(click){
         const index = points[0].index; 
         const label = histogram.data.labels[index];
         let clickfilter = Object.keys(scoredata).filter(function(key) {
-        return scoredata[key] === label;
-
-    });
+        return scoredata[key] == label;
+    })
+    console.log(clickfilter);
+    console.log(label)
     urlfilter = clickfilter.map(x=> {return url[x]})
     console.log(urlfilter)
 

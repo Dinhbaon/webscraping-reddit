@@ -33,13 +33,13 @@ export let genderchecked;
 export let genderselected; 
 
 async function fetchAccept(){
-    let acceptdatajson = await fetch('http://127.0.0.1:5000/api/Acceptances')
+    let acceptdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Acceptances')
     let acceptdata = acceptdatajson.json()
     return acceptdata
 }
 
 async function fetchSAT(){ 
-    let satdatajson = await fetch(`http://127.0.0.1:5000/api/SAT`)
+    let satdatajson = await fetch(`https://dinhbaon.pythonanywhere.com/api/SAT`)
     let satdata = await satdatajson.json()
     return satdata
 }

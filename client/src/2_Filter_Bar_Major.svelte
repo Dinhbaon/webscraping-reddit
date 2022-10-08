@@ -1,5 +1,5 @@
 <script> 
-import Majorbreakdown from './majorbreakdown.svelte'
+import Majorbreakdown from './2_Chart_Bar_Major.svelte'
 import {unilist, majorlist, eclist} from './list'
 import { writable } from 'svelte/store';
 

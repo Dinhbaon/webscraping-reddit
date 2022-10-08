@@ -40,39 +40,39 @@ export let ecselected;
 
 
 async function fetchGender(){ 
-    let countresponse = await fetch('http://127.0.0.1:5000/api/Gender');
+    let countresponse = await fetch('https://dinhbaon.pythonanywhere.com/api/Gender');
     let genderlist = await countresponse.json(); 
     return genderlist
 }
 
 async function fetchSAT(){ 
-    let satdatajson = await fetch('http://127.0.0.1:5000/api/SAT')
+    let satdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/SAT')
     let satdata = await satdatajson.json()
     return satdata
 }
 
 async function fetchACT(){ 
-    let actdatajson = await fetch('http://127.0.0.1:5000/api/ACT')
+    let actdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/ACT')
     let actdata = await actdatajson.json();
     return actdata 
 }
 async function fetchAccept(){ 
-    let acceptdatajson = await fetch('http://127.0.0.1:5000/api/Acceptances')
+    let acceptdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Acceptances')
     let acceptdata  = await acceptdatajson.json(); 
     return acceptdata
 }
 async function fetchReject(){ 
-    let rejectdatajson = await fetch('http://127.0.0.1:5000/api/Rejections')
+    let rejectdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Rejections')
     let rejectdata = await rejectdatajson.json()
     return rejectdata
 }
 async function fetchMajor(){ 
-    let majordatajson = await fetch('http://127.0.0.1:5000/api/Majors')
+    let majordatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Majors')
     let majordata = await  majordatajson.json()
     return majordata
 }
 async function fetchEcs(){ 
-    let ecdatajson = await fetch('http://127.0.0.1:5000/api/Extracurriculars')
+    let ecdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars')
     let ecdata = await ecdatajson.json()
     return ecdata
 }

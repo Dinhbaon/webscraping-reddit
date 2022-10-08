@@ -1,7 +1,7 @@
 <script>
 import { writable } from 'svelte/store';
 import {unilist, majorlist, eclist} from './list'
-import Acceptrate from './acceptrate.svelte'
+import Acceptrate from './4_Chart_Bar_Acceptrate.svelte'
 
 let acceptselected = writable(['Princeton','Harvard'])
 const jq = window.$; 

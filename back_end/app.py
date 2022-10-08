@@ -80,9 +80,8 @@ class attributes(db.Model):
         majors = {}
         for row in major:
             majors[row.id] = []
-            for maj in row.major:
-                majors[maj.Attributeid].append(maj.majorlist)
-        return majors
+            [majors[maj.Attributeid].append(maj.majorlist) for maj in row.major]    
+        return jsonify(majors)
     def get_accept():
         accepts = db.session.query(attributes).filter(Acceptances.Attributeid == attributes.id).all()
         acceptances = {}
@@ -162,7 +161,12 @@ def act():
 
 @app.route('/api/Majors', methods = ['GET'])
 def major():
-    return attributes.get_major()
+        major = db.session.query(attributes).filter(Major.Attributeid == attributes.id).all()
+        majors = {}
+        for row in major:
+            majors[row.id] = []
+            [majors[maj.Attributeid].append(maj.majorlist) for maj in row.major]    
+        return jsonify(majors)
 
 @app.route('/api/Acceptances', methods = ['GET'])
 def accept():

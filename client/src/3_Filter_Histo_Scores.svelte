@@ -1,5 +1,5 @@
 <script> 
-import Histogram from './histogram.svelte'
+import Histogram from './3_Chart_Histo_Scores.svelte'
 import {unilist, majorlist, eclist} from './list'
 import { writable} from "svelte/store";
 let satchecked = true; 
