@@ -222,7 +222,7 @@ histogram = new Chart(ctx, {
 histogram.canvas.onclick = clickHandler
 async function clickHandler(click){ 
     open = true; 
-    let urljson = await fetch('http://127.0.0.1:5000/api/URL')
+    let urljson = await fetch('https://dinhbaon.pythonanywhere.com/api/URL')
     let url = await urljson.json(); 
     const points = histogram.getElementsAtEventForMode(click, 'nearest', {intersect: true}, true)
     if (points[0]){
