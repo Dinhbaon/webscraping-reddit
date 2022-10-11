@@ -77,7 +77,7 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 	}
 	</script>
 <style>
-	/* @font-face {font-family: "RockoFLF"; src: url("//db.onlinewebfonts.com/t/019989000d415bd433b4074af1e753a5.eot");} */
+	@font-face {font-family: "RockoFLF"; src: url("//db.onlinewebfonts.com/t/019989000d415bd433b4074af1e753a5.eot");}
 	.introbar{ 
 		height: 10vh; 
 		background-color: hsl(29, 100%, 60%); 
