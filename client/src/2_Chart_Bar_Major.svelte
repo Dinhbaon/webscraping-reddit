@@ -123,13 +123,14 @@ let number  = Object.values(majorCount).reduce((a,b)=>a+b)
 
 let sortedmajorcount = Object.fromEntries(
     Object.entries(majorCount).sort(([,a],[,b]) => b-a))
+delete sortedmajorcount[""]
 
 myChartMajor = new Chart(ctx, {
     type: 'bar',
     data: { 
         labels: Object.keys(sortedmajorcount),
         datasets: [{
-            label: '# Gender ',
+            label: '# Majors ',
             data: Object.values(sortedmajorcount),
         backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',  

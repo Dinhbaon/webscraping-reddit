@@ -11,7 +11,7 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 
 
 <head> 
-
+<title>Reddit college results</title>
 </head> 
 <body>
 <div class = 'introbar'>
@@ -77,12 +77,12 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 	}
 	</script>
 <style>
-	@font-face {font-family: "RockoFLF"; src: url("//db.onlinewebfonts.com/t/019989000d415bd433b4074af1e753a5.eot");}
+	/* @font-face {font-family: "RockoFLF"; src: url("//db.onlinewebfonts.com/t/019989000d415bd433b4074af1e753a5.eot");} */
 	.introbar{ 
 		height: 10vh; 
 		background-color: hsl(29, 100%, 60%); 
 		font-size: 0.9rem; 
-		font-family: RockoFLF; 
+		font-family: Noto Sans; 
 		width: 100vw; 
 		z-index: 2; 
 		

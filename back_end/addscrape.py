@@ -27,7 +27,7 @@ options.add_argument('--blink-settings=imagesEnabled=false')
 driver  = webdriver.Chrome(service = Service(ChromeDriverManager().install()),options = options)
 
 filteredlinkscsv =  pd.read_csv("./csvfiles/newfilteredlinks.csv")
-filteredlinks = filteredlinkscsv.iloc[:,0].to_list()
+filteredlinks = filteredlinkscsv.iloc[:,1].to_list()
 
 existing_processed_data = pd.read_csv("./csvfiles/processeddata.csv")
 
