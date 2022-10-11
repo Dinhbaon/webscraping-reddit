@@ -82,7 +82,7 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 		height: 10vh; 
 		background-color: hsl(29, 100%, 60%); 
 		font-size: 0.9rem; 
-		font-family: Noto Sans; 
+		font-family: 'RockoFLF', Arial, Helvetica, sans-serif; 
 		width: 100vw; 
 		z-index: 2; 
 		
