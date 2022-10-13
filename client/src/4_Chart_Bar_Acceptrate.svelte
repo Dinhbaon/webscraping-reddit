@@ -170,12 +170,10 @@ async function clickHandler(click){
     if (points[0]){
         const index = points[0].index; 
         const label = myChartAccept.data.labels[index];
-        console.log(label)
         let clickfilter = Object.keys(acceptdata).filter(function(key) {
         return acceptdata[key].includes(label.toLowerCase());
     });
 
-   console.log(clickfilter)
     urlfilter = clickfilter.map(x=> {return url[x]})
 
     }

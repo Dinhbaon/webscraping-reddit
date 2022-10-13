@@ -95,9 +95,7 @@ let total = []
 
             }
         let satdatafiltered = $acceptselected.map(x=>Object.entries(acceptdata).filter(([k,i])=>i.includes(x.toLowerCase()))).map(a=>a.map(b=> satdata[b[0]]).filter( Number ))
-        console.log(satdatafiltered)
         average = satdatafiltered.map((x,i)=>Math.round(x.reduce((a,b)=>parseInt(a)+parseInt(b),0)/(satdatafiltered[i].length)*10)/10)
-        console.log(satdatafiltered.map((x,i)=>x.reduce((a,b)=>a+b,0)))
         let satindex = []
         satindex = Object.entries(satdata).filter(([, i]) => i == "[]" ).map(([k]) => k);
         satindex.forEach(a=>delete acceptdata[a])
@@ -134,7 +132,6 @@ let total = []
     }
 
 
-console.log(average)
 
 
 
@@ -204,12 +201,10 @@ async function clickHandler(click){
     if (points[0]){
         const index = points[0].index; 
         const label = myChartAveragescores.data.labels[index];
-        console.log(label)
         let clickfilter = Object.keys(acceptdata).filter(function(key) {
         return acceptdata[key].includes(label.toLowerCase());
     });
 
-   console.log(clickfilter)
     urlfilter = clickfilter.map(x=> {return url[x]})
 
     }

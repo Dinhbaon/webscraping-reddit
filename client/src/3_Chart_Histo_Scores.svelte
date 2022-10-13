@@ -231,10 +231,7 @@ async function clickHandler(click){
         let clickfilter = Object.keys(scoredata).filter(function(key) {
         return scoredata[key] == label;
     })
-    console.log(clickfilter);
-    console.log(label)
     urlfilter = clickfilter.map(x=> {return url[x]})
-    console.log(urlfilter)
 
     }
 }
