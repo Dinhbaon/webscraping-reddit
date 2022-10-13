@@ -17,7 +17,7 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 <div class = 'introbar'>
 	<img class='collegeresultslogo' src='..\college results logo.png' alt= 'logo of r/collegeresults'/>
 	<h1 style="font-size:2.5rem;">Data from r/collegeresults </h1>	
-	<a href='https://github.com/Dinhbaon/webscraping-reddit' target="_blank"><img class='githublogo' src='..\repologopic.png' alt="github logo"/></a> 
+	<a href='https://github.com/Dinhbaon/webscraping-reddit' target="_blank"><img class='githublogo' src='../repologopic.png' alt="github logo"/></a> 
 	<img id= 'infobutton'class='info' src='..\info button.png' alt='infobutton' on:click={showInfo}/>
 </div> 
 <div id='infoscreen'>
