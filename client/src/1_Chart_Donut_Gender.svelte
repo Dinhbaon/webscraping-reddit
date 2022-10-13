@@ -18,7 +18,6 @@
 
 let urlfilter= [];  
 let open = false; 
-console.log(open);
 import { onMount, afterUpdate } from 'svelte';
 import Chart from 'chart.js/auto';
 import { tick } from 'svelte';

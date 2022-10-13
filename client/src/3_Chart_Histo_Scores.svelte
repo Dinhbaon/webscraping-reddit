@@ -88,7 +88,6 @@ async function drawHistogram(){
         if (satchecked == true){ 
             scoredata = await fetchSAT() 
             label = steprange($satuservalue[0],$satuservalue[1],10)
-            console.log(scoredata)
             if(acceptchecked == true){ 
                 let acceptdata = await fetchAccept(); 
                 let acceptindex = Object.entries(acceptdata).filter(([, i]) => $acceptselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
@@ -125,7 +124,6 @@ async function drawHistogram(){
             if(acceptchecked == true){ 
                 let acceptdata = await fetchAccept(); 
                 let acceptindex = Object.entries(acceptdata).filter(([, i]) => $acceptselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
-                console.log(acceptindex)
                 Object.keys(scoredata).forEach((key) => acceptindex.includes(key) || delete scoredata[key])  
             }
             if(majorchecked == true){ 
@@ -158,7 +156,6 @@ async function drawHistogram(){
 
 
         Object.keys(count).forEach(x =>  x=1)
-        console.log(count)
         let labelzero = label.map(key => ({[key]:0 }))
         filtered = Object.assign({},...labelzero)
         Object.keys(filtered).forEach(key => {
@@ -166,7 +163,6 @@ async function drawHistogram(){
                         filtered[key] = count[key];
                         }
                     });
-        console.log(filtered)
         let scorecount = {}
         Object.values(scoredata).forEach(function (x) { scorecount[x] = (scorecount[x] || 0) + 1; });
         let number = Object.values(scorecount).slice(0,-1).reduce((a,b)=>a+b)
