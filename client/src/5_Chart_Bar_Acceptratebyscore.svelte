@@ -45,22 +45,22 @@ async function fetchSAT(){
 }
 
 async function fetchACT(){ 
-    let actdatajson = await fetch('http://127.0.0.1:5000/api/ACT')
+    let actdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/ACT')
     let actdata = await actdatajson.json();
     return actdata 
 }
 async function fetchMajor(){ 
-    let majordatajson = await fetch('http://127.0.0.1:5000/api/Majors')
+    let majordatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Majors')
     let majordata = await majordatajson.json()
     return majordata
 }
 async function fetchEcs(){ 
-    let ecdatajson = await fetch('http://127.0.0.1:5000/api/Extracurriculars')
+    let ecdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars')
     let ecdata = await ecdatajson.json()
     return ecdata
 }
 async function fetchGender(){ 
-    let genderdatajson = await fetch('http://127.0.0.1:5000/api/Gender')
+    let genderdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Gender')
     let genderdata = await genderdatajson.json()
     return genderdata
 }
