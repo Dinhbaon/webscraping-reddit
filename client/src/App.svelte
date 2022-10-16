@@ -50,11 +50,11 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 <Filtermajorbreakdown/>
 <Filteraccept/>
 <Filteraveragescore/>
-	
-</body>
 <footer>
 	Copyright (c) 2022 Dinhbaon
 </footer>
+</body>
+
 <script>
 
 		
@@ -142,8 +142,8 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 		}
 	}
 	footer{
-		height: 5vh; 
-		font-size: 4vh; 
+		height: 3vh; 
+		font-size: 2vh; 
 		font-family: 'RockoFLF', Arial, Helvetica, sans-serif; 
 		background-color:hsl(29, 100%, 60%); 
 		color: white; 
