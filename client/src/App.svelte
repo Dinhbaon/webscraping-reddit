@@ -147,6 +147,8 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 		font-family: 'RockoFLF', Arial, Helvetica, sans-serif; 
 		background-color:hsl(29, 100%, 60%); 
 		color: white; 
+		transform: translateY(400vh);
+		text-align: left; 
 	}
 
 </style>
