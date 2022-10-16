@@ -35,42 +35,78 @@ export let ecschecked;
 export let ecselected;
 let ctx
 async function fetchSAT(){ 
-    let satdatajson = await fetch(`https://dinhbaon.pythonanywhere.com/api/SAT`)
-    let satdata = await satdatajson.json()
-    return satdata
+    try{ 
+        let satdatajson = await fetch(`https://dinhbaon.pythonanywhere.com/api/SAT`)
+        let satdata = await satdatajson.json()
+        return satdata
+    }
+    catch{ 
+        return await fetchSAT()
+    }
 }
 
 async function fetchACT(){ 
-    let actdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/ACT')
-    let actdata = await actdatajson.json();
-    return actdata 
+    try{
+        let actdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/ACT')
+        let actdata = await actdatajson.json();
+        return actdata 
+    }
+    catch{ 
+        return await fetchACT()
+    }
+
 }
 
 async function fetchAccept() { 
-    let acceptdatajson = await fetch('http://127.0.0.1:5000/api/Acceptances')
-    let acceptdata = await acceptdatajson.json();
-    return acceptdata 
+    try{
+        let acceptdatajson = await fetch('http://127.0.0.1:5000/api/Acceptances')
+        let acceptdata = await acceptdatajson.json();
+        return acceptdata 
+    }
+    catch{ 
+        return await fetchAccept()
+    }
 }
 async function fetchMajor(){ 
-    let majordatajson = await fetch('http://127.0.0.1:5000/api/Majors')
-    let majordata = await majordatajson.json()
-    return majordata
+    try{
+        let majordatajson = await fetch('http://127.0.0.1:5000/api/Majors')
+        let majordata = await majordatajson.json()
+        return majordata
+    }
+    catch{ 
+        return await fetchMajor
+    }
 }
 async function fetchGender(){ 
-    let genderdatajson = await fetch('http://127.0.0.1:5000/api/Gender')
-    let genderdata = await genderdatajson.json()
-    return genderdata
+    try{
+        let genderdatajson = await fetch('http://127.0.0.1:5000/api/Gender')
+        let genderdata = await genderdatajson.json()
+        return genderdata
+    }
+    catch{ 
+        return await fetchGender()
+    }
 }
 async function fetchReject(){ 
-    let rejectdatajson = await fetch('http://127.0.0.1:5000/api/Rejections')
-    let rejectdata = await rejectdatajson.json()
-    return rejectdata
+    try{
+        let rejectdatajson = await fetch('http://127.0.0.1:5000/api/Rejections')
+        let rejectdata = await rejectdatajson.json()
+        return rejectdata
+    }
+    catch{ 
+        return await fetchReject()
+    }
 }
 
 async function fetchEcs(){ 
-    let ecdatajson = await fetch('http://127.0.0.1:5000/api/Extracurriculars')
-    let ecdata = await ecdatajson.json()
-    return ecdata
+    try{
+        let ecdatajson = await fetch('http://127.0.0.1:5000/api/Extracurriculars')
+        let ecdata = await ecdatajson.json()
+        return ecdata
+    }
+    catch{ 
+        return await fetchEcs()
+    }
 }
 function steprange(start, end, step) {
   const len = Math.floor((end - start) / step) + 1

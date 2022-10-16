@@ -39,41 +39,76 @@ export let ecselected;
 
 
 async function fetchGender(){ 
-    let countresponse = await fetch('https://dinhbaon.pythonanywhere.com/api/Gender');
-    let genderlist = await countresponse.json(); 
-    return genderlist
+    try{ 
+        let countresponse = await fetch('https://dinhbaon.pythonanywhere.com/api/Gender');
+        let genderlist = await countresponse.json(); 
+        return genderlist
+    }
+    catch{ 
+        return await fetchGender()
+    }
 }
 
 async function fetchSAT(){ 
-    let satdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/SAT')
-    let satdata = await satdatajson.json()
-    return satdata
+    try{ 
+        let satdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/SAT')
+        let satdata = await satdatajson.json()
+        return satdata
+    }
+    catch{ 
+        return await fetchSAT()
+    }
 }
 
 async function fetchACT(){ 
-    let actdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/ACT')
-    let actdata = await actdatajson.json();
-    return actdata 
+    try{ 
+        let actdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/ACT')
+        let actdata = await actdatajson.json();
+        return actdata 
+    }
+    catch{ 
+        return await fetchACT()
+    }
 }
 async function fetchAccept(){ 
-    let acceptdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Acceptances')
-    let acceptdata  = await acceptdatajson.json(); 
-    return acceptdata
+    try{
+        let acceptdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Acceptances')
+        let acceptdata  = await acceptdatajson.json(); 
+        return acceptdata
+    }
+    catch{ 
+        return await fetchAccept()
+    }
 }
 async function fetchReject(){ 
-    let rejectdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Rejections')
-    let rejectdata = await rejectdatajson.json()
-    return rejectdata
+    try{
+        let rejectdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Rejections')
+        let rejectdata = await rejectdatajson.json()
+        return rejectdata
+    }
+    catch{ 
+        return await fetchReject()
+    }
 }
 async function fetchMajor(){ 
-    let majordatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Majors')
-    let majordata = await  majordatajson.json()
-    return majordata
+    try{ 
+        let majordatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Majors')
+        let majordata = await  majordatajson.json()
+        return majordata
+    }
+    catch{ 
+        return await fetchMajor()
+    }
 }
 async function fetchEcs(){ 
-    let ecdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars')
-    let ecdata = await ecdatajson.json()
-    return ecdata
+    try{ 
+        let ecdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars')
+        let ecdata = await ecdatajson.json()
+        return ecdata
+    }
+    catch{ 
+        return await fetchEcs()
+    }
 }
 
 var myChart

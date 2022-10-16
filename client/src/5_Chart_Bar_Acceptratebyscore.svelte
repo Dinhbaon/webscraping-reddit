@@ -33,36 +33,66 @@ export let genderchecked;
 export let genderselected; 
 
 async function fetchAccept(){
+    try{
     let acceptdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Acceptances')
     let acceptdata = acceptdatajson.json()
     return acceptdata
+    }
+    catch{ 
+        return await fetchAccept()
+    }
 }
 
 async function fetchSAT(){ 
-    let satdatajson = await fetch(`https://dinhbaon.pythonanywhere.com/api/SAT`)
-    let satdata = await satdatajson.json()
-    return satdata
+    try{
+        let satdatajson = await fetch(`https://dinhbaon.pythonanywhere.com/api/SAT`)
+        let satdata = await satdatajson.json()
+        return satdata
+    }
+    catch{ 
+        return await fetchSAT()
+    }
 }
 
-async function fetchACT(){ 
-    let actdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/ACT')
-    let actdata = await actdatajson.json();
-    return actdata 
+async function fetchACT(){
+    try{  
+        let actdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/ACT')
+        let actdata = await actdatajson.json();
+        return actdata 
+    }
+    catch{ 
+        return await fetchACT()
+    }
 }
 async function fetchMajor(){ 
-    let majordatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Majors')
-    let majordata = await majordatajson.json()
-    return majordata
+    try{
+        let majordatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Majors')
+        let majordata = await majordatajson.json()
+        return majordata
+    }
+    catch{ 
+        return await fetchACT()
+    }
 }
 async function fetchEcs(){ 
-    let ecdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars')
-    let ecdata = await ecdatajson.json()
-    return ecdata
+    try{ 
+        let ecdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars')
+        let ecdata = await ecdatajson.json()
+        return ecdata
+    }
+    catch{ 
+        return await fetchEcs()
+    }
 }
 async function fetchGender(){ 
-    let genderdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Gender')
-    let genderdata = await genderdatajson.json()
-    return genderdata
+    try{ 
+        let genderdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Gender')
+        let genderdata = await genderdatajson.json()
+        return genderdata
+    }
+    catch{ 
+        return await fetchGender()
+    }
 }
 
 let ctx 
