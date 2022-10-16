@@ -144,8 +144,8 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 		cursor: pointer;
 	}
 	@media (max-width: 640px) {
-		body {
-			max-width: none;
+		.introbar h1{ 
+			font-size: 1.25rem ; 
 		}
 	}
 	footer{

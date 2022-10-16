@@ -64,7 +64,7 @@ var actfilteron = () => {
 } 
 </script>
 
-<div style="float: left; transform: translateX(20%); position: absolute;  ">
+<div style="float: left; transform: translateX(20%); position: absolute; " class='filter'>
   <h2 style= "font-size: clamp(3re,1.7vmax,2rem)">Filter by: </h2>
 <div style="display: flex; flex-wrap: nowrap ;  justify-content: center;">
 <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width:12vw; "> 
@@ -185,6 +185,9 @@ var actfilteron = () => {
   width: 10vw; 
   margin: 0; 
   padding:0; 
+}
+.filter{ 
+  visibility: hidden; 
 }
 </style>
 
