@@ -110,7 +110,7 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 	}
 	#spreadsheeticon{ 
 		float:right; 
-		height: 5vh;
+		height: 6vh;
 		margin-right:10vw; 
 		margin-top:2vh; 
 		cursor: pointer;  
