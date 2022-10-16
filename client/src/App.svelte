@@ -143,7 +143,7 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 		margin: 1vw; 
 		cursor: pointer;
 	}
-	@media (min-width: 640px) {
+	@media (max-width: 640px) {
 		body {
 			max-width: none;
 		}
