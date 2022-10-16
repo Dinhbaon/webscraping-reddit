@@ -18,7 +18,7 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 	<img class='collegeresultslogo' src='..\college results logo.png' alt= 'logo of r/collegeresults'/>
 	<h1 style="font-size:2.5rem;">Data from r/collegeresults </h1>	
 	<a href='https://github.com/Dinhbaon/webscraping-reddit' target="_blank"><img class='githublogo' src='../repologopic.png' alt="github logo"/></a> 
-	<a href='https://docs.google.com/spreadsheets/d/1QrWRTwukQpX-ILexLM83K5buYmx-pwC91ASgcbrvmGg/edit?usp=sharing' target="_blank"><img id='spreadsheeticon' src='..\spreadsheet.png' alt="spreadsheet link"></a>
+	<a href='https://docs.google.com/spreadsheets/d/1QrWRTwukQpX-ILexLM83K5buYmx-pwC91ASgcbrvmGg/edit?usp=sharing' target="_blank"><img id='spreadsheeticon' src='../spreadsheet.png' alt="spreadsheet link"></a>
 	<img id= 'infobutton'class='info' src='..\info button.png' alt='infobutton' on:click={showInfo}/>
 </div> 
 <div id='infoscreen'>
