@@ -118,7 +118,6 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 	
 	body {
 		text-align: center;
-		max-width: 240px;
 		padding: 0 ;
 		overflow-x:hidden; 
 	}
