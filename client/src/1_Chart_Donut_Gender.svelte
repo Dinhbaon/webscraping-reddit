@@ -183,7 +183,7 @@ myChart = new Chart(ctx, {
     plugins: {datalabels:{
         font: 
              function(ctx) {
-                var width = context.chart.width;
+                var width = ctx.chart.width;
                 var size = Math.round(width / 32);
 
                 return {
