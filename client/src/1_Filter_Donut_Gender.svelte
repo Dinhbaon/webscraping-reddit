@@ -201,8 +201,10 @@ function responsiveFont(){
   margin: 0; 
   padding:0; 
 }
+@media (max-width: 640px){
 .filter{ 
   visibility: hidden; 
+}
 }
 </style>
 
