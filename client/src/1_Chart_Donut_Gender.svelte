@@ -163,8 +163,7 @@ Object.values(genderlist).forEach(function (x) { genderCount[x] = (genderCount[x
 let number  = Object.values(genderCount).reduce((a,b)=>a+b)
 
 
-var width = context.chart.width;
-var size = Math.round(width / 32);
+
 
 myChart = new Chart(ctx, {
     type: 'doughnut',
@@ -183,7 +182,15 @@ myChart = new Chart(ctx, {
     },options: {
     plugins: {datalabels:{
         font: {
-            size: size
+            size: function(context) {
+                var width = context.chart.width;
+                var size = Math.round(width / 32);
+
+                return {
+                    weight: 'bold',
+                    size: size
+                };
+            }
         }
     },title:{
         display: true, 
