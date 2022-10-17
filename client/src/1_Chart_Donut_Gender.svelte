@@ -181,8 +181,8 @@ myChart = new Chart(ctx, {
         }]
     },options: {
     plugins: {datalabels:{
-        font: {
-            size: function(ctx) {
+        font: 
+             function(ctx) {
                 var width = context.chart.width;
                 var size = Math.round(width / 32);
 
@@ -191,7 +191,7 @@ myChart = new Chart(ctx, {
                     size: size
                 };
             }
-        }
+        
     },title:{
         display: true, 
         text: 'Demographics - Gender makeup'

@@ -96,7 +96,7 @@ var actfilteron = () => {
   
   
   
-  <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; ">
+  <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; " class="filter">
     <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;  "> 
   <div>
     <label for='acceptsmajor' style="float:left; font-size: 1.2rem;">Acceptances</label>
@@ -183,4 +183,9 @@ var actfilteron = () => {
     margin: 0; 
     padding:0; 
   }
+  @media (max-width: 640px){
+.filter{ 
+  visibility: hidden; 
+}
+}
   </style>
