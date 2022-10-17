@@ -214,6 +214,6 @@ function responsiveFont(){
 {acceptselected} {acceptchecked} 
 {rejectchecked} {rejectselected}
 {majorchecked} {majorselected}
-{ecschecked} {ecselected} onresize="responseiveFont()"/>
+{ecschecked} {ecselected} />
 </div>
 
