@@ -184,7 +184,7 @@ myChart = new Chart(ctx, {
         font: 
              function(ctx) {
                 var width = ctx.chart.width;
-                var size = Math.round(width / 32);
+                var size = Math.round(width / 20);
 
                 return {
                     weight: 'bold',
