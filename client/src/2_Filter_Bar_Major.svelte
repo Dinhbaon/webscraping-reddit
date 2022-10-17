@@ -57,7 +57,7 @@ var actfilteron = () => {
 
 </script>
 
-<div style="top:20%; position: relative">
+<div style="top:20%; position: relative" class="filter">
 <div style="margins: 10vh, 0; ">
 <div style="float: left; transform: translate(20%,350%); height:10vh;  ">
 
@@ -159,17 +159,17 @@ var actfilteron = () => {
   </div>
   
   
-  </div>
 
-    <Majorbreakdown {satchecked} {satuservalue} 
-                    {actchecked} {actuservalue} 
-                    {acceptchecked} {acceptselected} 
-                    {rejectchecked} {rejectselected} 
-                    {genderchecked} {genderselected}
-                    {ecschecked} {ecselected}/>
-                  </div>
+</div>
 </div>
 
+<Majorbreakdown {satchecked} {satuservalue} 
+                {actchecked} {actuservalue} 
+                {acceptchecked} {acceptselected} 
+                {rejectchecked} {rejectselected} 
+                {genderchecked} {genderselected}
+                {ecschecked} {ecselected}/>
+</div>
 <style> 
   .slider{ 
       display: block;
