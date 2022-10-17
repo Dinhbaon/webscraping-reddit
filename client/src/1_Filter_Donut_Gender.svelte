@@ -63,20 +63,7 @@ var actfilteron = () => {
 });
 } 
 
-function responsiveFont(){ 
-    if(window.outerWidth>999){ 
-        Chart.options.plugins.datalabels.font = 20
-    }
-    if(window.outerWidth<999 && window.outerWidth>750){ 
-        Chart.options.plugins.datalabels.font = 15
-    }
-    if(window.outerwidth<500 && window.outerWidth>250){
-        Chart.options.plugins.datalabels.font = 10
-    }
-    if(window.outerwidth<250 && window.outerWidth>0){
-        Chart.options.plugins.datalabels.font = 5
-    }
-}
+
 </script>
 
 <div style="float: left; transform: translateX(20%); position: absolute; " class='filter'>

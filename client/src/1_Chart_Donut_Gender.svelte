@@ -182,7 +182,15 @@ myChart = new Chart(ctx, {
     },options: {
     plugins: {datalabels:{
         font: {
-            size: 20
+            size: function(ctx) {
+                var width = context.chart.width;
+                var size = Math.round(width / 32);
+
+                return {
+                    weight: 'bold',
+                    size: size
+                };
+            }
         }
     },title:{
         display: true, 
