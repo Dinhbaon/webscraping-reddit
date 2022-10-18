@@ -187,7 +187,6 @@ myChart = new Chart(ctx, {
                 var size = Math.round(width / 20);
 
                 return {
-                    weight: 'bold',
                     size: size
                 };
             }

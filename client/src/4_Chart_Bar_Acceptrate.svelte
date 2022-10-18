@@ -163,9 +163,16 @@ myChartAccept = new Chart(ctx, {
 
         },
         datalabels:{
-            font: {
-                size: 20
+            font: 
+                function(ctx) {
+                var width = ctx.chart.width;
+                var size = Math.round(width / 30);
+
+                return {
+                    size: size
+                };
             }
+            
         },title:{
             display: true, 
             text: 'Acceptance rate by university'

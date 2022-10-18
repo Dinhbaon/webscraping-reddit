@@ -180,7 +180,14 @@ myChartMajor = new Chart(ctx, {
         indexAxis: 'y',
     plugins: {datalabels:{
         font: {
-            size: 20
+            function(ctx) {
+                var width = ctx.chart.width;
+                var size = Math.round(width / 30);
+
+                return {
+                    size: size
+                };
+            }
         }
     },title:{
         display: true, 

@@ -185,8 +185,8 @@ async function drawHistogram(){
     }
         Object.values(scoredata).forEach(function (x) { count[x] = (count[x] || 0) + 1; });
         
-        count = Object.fromEntries(
-        Object.entries(count).map(([k, v]) => [k.slice(0,-1), v]))
+        // count = Object.fromEntries(
+        // Object.entries(count).map(([k, v]) => [k.slice(0,-1), v]))
 
         }
 
