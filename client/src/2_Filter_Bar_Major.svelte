@@ -163,13 +163,14 @@ var actfilteron = () => {
 </div>
 </div>
 
+</div>
+
 <Majorbreakdown {satchecked} {satuservalue} 
                 {actchecked} {actuservalue} 
                 {acceptchecked} {acceptselected} 
                 {rejectchecked} {rejectselected} 
                 {genderchecked} {genderselected}
                 {ecschecked} {ecselected}/>
-</div>
 <style> 
   .slider{ 
       display: block;

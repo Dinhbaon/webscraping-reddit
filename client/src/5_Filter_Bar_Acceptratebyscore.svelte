@@ -36,7 +36,7 @@
                       {ecselected} {genderchecked}
                       {genderselected}/>
         
-            <div style=" position: relative;  left:50%; transform:translateX(-50%); top:40vh; width: 12vw; display: grid; grid-template-columns: auto auto auto; gap: 5vw">
+            <div style=" position: relative;  left:50%; transform:translateX(-50%); top:40vh; width: 12vw; display: grid; grid-template-columns: auto auto auto; gap: 5vw" class="filter">
                 <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw;  ">
                     <div>
                         <label for='accepts' style="float:left; font-size: 1.2rem;">Acceptances</label>
@@ -132,5 +132,10 @@
           width: 10vw; 
           margin: 0; 
           padding:0; 
+        }
+        @media (max-width:640px){
+        .filter{ 
+            visibility: hidden; 
+        }
         }
         </style>

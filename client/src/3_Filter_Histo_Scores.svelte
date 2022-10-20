@@ -80,10 +80,9 @@ var actfilteron = () => {
 </script>
 
     
-<div style="position: relative; top: 200%; ">
-    <div style="position: relative;width: 80vw; height: auto; display: flex; justify-content:center; width: 100%">  
-
-            <div style="display: grid; grid-template: auto auto/ auto auto; position: absolute; right:70%; top:20% ">
+<div style="position: relative; top: 200%;" >
+    <div style="position: relative;width: 80vw; height: auto; display: flex; justify-content:center; width: 100%" >  
+            <div style="display: grid; grid-template: auto auto/ auto auto; position: absolute; right:70%; top:20% "class="filter" >
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 12vw;">
                 <div>
                     <label for='acceptshisto' style="float:left; font-size: 1.2rem;">Acceptances</label>
@@ -162,7 +161,6 @@ var actfilteron = () => {
               
               </div>
         </div>
- 
          
          <Histogram {satchecked} {actchecked} 
                     {satuservalue} {actuservalue}
@@ -170,10 +168,7 @@ var actfilteron = () => {
                     {acceptchecked} {acceptselected}
                     {genderchecked} {genderselected}
                     {rejectchecked} {rejectselected}
-                    {ecschecked} {ecselected}/>
-             
-
-                   
+                    {ecschecked} {ecselected}/>                   
     </div>
     <!-- <h2 style= "font-size: 1.7vmax; margin: 0; position: absolute; left:50%">X-axis: </h2> -->
     <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; float: left; position: relative; transform: translateY(-900%); left: 2vw;">  
@@ -232,4 +227,10 @@ var actfilteron = () => {
       margin: 0; 
       padding:0; 
     }
+    @media (max-width:640px){
+    .filter{ 
+        visibility: hidden; 
+    }
+    }
+
     </style>

@@ -61,7 +61,7 @@ var actfilteron = () => {
 <div style="top: 250%; position: relative; ; display:grid; grid-template-rows: auto auto; grid-template-columns: auto">
     <Acceptrate {acceptselected} {actchecked} {satchecked} {satuservalue} {actuservalue} {majorselected} {majorchecked} {genderchecked} {genderselected}/>
     
-        <div style=" position: relative;  left:50%; transform:translateX(-50%); top:40vh; width: 12vw;">
+        <div style=" position: relative;  left:50%; transform:translateX(-50%); top:40vh; width: 12vw;" class="filter">
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw;  ">
                 <div>
                     <label for='accepts' style="float:left; font-size: 1.2rem;">Acceptances</label>
@@ -174,5 +174,10 @@ var actfilteron = () => {
       width: 10vw; 
       margin: 0; 
       padding:0; 
+    }
+    @media (max-width:640px){
+    .filter{ 
+        visibility: hidden; 
+    }
     }
     </style>
