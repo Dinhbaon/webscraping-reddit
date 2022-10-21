@@ -59,7 +59,7 @@ async function fetchACT(){
 
 async function fetchAccept() { 
     try{
-        let acceptdatajson = await fetch('http://127.0.0.1:5000/api/Acceptances')
+        let acceptdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Acceptances')
         let acceptdata = await acceptdatajson.json();
         return acceptdata 
     }
@@ -69,7 +69,7 @@ async function fetchAccept() {
 }
 async function fetchMajor(){ 
     try{
-        let majordatajson = await fetch('http://127.0.0.1:5000/api/Majors')
+        let majordatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Majors')
         let majordata = await majordatajson.json()
         return majordata
     }
@@ -79,7 +79,7 @@ async function fetchMajor(){
 }
 async function fetchGender(){ 
     try{
-        let genderdatajson = await fetch('http://127.0.0.1:5000/api/Gender')
+        let genderdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Gender')
         let genderdata = await genderdatajson.json()
         return genderdata
     }
@@ -89,7 +89,7 @@ async function fetchGender(){
 }
 async function fetchReject(){ 
     try{
-        let rejectdatajson = await fetch('http://127.0.0.1:5000/api/Rejections')
+        let rejectdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Rejections')
         let rejectdata = await rejectdatajson.json()
         return rejectdata
     }
@@ -100,7 +100,7 @@ async function fetchReject(){
 
 async function fetchEcs(){ 
     try{
-        let ecdatajson = await fetch('http://127.0.0.1:5000/api/Extracurriculars')
+        let ecdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars')
         let ecdata = await ecdatajson.json()
         return ecdata
     }
