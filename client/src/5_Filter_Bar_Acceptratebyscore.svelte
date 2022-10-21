@@ -72,7 +72,7 @@
             
             </div>
               
-            <div style="float: left; position: absolute; display: grid; grid-template-columns: auto auto; left:-300%;">
+            <div style="float: left; position: absolute; display: grid; grid-template-columns: auto auto; left:-300%;" class="filter">
                 
               <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width: 10vw;">
                   <div>

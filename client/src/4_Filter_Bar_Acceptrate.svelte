@@ -78,7 +78,7 @@ var actfilteron = () => {
             </div>
         </div> 
 
-        <div style="float: left;transform: translateX(-65%); position: absolute; display: grid; grid-template-rows: auto auto;">
+        <div style="float: left;transform: translateX(-65%); position: absolute; display: grid; grid-template-rows: auto auto;" class="filter">
             <div style="display: flex; flex-wrap: nowrap ;  justify-content: center;">
             <div style = "display: grid; grid-template-coloumn: auto auto; column-gap: 10vw; width:12vw; "> 
             <div>
