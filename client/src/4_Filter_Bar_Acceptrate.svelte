@@ -59,7 +59,7 @@ var actfilteron = () => {
 </script> 
 
 <div style="top: 250%; position: relative; ; display:grid; grid-template-rows: auto auto; grid-template-columns: auto">
-    <Acceptrate {acceptselected} {actchecked} {satchecked} {satuservalue} {actuservalue} {majorselected} {majorchecked} {genderchecked} {genderselected}/>
+    <Acceptrate {acceptselected} {actchecked} {satchecked} {satuservalue} {actuservalue} {majorselected} {majorchecked} {genderchecked} {genderselected} {ecschecked}{ecselected}/>
     
         <div style=" position: relative;  left:50%; transform:translateX(-50%); top:40vh; width: 12vw;" class="filter">
             <div style="display: grid; grid-template-coloumn: auto auto; column-gap: 10vw;  ">
