@@ -27,6 +27,8 @@ export let majorselected
 export let majorchecked
 export let genderchecked
 export let genderselected
+export let ecschecked
+export let ecselected
 
 async function fetchAccept(){
     try{
@@ -90,6 +92,16 @@ async function fetchGender(){
         return await fetchGender()
     }
 }
+async function fetchEcs(){ 
+    try{ 
+        let ecdatajson = await fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars')
+        let ecdata = await ecdatajson.json()
+        return ecdata
+    }
+    catch{ 
+        return await fetchEcs()
+    }
+}
 
 let ctx 
 let myChartAccept
@@ -127,6 +139,13 @@ let rejectdata = await fetchReject()
         let genderindex = Object.entries(genderdata).filter(([, i]) => $genderselected == i ).map(([k]) => k)
         Object.keys(acceptdata).forEach((key) => genderindex.includes(key) || delete acceptdata[key])  
         Object.keys(rejectdata).forEach((key) => genderindex.includes(key) || delete rejectdata[key]) 
+
+            }
+    if(ecschecked == true){ 
+        let ecdata = await fetchEcs(); 
+        let ecindex = Object.entries(ecdata).filter(([, i]) => $ecselected == i ).map(([k]) => k)
+        Object.keys(acceptdata).forEach((key) => ecindex.includes(key) || delete acceptdata[key])  
+        Object.keys(rejectdata).forEach((key) => ecindex.includes(key) || delete rejectdata[key]) 
 
             }
 
