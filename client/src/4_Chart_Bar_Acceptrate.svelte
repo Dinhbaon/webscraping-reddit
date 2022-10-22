@@ -143,7 +143,7 @@ let rejectdata = await fetchReject()
             }
     if(ecschecked == true){ 
         let ecdata = await fetchEcs(); 
-        let ecindex = Object.entries(ecdata).filter(([, i]) => $ecselected == i ).map(([k]) => k)
+        let ecindex = Object.entries(ecdata).filter(([, i]) => $ecselected.map(x=>x.toLowerCase()).every(r => i.includes(r))).map(([k]) => k)
         Object.keys(acceptdata).forEach((key) => ecindex.includes(key) || delete acceptdata[key])  
         Object.keys(rejectdata).forEach((key) => ecindex.includes(key) || delete rejectdata[key]) 
 

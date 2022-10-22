@@ -64,7 +64,7 @@ for i in range(numofloops):
         SAT = []
         ACT = []
         full_post = []
-        print(gender)
+
 
         try: 
             scrape_rejects = driver.find_elements(By.XPATH,'//div[@class="_3xX726aBn29LDbsDtzr_6E _1Ap4F5maDtT1E1YuCiaO0r D3IL3FD0RFy_mkKLPwL4"]/descendant::p[preceding::*[contains(.,"Waitlist") or contains(.,"Reject") or contains(.,"Rejections") or contains(.,"Denied")]or self::p[contains(.,"Waitlist") or contains(.,"Reject") or contains(.,"Denied")]]')
@@ -89,8 +89,7 @@ for i in range(numofloops):
                 gender.append(driver.find_element(By.XPATH,'//div[@class="_3xX726aBn29LDbsDtzr_6E _1Ap4F5maDtT1E1YuCiaO0r D3IL3FD0RFy_mkKLPwL4"]/descendant::p[contains(.,"emographics")]').text)
             except NoSuchElementException: 
                 gender.append("[]")
-        print(gender)
-            
+                
        
         try: 
             driver.implicitly_wait(1)
@@ -136,11 +135,14 @@ for i in range(numofloops):
         #filter out paragraphs
         rejectsonly.append(list(filter(lambda x : len(x)<200,prorejects)))
         acceptsonly.append(list(filter(lambda x : len(x)<200,proacceptances)))
+        print(acceptsonly)
         if len(acceptsonly[0])>1: 
             for element in range(len(acceptsonly[0])): 
-                if re.match('rejections',acceptsonly[0][element]) or re.match('defer', acceptsonly[0][element]) or re.match('waitlist',acceptsonly[0][element]) or re.match('to be determined',acceptsonly[0][element]) or re.match('waiting',acceptsonly[0][element] or re.match('denied', acceptsonly[0][element])): 
+                print(acceptsonly[0][element])
+                if re.match('rejections',acceptsonly[0][element]) or re.match('defer', acceptsonly[0][element]) or re.match('waitlist',acceptsonly[0][element]) or re.match('to be determined',acceptsonly[0][element]) or re.match('waiting',acceptsonly[0][element]) or re.match('denied', acceptsonly[0][element]): 
                     acceptsonly  =acceptsonly[0][0:element]
                     break
+       
         if len(rejectsonly[0])>1: 
             for element in range(len(rejectsonly[0])): 
                 if re.match('additional info.',rejectsonly[0][element]) or re.match('accept.',rejectsonly[0][element]) or re.match('final thoughts',rejectsonly[0][element]): 
@@ -169,10 +171,10 @@ for i in range(numofloops):
 
 
         #filter unis in post with rejections
-        print(gender[0])
+      
         accepts.append(list(set(prouni[0])-set(rejectlist[0])))
         gender[0] = gender[0].lower().partition("gender") 
-        print(gender[0])
+       
         if not gender[0][2]: 
             gender[0] = gender[0][0].lower().partition("demographics") 
         SAT[0] = SAT[0].partition("SAT")
@@ -210,7 +212,7 @@ for i in range(numofloops):
             final_gender.append('Male')
         else: 
             final_gender.append('Other/LGBTQ+') 
-        print(final_gender)
+       
     
                 
        
@@ -240,5 +242,5 @@ for i in range(numofloops):
         dftotal = dftotal.replace(np.nan,'[]',regex=True)
         appended_data = pd.concat([dftotal,appended_data])
 print(appended_data)
-newdata = pd.DataFrame(np.concatenate([appended_data,existing_processed_data]))
+newdata = pd.DataFrame(np.concatenate([appended_data,existing_processed_data]), index=None)
 newdata.to_csv('./csvfiles/processeddata.csv', header=None)
