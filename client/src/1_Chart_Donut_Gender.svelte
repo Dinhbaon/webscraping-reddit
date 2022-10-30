@@ -248,7 +248,7 @@ afterUpdate(drawGraph)
     visibility: visible 
 
 }
-.myChart{ 
+#myChart{ 
     width: 50vw; 
     height: 50vw;
 }
