@@ -253,8 +253,19 @@ afterUpdate(drawGraphAccept)
         visibility: hidden; 
     }
     .opened{ 
-        visibility: visible 
+        visibility: visible ;
     
+   
+    }
+    #mychartAccept{ 
+        width: 35vw; 
+        height: 50vh;
+    }
+    @media (max-width:640px){ 
+    #mychartAccept{ 
+        width: 90vw; 
+        height: auto;
+    }
     }
     
     

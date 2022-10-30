@@ -1,7 +1,4 @@
-
-
-
-<div style="position: absolute; left: 50%; transform: translate(-50%); width: 35vw; height: 50vh; ">
+<div style="position: absolute; left: 50%; transform: translate(-50%);  ">
     <canvas id="mychartAveragescores" bind:this = {ctx} ></canvas>
 </div>
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open}>
@@ -264,6 +261,17 @@ afterUpdate(drawGraphAveragescore)
     .opened{ 
         visibility: visible 
     
+    }
+    #mychartAveragescores{
+        width: 35vw; 
+        height: 50vh; 
+
+    }
+    @media (max-width: 640px){ 
+        #mychartAveragescores{ 
+            width: 90vw; 
+            height: auto; 
+        }
     }
     
     
