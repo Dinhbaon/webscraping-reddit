@@ -248,6 +248,10 @@ afterUpdate(drawGraph)
     visibility: visible 
 
 }
+.myChart{ 
+    width: 35vw; 
+    height: 35vw;
+}
 	@media (max-width: 640px) {
 		#myChart{
             width: 90vw; 

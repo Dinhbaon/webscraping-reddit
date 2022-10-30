@@ -195,7 +195,7 @@ var actfilteron = () => {
 }
 </style>
 
-<div style="position: absolute; left: 50%; transform: translateX(-50%); width: 35vw; height: 35vw; display:block;">
+<div style="position: absolute; left: 50%; transform: translateX(-50%);  display:block;">
 <Genderbreakdown {satchecked} {satuservalue} 
 {actuservalue} {actchecked} 
 {acceptselected} {acceptchecked} 
