@@ -249,8 +249,8 @@ afterUpdate(drawGraph)
 
 }
 .myChart{ 
-    width: 35vw; 
-    height: 35vw;
+    width: 50vw; 
+    height: 50vw;
 }
 	@media (max-width: 640px) {
 		#myChart{
