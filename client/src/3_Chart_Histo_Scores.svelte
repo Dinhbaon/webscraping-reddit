@@ -1,5 +1,5 @@
 {#if satchecked == true||actchecked == true}
-<div style="justify-content: center;  transform: translateX(-50%); position:absolute; left:50%"> 
+<div style="justify-content: center;  transform: translateX(-50%); position:absolute; left:50%" id="chartcontainer"> 
     <canvas id="histogram" bind:this = {ctx} ></canvas></div>
 {:else}
 <div style="text-align: center; font-size: 3rem;     position: absolute;left: 50%;transform: translateX(-50%);margin: 0;top: 40%;">Please choose an x-axis</div>
@@ -289,12 +289,12 @@ afterUpdate(drawHistogram)
     visibility: visible 
 
 }
-#histogram{
+#chartcontainer{
             width: 40%;
             height:40%; 
         }
 @media (max-width: 640px) {
-		#histogram{
+		#chartcontainer{
             width: 90vw; 
             height:auto; 
         }
