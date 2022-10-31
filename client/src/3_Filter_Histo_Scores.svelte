@@ -178,7 +178,7 @@ var actfilteron = () => {
   </div>
 
         <div>    
-                <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; gap:10vw; position: absolute; left: 50%; transform: translateX(-50%); margin:0; ">
+                <div style="display: flex; flex-wrap: nowrap ;  justify-content: center; gap:10vw; position: absolute; left: 50%; transform: translateX(-50%); margin:0;" class="filter">
                     <div style = "width:12vw; margin:0; transform: translateX(50%); position: relative"> 
                         <div>
                             <label for='SAT' style="float:left; font-size: 1.2rem;">SAT</label>

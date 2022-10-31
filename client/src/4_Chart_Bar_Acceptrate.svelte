@@ -1,4 +1,4 @@
-<div style="position: absolute; left: 50%; transform: translate(-50%); width: 35vw; height: 50vh; overflow-y: auto">
+<div style="position: absolute; left: 50%; transform: translate(-50%); overflow-y: auto" class="chartcontainer">
     <canvas id="mychartAccept" bind:this = {ctx} ></canvas>
 </div>
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open}>
@@ -257,12 +257,12 @@ afterUpdate(drawGraphAccept)
     
    
     }
-    #mychartAccept{ 
+    .chartcontainer{ 
         width: 35vw; 
         height: 50vh;
     }
     @media (max-width:640px){ 
-    #mychartAccept{ 
+    .chartcontainer{ 
         width: 90vw; 
         height: auto;
     }
