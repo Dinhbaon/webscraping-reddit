@@ -142,13 +142,15 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 		margin: 1vw; 
 		cursor: pointer;
 	}
-	.introbar h1{ 
-			font-size: 2.5rem ; 
-		}
+
 	@media (max-width: 640px) {
 		.introbar h1{ 
-			font-size: 1.25rem ; 
+			font-size: 1rem ; 
 		}
+		.githublogo{ 
+			visibility: hidden;
+
+	}
 	}
 	footer{
 		height: 3vh; 
