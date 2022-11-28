@@ -7,6 +7,7 @@
     <canvas id="mychartAveragescores" bind:this = {ctx} ></canvas>
 </div>
 {/await}
+
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open}>
     <ol>
         {#each urlfilter as url}

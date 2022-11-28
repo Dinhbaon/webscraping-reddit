@@ -7,6 +7,8 @@
    <canvas id = 'myChart'  bind:this={ctx}/>
    {/await}
 
+   
+
     <div id="firsturlsidebar"class="urlsidebar " class:opened={open}>
     <ol>
         {#each urlfilter as url}

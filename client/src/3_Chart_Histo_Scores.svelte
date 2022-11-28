@@ -11,6 +11,7 @@
 {/if}
 {/await}
 
+
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open} transition:fade>
     <ol>
         {#each urlfilter as url}
