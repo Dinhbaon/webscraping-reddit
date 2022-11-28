@@ -1,8 +1,13 @@
 
+   {#await fetchGender()}
+   <div style="margin: auto;transform: translateY(100%)" >
+    <img src="loadingwheel.gif" alt=loadingwheel style="height: 20vh;">
+</div>
+   {:then}
+   <canvas id = 'myChart'  bind:this={ctx}/>
+   {/await}
 
-    <canvas id = 'myChart'  bind:this={ctx}/>
-
-    <div id="firsturlsidebar"class="urlsidebar " class:opened={open} transition:fade>
+    <div id="firsturlsidebar"class="urlsidebar " class:opened={open}>
     <ol>
         {#each urlfilter as url}
        <li> <a style="font-size: 2vmin "target="_blank" href="{url}">
@@ -203,7 +208,9 @@ myChart = new Chart(ctx, {
     , plugins: [ChartDataLabels]} 
     
 );
+if(myChart){ 
 myChart.canvas.onclick = clickHandler
+
 async function clickHandler(click){ 
 
     open = true; 
@@ -221,6 +228,7 @@ async function clickHandler(click){
 
     }
 }
+}
 
 }
 
@@ -237,11 +245,10 @@ afterUpdate(drawGraph)
     float: right; 
     width: 20vw; 
     overflow-y: auto; 
-    position: relative; 
-    height: 100%; 
+    position: relative;  
+    height: 70vh;
     left: 91%;
     transform: translateY(-100%); 
-    transition: 2s; 
     visibility: hidden; 
 }
 .opened{ 

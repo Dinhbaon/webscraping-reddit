@@ -1,6 +1,12 @@
+{#await fetchAccept()}
+<div style="margin: auto;transform: translate(-10%,0%);" >
+    <img src="loadingwheel.gif" alt=loadingwheel style="height: 20vh;">
+</div>
+{:then}
 <div style="position: absolute; left: 50%; transform: translate(-50%);  ">
     <canvas id="mychartAveragescores" bind:this = {ctx} ></canvas>
 </div>
+{/await}
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open}>
     <ol>
         {#each urlfilter as url}

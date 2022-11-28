@@ -1,8 +1,14 @@
+{#await fetchMajor()}
+<div style="margin: auto;transform: translate(-10%,300%);" >
+    <img src="loadingwheel.gif" alt=loadingwheel style="height: 20vh;">
+</div>
+{:then}
 <div style="position: absolute; left: 50%; transform: translate(-50%,50%); width: 35vw; height: 70vh;  overflow-y: auto">
 <div style="position: absolute; left: 50%; transform: translateX(-50%); width: 35vw; height: 1000vh; overflow-y: auto">
     <canvas id = 'myChartMajor' style="width: 100%; height: 100%"    bind:this={ctx}/>
 </div>
 </div> 
+{/await}
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open}>
     <ol>
         {#each urlfilter as url}

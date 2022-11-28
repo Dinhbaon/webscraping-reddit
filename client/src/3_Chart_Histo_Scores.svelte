@@ -1,9 +1,16 @@
+{#await fetchSAT()}
+<div style="margin: auto;transform: translate(100%,0%);" >
+    <img src="loadingwheel.gif" alt=loadingwheel style="height: 20vh;">
+</div>
+{:then}
 {#if satchecked == true||actchecked == true}
 <div style="justify-content: center;  transform: translateX(-50%); position:absolute; left:50%" id="chartcontainer"> 
     <canvas id="histogram" bind:this = {ctx} ></canvas></div>
 {:else}
 <div style="text-align: center; font-size: 3rem;     position: absolute;left: 50%;transform: translateX(-50%);margin: 0;top: 40%;">Please choose an x-axis</div>
 {/if}
+{/await}
+
 <div id="firsturlsidebar"class="urlsidebar " class:opened={open} transition:fade>
     <ol>
         {#each urlfilter as url}
