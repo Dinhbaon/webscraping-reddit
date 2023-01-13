@@ -35,7 +35,9 @@ existing_processed_data = pd.read_csv("./csvfiles/processeddata.csv")
 numofloops = len(filteredlinks)
 appended_data = pd.DataFrame([])
 for i in range(numofloops): 
-
+    if(filteredlinks[i]):
+        print(filteredlinks[i])
+        print(i)
         driver.get(filteredlinks[i])
         # https://www.reddit.com/r/collegeresults/comments/tvk76r/a_roller_coaster_ride_with_a_happy_outcome/
         url = [] 
@@ -241,6 +243,11 @@ for i in range(numofloops):
         dftotal = dftotal.dropna(thresh=6 )
         dftotal = dftotal.replace(np.nan,'[]',regex=True)
         appended_data = pd.concat([dftotal,appended_data])
+    else: 
+        continue
+        
 print(appended_data)
-newdata = pd.DataFrame(np.concatenate([appended_data,existing_processed_data]), index=None)
+print(existing_processed_data)
+existing_processed_data = existing_processed_data.iloc[:, 1: ]
+newdata = pd.DataFrame(np.concatenate([appended_data,existing_processed_data]))
 newdata.to_csv('./csvfiles/processeddata.csv', header=None)

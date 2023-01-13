@@ -26,13 +26,13 @@ print(after_date)
 df = pd.DataFrame(columns=['links','time'])
 addlinks = [] 
 
-with urllib.request.urlopen(f"https://api.pushshift.io/reddit/search/submission/?subreddit=collegeresults&size=500&before={before_date[0]}&after={after_date[0]}&sort=desc") as url:
+with urllib.request.urlopen(f"https://api.pushshift.io/reddit/search/submission/?subreddit=collegeresults&size=500&before={before_date[0]}&after={after_date[0]}") as url:
         jsonfile = json.loads(url.read())  
         after_date = jsonfile['data'][0]['created_utc']
         links = [] 
         times = []
         for i in range(len(jsonfile['data'])):
-            links.append(jsonfile['data'][i]['full_link']) 
+            links.append(jsonfile['data'][i]['url']) 
             times.append(jsonfile['data'][i]['created_utc'])
 df['links'] = pd.Series(links)
 df['time'] = pd.Series(times)
@@ -47,11 +47,14 @@ pd.DataFrame([after_date]).to_csv('./csvfiles/afterdate.csv')
 
 deadlinks= []
 for i in range(len(df['links'])): 
-    driver.get(df['links'][i])
-    try: 
-        driver.find_element(By.XPATH,"//div[contains(text(),'Sorry, this post was deleted by') or contains(text(),'Moderators remove posts from feeds for a variety of reasons') or contains(text(),'automated bots frequently filter posts') or contains(text(),'[deleted]')]")
-        deadlinks.append(df['links'][i])
-    except NoSuchElementException: 
+    if(df['links'][i]):
+        try: 
+            driver.get(df['links'][i])
+            driver.find_element(By.XPATH,"//div[contains(text(),'Sorry, this post was deleted by') or contains(text(),'Moderators remove posts from feeds for a variety of reasons') or contains(text(),'automated bots frequently filter posts') or contains(text(),'[deleted]')]")
+            deadlinks.append(df['links'][i])
+        except NoSuchElementException: 
+            continue
+    else:
         continue
 filteredlinks = pd.DataFrame([x for x in df['links'] if x not in deadlinks])
 filteredlinks.to_csv('./csvfiles/newfilteredlinks.csv')
