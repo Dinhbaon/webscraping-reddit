@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import InvalidArgumentException
 import time 
 
 
@@ -49,10 +50,13 @@ deadlinks= []
 for i in range(len(df['links'])): 
     if(df['links'][i]):
         try: 
+            print(f"'LINK ==== {df['links'][i]}")
             driver.get(df['links'][i])
             driver.find_element(By.XPATH,"//div[contains(text(),'Sorry, this post was deleted by') or contains(text(),'Moderators remove posts from feeds for a variety of reasons') or contains(text(),'automated bots frequently filter posts') or contains(text(),'[deleted]')]")
             deadlinks.append(df['links'][i])
         except NoSuchElementException: 
+            continue
+        except InvalidArgumentException:
             continue
     else:
         continue
