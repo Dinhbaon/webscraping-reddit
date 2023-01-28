@@ -1,30 +1,40 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Table, Column, Integer,VARCHAR, String, MetaData, Text
-from ast import literal_eval
+from sqlalchemy import Table, Column, Integer,VARCHAR, String, MetaData, Text, func, subquery
 import os
-import pandas as pd
 import sshtunnel
-from collections import Counter
+from flask_marshmallow import Marshmallow
+from flask_caching import Cache
+config={'CACHE_TYPE': 'SimpleCache'}
+
 
 
 
 app = Flask(__name__)
-tunnel = sshtunnel.SSHTunnelForwarder(
-    ('ssh.pythonanywhere.com'), ssh_username='Dinhbaon', ssh_password = 'Kimthanh142?',
-    remote_bind_address=('Dinhbaon.mysql.pythonanywhere-services.com', 3306)
-    )
-tunnel.start()
+
+if __name__ == '__main__':
+    tunnel = sshtunnel.SSHTunnelForwarder(
+        ('ssh.pythonanywhere.com'), ssh_username='Dinhbaon', ssh_password = 'Kimthanh142?',
+        remote_bind_address=('Dinhbaon.mysql.pythonanywhere-services.com', 3306)
+        )
+    tunnel.start()
 
 
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@127.0.0.1:{}/Dinhbaon$applicant'.format(tunnel.local_bind_port)
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@Dinhbaon.mysql.pythonanywhere-services.com/Dinhbaon$applicant'
+#mysql+pymysql://root:Kimthanh142@127.0.0.1:{}/applicants'.format
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@127.0.0.1:{}/Dinhbaon$applicant'.format(tunnel.local_bind_port)
-#
-#mysql+pymysql://root:Kimthanh142@127.0.0.1:{}/applicants'.format(tunnel.local_bind_port)
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
 cors = CORS(app)
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
+
+app.config.from_mapping(config)
+
+cache = Cache(app)
 
 
 class attributes(db.Model):
@@ -34,11 +44,11 @@ class attributes(db.Model):
     Gender = Column(String(20))
     SAT =Column(String(10))
     ACT = Column(String(10))
-    major =db.relationship('Major',backref = 'attributes')
-    ecs = db.relationship('Ecs', backref = 'attributes')
-    Race = db.relationship('Race',backref = 'attributes')
-    Acceptances = db.relationship('Acceptances', backref = 'attributes')
-    Rejections = db.relationship('Rejections', backref = 'attributes')
+    major =db.relationship('Major',backref = 'attributes', lazy="joined")
+    ecs = db.relationship('Ecs', backref = 'attributes', lazy="joined")
+    Race = db.relationship('Race',backref = 'attributes', lazy="joined")
+    Acceptances = db.relationship('Acceptances', backref = 'attributes', lazy="joined")
+    Rejections = db.relationship('Rejections', backref = 'attributes', lazy="joined")
     def get_gender():
 
         # races = db.session.query(attributes).filter(Race.Attributeid==attributes.id).all()
@@ -75,66 +85,66 @@ class attributes(db.Model):
         for row in datalinks:
             links[row.id] = row.URL
         return links
-    def get_major():
-        major = db.session.query(attributes).filter(Major.Attributeid == attributes.id).all()
-        majors = {}
-        for row in major:
-            majors[row.id] = []
-            [majors[maj.Attributeid].append(maj.majorlist) for maj in row.major]    
-        return jsonify(majors)
-    def get_accept():
-        accepts = db.session.query(attributes).filter(Acceptances.Attributeid == attributes.id).all()
-        acceptances = {}
-        for row in accepts:
-            acceptances[row.id] =[]
-            for accept in row.Acceptances:
-                acceptances[accept.Attributeid].append(accept.acceptlist)
-        return acceptances
-    def get_reject():
-        rejects = db.session.query(attributes).filter(Rejections.Attributeid == attributes.id).all()
-        rejections = {}
-        for row in rejects:
-            rejections[row.id] = []
-            for reject in row.Rejections:
-                rejections[reject.Attributeid].append(reject.rejectlist)
-        return rejections
-    def get_ecs():
-        ec = db.session.query(attributes).filter(Ecs.Attributeid == attributes.id).all()
-        extracurriculars = {}
-        for row in ec:
-            extracurriculars[row.id]  = []
-            for extrac in row.ecs:
-                extracurriculars[extrac.Attributeid].append(extrac.listofecs)
-        return extracurriculars
+    # def get_major():
+    #     major = db.session.query(attributes).filter(Major.Attributeid == attributes.id).all()
+    #     majors = {}
+    #     for row in major:
+    #         majors[row.id] = []
+    #         for maj in row.major:
+    #             majors[maj.Attributeid].append(maj.majorlist)
+    #     return majors
+    # def get_accept():
+    #     accepts = db.session.query(attributes).filter(Acceptances.Attributeid == attributes.id).all()
+    #     acceptances = {}
+    #     for row in accepts:
+    #         acceptances[row.id] =[]
+    #         for accept in row.Acceptances:
+    #             acceptances[accept.Attributeid].append(accept.acceptlist)
+    #     return acceptances
+    # def get_reject():
+    #     rejects = db.session.query(attributes).filter(Rejections.Attributeid == attributes.id).all()
+    #     rejections = {}
+    #     for row in rejects:
+    #         rejections[row.id] = []
+    #         for reject in row.Rejections:
+    #             rejections[reject.Attributeid].append(reject.rejectlist)
+    #     return rejections
+    # def get_ecs():
+    #     ec = db.session.query(attributes).filter(Ecs.Attributeid == attributes.id).all()
+    #     extracurriculars = {}
+    #     for row in ec:
+    #         extracurriculars[row.id]  = []
+    #         for extrac in row.ecs:
+    #             extracurriculars[extrac.Attributeid].append(extrac.listofecs)
+    #     return extracurriculars
 
 class Ecs(db.Model):
     id = Column(Integer, primary_key = True)
-    listofecs = Column(Text)
+    listofecs = Column(String(20))
     Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
     def __repr__(self):
         return f'<Ecs "{self.title}">'
-
 class Major(db.Model):
+
     id = Column(Integer, primary_key = True)
-    majorlist = Column(Text)
+    majorlist = Column(String(20))
     Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
-    def __repr__(self):
-        return f'<major "{self.title}">'
+
 class Race(db.Model):
     id = Column(Integer, primary_key = True)
-    racelist = Column(Text)
+    racelist = Column(String(20))
     Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
     def __repr__(self):
         return f'<race "{self.title}">'
 class Acceptances(db.Model):
     id = Column(Integer, primary_key = True)
-    acceptlist = Column(Text)
+    acceptlist = Column(String(20))
     Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
     def __repr__(self):
         return f'<acceptances "{self.title}">'
 class Rejections(db.Model):
     id = Column(Integer, primary_key = True)
-    rejectlist = Column(Text)
+    rejectlist = Column(String(20))
     Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
     def __repr__(self):
         return f'<rejections "{self.title}">'
@@ -160,25 +170,83 @@ def act():
     return attributes.get_ACT()
 
 @app.route('/api/Majors', methods = ['GET'])
+@cache.cached(timeout=600)
 def major():
-        major = db.session.query(attributes).filter(Major.Attributeid == attributes.id).all()
-        majors = {}
-        for row in major:
-            majors[row.id] = []
-            [majors[maj.Attributeid].append(maj.majorlist) for maj in row.major]    
-        return jsonify(majors)
+    distinct_parent_ids = db.session.query(Major.Attributeid).distinct().subquery()
 
+    # get the majorlist values and group by parent_id
+    result = db.session.query(
+    Major.Attributeid,
+    func.group_concat(Major.majorlist).label("majorlist")
+    ).filter(
+    Major.Attributeid.in_(distinct_parent_ids)
+    ).group_by(
+    Major.Attributeid
+    )
+
+    # convert the result to a dictionary
+    result_dict = {row.Attributeid: row.majorlist.split(',') if row.majorlist else [] for row in result}
+
+    return(result_dict)
 @app.route('/api/Acceptances', methods = ['GET'])
+@cache.cached(timeout=600)
 def accept():
-    return attributes.get_accept()
+    distinct_parent_ids = db.session.query(Acceptances.Attributeid).distinct().subquery()
+
+    # get the majorlist values and group by parent_id
+    result = db.session.query(
+    Acceptances.Attributeid,
+    func.group_concat(Acceptances.acceptlist).label("acceptlist")
+    ).filter(
+    Acceptances.Attributeid.in_(distinct_parent_ids)
+    ).group_by(
+    Acceptances.Attributeid
+    )
+
+    # convert the result to a dictionary
+    result_dict = {row.Attributeid: row.acceptlist.split(',') if row.acceptlist else [] for row in result}
+
+    return(result_dict)
+
 
 @app.route('/api/Rejections', methods = ['GET'])
+@cache.cached(timeout=600)
 def reject():
-    return attributes.get_reject()
+    distinct_parent_ids = db.session.query(Rejections.Attributeid).distinct().subquery()
+    # get the majorlist values and group by parent_id
+    result = db.session.query(
+    Rejections.Attributeid,
+    func.group_concat(Rejections.rejectlist).label("rejectlist")
+    ).filter(
+    Rejections.Attributeid.in_(distinct_parent_ids)
+    ).group_by(
+    Rejections.Attributeid
+    )
+
+    # convert the result to a dictionary
+    result_dict = {row.Attributeid: row.rejectlist.split(',') if row.rejectlist else [] for row in result}
+
+    return(result_dict)
 
 @app.route('/api/Extracurriculars', methods = ['GET'])
+@cache.cached(timeout=600)
 def ecs():
-    return attributes.get_ecs()
+    distinct_parent_ids = db.session.query(Ecs.Attributeid).distinct().subquery()
+
+    # get the majorlist values and group by parent_id
+    result = db.session.query(
+    Ecs.Attributeid,
+    func.group_concat(Ecs.listofecs).label("listofecs")
+    ).filter(
+    Ecs.Attributeid.in_(distinct_parent_ids)
+    ).group_by(
+    Ecs.Attributeid
+    )
+
+    # convert the result to a dictionary
+    result_dict = {row.Attributeid: row.listofecs.split(',') if row.listofecs else [] for row in result}
+
+    return(result_dict)
 
 
 # @app.route('/api/<string:column>/value/count',methods = ['GET'])
