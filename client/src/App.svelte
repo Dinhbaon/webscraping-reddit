@@ -148,8 +148,7 @@ import Filteraveragescore from './5_Filter_Bar_Acceptratebyscore.svelte'
 			font-size: 1rem ; 
 		}
 		.githublogo{ 
-			visibility: hidden;
-
+			display: none
 	}
 	}
 	footer{
