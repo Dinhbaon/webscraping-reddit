@@ -13,16 +13,6 @@ config={'CACHE_TYPE': 'SimpleCache'}
 
 app = Flask(__name__)
 
-tunnel = sshtunnel.SSHTunnelForwarder(
-        ('ssh.pythonanywhere.com'), ssh_username='Dinhbaon', ssh_password = 'Kimthanh142?',
-        remote_bind_address=('Dinhbaon.mysql.pythonanywhere-services.com', 3306)
-        )
-tunnel.start()
-
-
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@127.0.0.1:{}/Dinhbaon$applicant'.format(tunnel.local_bind_port)
-#mysql+pymysql://root:Kimthanh142@127.0.0.1:{}/applicants'.format
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
 cors = CORS(app)
