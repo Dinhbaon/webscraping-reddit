@@ -13,18 +13,15 @@ config={'CACHE_TYPE': 'SimpleCache'}
 
 app = Flask(__name__)
 
-if __name__ == '__main__':
-    tunnel = sshtunnel.SSHTunnelForwarder(
+tunnel = sshtunnel.SSHTunnelForwarder(
         ('ssh.pythonanywhere.com'), ssh_username='Dinhbaon', ssh_password = 'Kimthanh142?',
         remote_bind_address=('Dinhbaon.mysql.pythonanywhere-services.com', 3306)
         )
-    tunnel.start()
+tunnel.start()
 
 
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@127.0.0.1:{}/Dinhbaon$applicant'.format(tunnel.local_bind_port)
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@Dinhbaon.mysql.pythonanywhere-services.com/Dinhbaon$applicant'
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@127.0.0.1:{}/Dinhbaon$applicant'.format(tunnel.local_bind_port)
 #mysql+pymysql://root:Kimthanh142@127.0.0.1:{}/applicants'.format
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
@@ -138,13 +135,13 @@ class Race(db.Model):
         return f'<race "{self.title}">'
 class Acceptances(db.Model):
     id = Column(Integer, primary_key = True)
-    acceptlist = Column(String(20))
+    acceptlist = Column(String(50))
     Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
     def __repr__(self):
         return f'<acceptances "{self.title}">'
 class Rejections(db.Model):
     id = Column(Integer, primary_key = True)
-    rejectlist = Column(String(20))
+    rejectlist = Column(String(50))
     Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
     def __repr__(self):
         return f'<rejections "{self.title}">'
