@@ -1,13 +1,11 @@
-import pandas as pd 
+import pandas as pd
 
-newdata = pd.read_csv('../csvfiles/newprocesseddata.csv', header = None, index_col=False)
+olddata = pd.read_csv("back_end/csvfiles/processeddata.csv", header= None, index_col=False)
 
-olddata = pd.read_csv('../csvfiles/processeddata.csv', header = None, index_col=False)
+newdata = pd.read_csv("back_end/csvfiles/newprocesseddata.csv", header = None, index_col=False)
 
-concatdata = newdata.append(olddata)
+combined_data = newdata.append(olddata)
 
+print(combined_data)
 
-newdata.to_csv('../csvfiles/processeddata.csv', header=None)
-
-
-
+combined_data.to_csv("back_end/csvfiles/processeddata.csv", header = None, index = False)

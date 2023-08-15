@@ -36,11 +36,11 @@ cache = Cache(app)
 
 class attributes(db.Model):
     __tablename__ = 'attributes'
-    id = Column(Integer, primary_key=True)
     URL = Column(Text)
     Gender = Column(String(20))
     SAT =Column(String(10))
     ACT = Column(String(10))
+    timestamp = Column(Integer, primary_key = True)
     major =db.relationship('Major',backref = 'attributes', lazy="joined")
     ecs = db.relationship('Ecs', backref = 'attributes', lazy="joined")
     Race = db.relationship('Race',backref = 'attributes', lazy="joined")
@@ -50,7 +50,7 @@ class attributes(db.Model):
 
         # races = db.session.query(attributes).filter(Race.Attributeid==attributes.id).all()
 
-        data = db.session.query(attributes.Gender, attributes.id).all()
+        data = db.session.query(attributes.Gender, attributes.timestamp).all()
         # extracurriculars = {}
         # race = {}
 
@@ -66,19 +66,19 @@ class attributes(db.Model):
         return gender
     def get_SAT():
         sat = {}
-        datasat = db.session.query(attributes.SAT,attributes.id).all()
+        datasat = db.session.query(attributes.SAT,attributes.timestamp).all()
         for row in datasat:
             sat[row.id] = row.SAT
         return sat
     def get_ACT():
-        dataact = db.session.query(attributes.ACT,attributes.id).all()
+        dataact = db.session.query(attributes.ACT,attributes.timestamp).all()
         act={}
         for row in dataact:
             act[row.id] = row.ACT
         return act
     def get_links():
         links = {}
-        datalinks = db.session.query(attributes.URL,attributes.id).all()
+        datalinks = db.session.query(attributes.URL,attributes.timestamp).all()
         for row in datalinks:
             links[row.id] = row.URL
         return links
@@ -118,31 +118,31 @@ class attributes(db.Model):
 class Ecs(db.Model):
     id = Column(Integer, primary_key = True)
     listofecs = Column(String(20))
-    Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
+    Attributeid = Column(Integer, db.ForeignKey('attributes.timestamp'))
     def __repr__(self):
         return f'<Ecs "{self.title}">'
 class Major(db.Model):
 
     id = Column(Integer, primary_key = True)
     majorlist = Column(String(20))
-    Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
+    Attributeid = Column(Integer, db.ForeignKey('attributes.timestamp'))
 
 class Race(db.Model):
     id = Column(Integer, primary_key = True)
     racelist = Column(String(20))
-    Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
+    Attributeid = Column(Integer, db.ForeignKey('attributes.timestamp'))
     def __repr__(self):
         return f'<race "{self.title}">'
 class Acceptances(db.Model):
     id = Column(Integer, primary_key = True)
     acceptlist = Column(String(50))
-    Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
+    Attributeid = Column(Integer, db.ForeignKey('attributes.timestamp'))
     def __repr__(self):
         return f'<acceptances "{self.title}">'
 class Rejections(db.Model):
     id = Column(Integer, primary_key = True)
     rejectlist = Column(String(50))
-    Attributeid = Column(Integer, db.ForeignKey('attributes.id'))
+    Attributeid = Column(Integer, db.ForeignKey('attributes.timestamp'))
     def __repr__(self):
         return f'<rejections "{self.title}">'
 
