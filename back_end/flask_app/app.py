@@ -56,7 +56,7 @@ class attributes(db.Model):
 
         gender = {}
         for row in data:
-            gender[row.id] = row.Gender
+            gender[row.timestamp] = row.Gender
         # for row in races:
         #     race[row.id] = []
         #     for r in row.Race:
@@ -68,19 +68,19 @@ class attributes(db.Model):
         sat = {}
         datasat = db.session.query(attributes.SAT,attributes.timestamp).all()
         for row in datasat:
-            sat[row.id] = row.SAT
+            sat[row.timestamp] = row.SAT
         return sat
     def get_ACT():
         dataact = db.session.query(attributes.ACT,attributes.timestamp).all()
         act={}
         for row in dataact:
-            act[row.id] = row.ACT
+            act[row.timestamp] = row.ACT
         return act
     def get_links():
         links = {}
         datalinks = db.session.query(attributes.URL,attributes.timestamp).all()
         for row in datalinks:
-            links[row.id] = row.URL
+            links[row.timestamp] = row.URL
         return links
     # def get_major():
     #     major = db.session.query(attributes).filter(Major.Attributeid == attributes.id).all()
