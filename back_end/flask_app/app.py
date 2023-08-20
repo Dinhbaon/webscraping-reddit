@@ -1,9 +1,9 @@
+import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Table, Column, Integer,VARCHAR, String, MetaData, Text, func, subquery
+from sqlalchemy import Table, Column, Integer, String,Text, func, desc, asc
 import os
-import sshtunnel
 from flask_marshmallow import Marshmallow
 from flask_caching import Cache
 config={'CACHE_TYPE': 'SimpleCache'}
@@ -13,15 +13,8 @@ config={'CACHE_TYPE': 'SimpleCache'}
 
 app = Flask(__name__)
 
-tunnel = sshtunnel.SSHTunnelForwarder(
-        ('ssh.pythonanywhere.com'), ssh_username='Dinhbaon', ssh_password = 'Kimthanh142?',
-        remote_bind_address=('Dinhbaon.mysql.pythonanywhere-services.com', 3306)
-        )
-tunnel.start()
-
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@127.0.0.1:{}/Dinhbaon$applicant'.format(tunnel.local_bind_port)
 #mysql+pymysql://root:Kimthanh142@127.0.0.1:{}/applicants'.format
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
@@ -40,7 +33,7 @@ class attributes(db.Model):
     Gender = Column(String(20))
     SAT =Column(String(10))
     ACT = Column(String(10))
-    timestamp = Column(Integer, primary_key = True)
+    timestamp = Column(Integer, primary_key = True, index = True)
     major =db.relationship('Major',backref = 'attributes', lazy="joined")
     ecs = db.relationship('Ecs', backref = 'attributes', lazy="joined")
     Race = db.relationship('Race',backref = 'attributes', lazy="joined")
@@ -48,20 +41,12 @@ class attributes(db.Model):
     Rejections = db.relationship('Rejections', backref = 'attributes', lazy="joined")
     def get_gender():
 
-        # races = db.session.query(attributes).filter(Race.Attributeid==attributes.id).all()
-
         data = db.session.query(attributes.Gender, attributes.timestamp).all()
-        # extracurriculars = {}
-        # race = {}
-
+        timestamps = db.session.query(attributes.timestamp).order_by(attributes.timestamp.desc()).all()
+        print(timestamps)
         gender = {}
         for row in data:
             gender[row.timestamp] = row.Gender
-        # for row in races:
-        #     race[row.id] = []
-        #     for r in row.Race:
-        #         race[r.Attributeid].append(r.racelist)
-
 
         return gender
     def get_SAT():
@@ -152,7 +137,7 @@ class Rejections(db.Model):
 
 @app.route('/api/Gender', methods = ['GET'])
 def gender():
-    return attributes.get_gender()
+    return json.dumps(attributes.get_gender())
 
 @app.route('/api/URL', methods = ['GET'])
 def url():

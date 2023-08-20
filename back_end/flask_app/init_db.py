@@ -1,5 +1,14 @@
 import pandas as pd
-from app import attributes, Major, Ecs, Race, Acceptances,Rejections, db 
+from app import attributes, Major, Ecs, Race, Acceptances,Rejections, db, app
+import sshtunnel
+tunnel = sshtunnel.SSHTunnelForwarder(
+        ('ssh.pythonanywhere.com'), ssh_username='Dinhbaon', ssh_password = 'Kimthanh142?',
+        remote_bind_address=('Dinhbaon.mysql.pythonanywhere-services.com', 3306)
+        )
+tunnel.start()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@127.0.0.1:{}/Dinhbaon$applicant'.format(tunnel.local_bind_port)
+
 
 df = pd.read_csv('back_end/csvfiles/processeddata.csv', index_col=False)
 
