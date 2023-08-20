@@ -272,7 +272,7 @@ async function clickHandler(click){
         let clickfilter = Object.keys(scoredata).filter(function(key) {
         return scoredata[key] == label;
     })
-    urlfilter = clickfilter.map(x=> {return url[x]})
+    urlfilter = clickfilter.map(x=> {return url[x]}).reverse()
 
     }
 }

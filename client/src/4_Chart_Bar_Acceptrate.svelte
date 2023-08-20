@@ -238,7 +238,7 @@ async function clickHandler(click){
         return acceptdata[key].includes(label.toLowerCase());
     });
 
-    urlfilter = clickfilter.map(x=> {return url[x]})
+    urlfilter = clickfilter.map(x=> {return url[x]}).reverse()
 
     }
 }

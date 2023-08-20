@@ -223,7 +223,7 @@ async function clickHandler(click){
     });
 
    
-    urlfilter = clickfilter.map(x=> {return url[x]})
+    urlfilter = clickfilter.map(x=> {return url[x]}).reverse()
 
     }
 }

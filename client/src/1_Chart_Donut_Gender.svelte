@@ -226,7 +226,7 @@ async function clickHandler(click){
         return genderlist[key] === label;
     });
     
-    urlfilter = clickfilter.map(x=> {return url[x]})
+    urlfilter = clickfilter.map(x=> {return url[x]}).reverse()
 
     }
 }
