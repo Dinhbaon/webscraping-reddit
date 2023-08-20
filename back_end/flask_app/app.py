@@ -42,8 +42,6 @@ class attributes(db.Model):
     def get_gender():
 
         data = db.session.query(attributes.Gender, attributes.timestamp).all()
-        timestamps = db.session.query(attributes.timestamp).order_by(attributes.timestamp.desc()).all()
-        print(timestamps)
         gender = {}
         for row in data:
             gender[row.timestamp] = row.Gender
@@ -63,7 +61,7 @@ class attributes(db.Model):
         return act
     def get_links():
         links = {}
-        datalinks = db.session.query(attributes.URL,attributes.timestamp).all()
+        datalinks = db.session.query(attributes.URL,attributes.timestamp).order_by(attributes.timestamp.desc()).all()
         for row in datalinks:
             links[row.timestamp] = row.URL
         return links
@@ -141,7 +139,7 @@ def gender():
 
 @app.route('/api/URL', methods = ['GET'])
 def url():
-    return attributes.get_links()
+    return json.dumps(attributes.get_links())
 
 @app.route('/api/SAT', methods = ['GET'])
 def sat():
