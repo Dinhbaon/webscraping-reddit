@@ -4,7 +4,6 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table, Column, Integer, String,Text, func, desc, asc
 import os
-from flask_marshmallow import Marshmallow
 from flask_caching import Cache
 config={'CACHE_TYPE': 'SimpleCache'}
 
@@ -20,7 +19,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
 cors = CORS(app)
 db = SQLAlchemy(app)
-ma = Marshmallow(app)
 
 app.config.from_mapping(config)
 
@@ -129,6 +127,11 @@ class Rejections(db.Model):
     def __repr__(self):
         return f'<rejections "{self.title}">'
 
+class TimeStamp(db.Model):
+    last_updated = Column(Integer, primary_key = True)
+    def __repr__(self):
+        return f'timestamp {self.title}'
+
 # @app.route('/api/<string:column>/value', methods = ['GET'])
 # def home(column : str):
 #     return list(attributes.get_data()[column].values())
@@ -228,6 +231,12 @@ def ecs():
 
     return(result_dict)
 
+@app.route('/api/last_scrape', methods = ['GET'])
+@cache.cached(timeout=600)
+def last_scrape():
+    query = db.session.query(TimeStamp.last_updated)
+
+    return query[0].last_updated
 
 # @app.route('/api/<string:column>/value/count',methods = ['GET'])
 # def count(column:str):
