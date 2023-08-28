@@ -236,7 +236,7 @@ def ecs():
 def last_scrape():
     query = db.session.query(TimeStamp.last_updated)
 
-    return [query[0].last_updated]
+    return f'"{query[0].last_updated}"'
 
 # @app.route('/api/<string:column>/value/count',methods = ['GET'])
 # def count(column:str):
