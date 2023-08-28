@@ -19,7 +19,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_TRACK _MODIFICATIONS']=False
 cors = CORS(app)
 db = SQLAlchemy(app)
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Dinhbaon:kimthanh142@Dinhbaon.mysql.pythonanywhere-services.com/Dinhbaon$applicant'
 app.config.from_mapping(config)
 
 cache = Cache(app)
@@ -236,7 +236,7 @@ def ecs():
 def last_scrape():
     query = db.session.query(TimeStamp.last_updated)
 
-    return query[0].last_updated
+    return [query[0].last_updated]
 
 # @app.route('/api/<string:column>/value/count',methods = ['GET'])
 # def count(column:str):
