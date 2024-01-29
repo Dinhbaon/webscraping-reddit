@@ -43,3 +43,11 @@
     margin-top:2vh; 
     cursor: pointer;  
 }
+@media (max-width: 640px){
+    .introbar h1{ 
+        font-size: 1rem ; 
+    }
+    .githublogo{ 
+        display: none
+    }
+}

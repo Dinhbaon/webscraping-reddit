@@ -29,14 +29,14 @@ const ExtracurricularFilter =({ setApplicableFilters, chartType }: { setApplicab
 
     if (event.target.checked == true) {
       const filter = (admissionDataInput : AdmissionData) => {
-        return useFilter(admissionDataInput, chartType, 'extracurriculars', extracurriculars)
+        return useFilter(admissionDataInput, chartType, 'ecs', extracurriculars)
       }
-      setApplicableFilters((prevState=>({ ...prevState, 'extracurriculars': filter})))
+      setApplicableFilters((prevState=>({ ...prevState, 'ecs': filter})))
     } else if (event.target.checked == false) {
       const filter = (admissionDataInput : AdmissionData) => {
         return admissionDataInput
       }
-      setApplicableFilters((prevState=>({ ...prevState, 'extracurriculars': filter})))
+      setApplicableFilters((prevState=>({ ...prevState, 'ecs': filter})))
     }
 
   }
@@ -48,10 +48,10 @@ const ExtracurricularFilter =({ setApplicableFilters, chartType }: { setApplicab
     setExtracurriculars(chosenMajor)
 
     const filter = (admissionDataInput : AdmissionData) => {
-      return useFilter(admissionDataInput, chartType, 'extracurriculars', chosenMajor)
+      return useFilter(admissionDataInput, chartType, 'ecs', chosenMajor)
     }
 
-    setApplicableFilters((prevState) =>({ ...prevState, 'extracurriculars': filter}))
+    setApplicableFilters((prevState) =>({ ...prevState, 'ecs': filter}))
 
   };
 
