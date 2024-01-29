@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Doughnut, getDatasetAtEvent, getElementAtEvent, getElementsAtEvent } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title, SubTitle } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';

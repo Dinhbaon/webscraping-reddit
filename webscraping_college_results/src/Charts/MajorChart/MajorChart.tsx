@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Bar, getElementsAtEvent } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title, SubTitle, CategoryScale, registerables } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
