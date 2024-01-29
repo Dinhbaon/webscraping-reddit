@@ -1,0 +1,15 @@
+.filterContainer {
+    display: flex; 
+    flex-wrap: wrap;
+    width: 30vw; 
+    height: 50vh;
+    align-content: flex-start;
+}
+
+.filter {
+    width: 12vw; 
+    margin-left: 2vw;
+    display: flex;
+    justify-content: flex-start;
+    height: 100px; 
+}   
