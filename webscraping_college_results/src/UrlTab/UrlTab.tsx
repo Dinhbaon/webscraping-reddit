@@ -13,7 +13,7 @@ const UrlTab = ({loUrl, setOpened} : {loUrl : string[], setOpened: React.Dispatc
                 </Typography>
             </a>
         </li>)
-    const closeTab =(event: React.ChangeEvent<HTMLInputElement>) => {
+    const closeTab =(event: React.ChangeEvent<HTMLInputElement>):void => {
         
         setOpened(false)
         console.log(close)
@@ -24,7 +24,7 @@ const UrlTab = ({loUrl, setOpened} : {loUrl : string[], setOpened: React.Dispatc
     return (
 
         <div> 
-            <div onClick={closeTab} style={{margin: '5px 0px 0px 5px', position: 'absolute'}}>
+            <div onClick={()=>closeTab} style={{margin: '5px 0px 0px 5px', position: 'absolute'}}>
                 <CloseIcon/>
             </div>
             
