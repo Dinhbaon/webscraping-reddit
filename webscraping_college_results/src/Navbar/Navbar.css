@@ -50,4 +50,35 @@
     .githublogo{ 
         display: none
     }
+
+    #spreadsheeticon{ 
+        float:right; 
+        height: 6vh;
+        margin-right:10vw; 
+        margin-top:2vh; 
+        cursor: pointer;  
+    }
+    .introbar{ 
+        height: 10vh; 
+        background-color: hsl(29, 100%, 60%); 
+        font-size: 0.9rem; 
+        font-family: 'RockoFLF', Arial, Helvetica, sans-serif; 
+        width: 100vw; 
+        z-index: 2; 
+        
+    }
+    .introbar h1{ 
+        float: left; 
+        padding-left: 4vw; 
+        font-size: 1rem; 
+        font-weight: 600; 
+        top: 50%;
+        position: relative;
+        transform: translateY(-50%);
+        margin: 0; 
+    }
+    .collegeresultslogo{ 
+        float: left; 
+        display: none;
+    }
 }

@@ -1,3 +1,4 @@
+import { isMobile } from 'react-device-detect'
 import './Infotab.css'
 
 const Infotab = (setIsInfoOpened: { setIsInfoOpened: (isOpen: boolean) => void }) => {
@@ -8,7 +9,9 @@ const Infotab = (setIsInfoOpened: { setIsInfoOpened: (isOpen: boolean) => void }
     return (
         <div className='infoscreen'>
             <div className='close' onClick={closeInfoTab} dangerouslySetInnerHTML={{ __html: '&#x2716' }}></div>
-            <h2 style={{ left: "50%", transform: "translateX(-50%)", position: "absolute" }}>General notes on usage</h2>
+            {isMobile ? <h2 style={{ left: "50%", transform: "translateX(-50%)", position: "absolute", fontSize: "1rem"}}>General notes on usage</h2> : 
+            <h2 style={{ left: "50%", transform: "translateX(-50%)", position: "absolute", fontSize: "2rem"}}>General notes on usage</h2>}
+            
             <p style={{ clear: "both", textAlign: "left", marginLeft: "3vw" }}>This website displays the results of a web scraping data from the subreddit r/collegeresults - The results are not always accurate so you should use it as a filter of sorts not just as a data visualization tool.  </p>
             <h3 style={{ float: "left", display: "block", clear: "both", marginLeft: "2vw" }}>Features </h3>
             <li style={{ display: "block", clear: "both" }}>
