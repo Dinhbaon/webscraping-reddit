@@ -122,14 +122,12 @@
     height: 200px; 
     width: 200px; 
     flex: 0 1 auto;
-    position: absolute;
-    /* new */
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
   }
   .urlTab {
     background-color: lightgray;
-
     height:200px; 
     width:120px; 
     position: relative;

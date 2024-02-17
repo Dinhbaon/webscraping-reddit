@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, Title, SubTitle)
 
 
 
-const FetchGender = () => { 
+const FetchGender = () => {
     let admissionData = useContext(DataContext)
     const [admissionDataCopy, setAdmissionDataCopy] = useState(admissionData['admissionData'])
     const [loUrl, setLoUrl] = useState<string[]>([])
@@ -20,22 +20,22 @@ const FetchGender = () => {
     const chartRef = useRef();
     useMemo(() => {
         setAdmissionDataCopy(admissionData['admissionData']);
-      }, [admissionData]);
+    }, [admissionData]);
 
 
     const data = {
-        labels: ['Male', 'Female', 'Other/LGBTQ+'], 
+        labels: ['Male', 'Female', 'Other/LGBTQ+'],
         datasets: [
             {
-                data:  [Object.values(admissionDataCopy['gender']).filter(gender => gender == 'Male').length, 
-                        Object.values(admissionDataCopy['gender']).filter(gender => gender == 'Female').length,
-                        Object.values(admissionDataCopy['gender']).filter(gender => gender == 'Other/LGBTQ+').length], 
-                        
+                data: [Object.values(admissionDataCopy['gender']).filter(gender => gender == 'Male').length,
+                Object.values(admissionDataCopy['gender']).filter(gender => gender == 'Female').length,
+                Object.values(admissionDataCopy['gender']).filter(gender => gender == 'Other/LGBTQ+').length],
+
                 backgroundColor: [
-                            'rgba(54, 162, 235, 1)', 
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(255, 206, 86, 1)'
-                        ]
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ]
             }
 
         ]
@@ -45,37 +45,35 @@ const FetchGender = () => {
         plugins: {
             customCanvasBackgroundColor: {
                 color: 'lightGreen',
-              }, 
+            },
             datalabels: {
                 display: true,
-                color: 'white', 
+                color: 'white',
                 font: {
                     size: '24px'
                 }
-             }, 
-             title: {
-                    display: true,
-                    text: 'Demographics - Gender Makeup'
-                }, 
+            },
+            title: {
+                display: true,
+                text: 'Demographics - Gender Makeup'
+            },
             subtitle: {
-                    display: true,
-                    text: 'n=' + Object.keys(admissionDataCopy['gender']).length
-                }
+                display: true,
+                text: 'n=' + Object.keys(admissionDataCopy['gender']).length
+            }
 
-        }, 
+        },
         responsive: true
-    
+
     }
 
     const onClick = (event: MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-        console.log(getElementsAtEvent(chartRef.current, event)[0]);
-        const datasetIndexNum =  getElementsAtEvent(chartRef.current, event)[0].datasetIndex
+        const datasetIndexNum = getElementsAtEvent(chartRef.current, event)[0].datasetIndex
         const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index
 
 
-        let chosenIndex = Object.keys(admissionDataCopy['gender']).filter((id : string) => admissionDataCopy['gender'][id] == data.labels[dataPoint])
-        setLoUrl(Object.values(chosenIndex.map(x=> {return admissionDataCopy['url'][x]}).reverse()))
-        console.log(Object.values(chosenIndex.map(x=> {return admissionDataCopy['url'][x]}).reverse()))
+        let chosenIndex = Object.keys(admissionDataCopy['gender']).filter((id: string) => admissionDataCopy['gender'][id] == data.labels[dataPoint])
+        setLoUrl(Object.values(chosenIndex.map(x => { return admissionDataCopy['url'][x] }).reverse()))
         setOpened(true)
     }
 
@@ -84,22 +82,23 @@ const FetchGender = () => {
             <div>
                 <Filter chartType={['gender']} admissionData={admissionDataCopy} setAdmissionData={setAdmissionDataCopy}></Filter>
             </div>
-            <div className="graph"> 
+            <div className="graph">
                 <Doughnut data={data}
                     ref={chartRef}
                     options={options}
                     height="500px"
                     width="500px"
-                    onClick={onClick}/>
+                    onClick={onClick} />
             </div>
-            <div className="urlTab" style={{visibility: opened ? 'visible' : 'hidden'}}>
-                {opened ? <UrlTab loUrl={loUrl} setOpened={setOpened}></UrlTab>: null}
+            <div className="urlTab" style={{ visibility: opened ? 'visible' : 'hidden' }}>
+                    {opened ? <UrlTab loUrl={loUrl} setOpened={setOpened}></UrlTab> : null}
             </div>
+
         </div>
 
-            
-        )
-    
+
+    )
+
 
 }
 

@@ -8,9 +8,6 @@ const Navbar = () => {
         setIsInfoOpened(true)
     }
 
-    useEffect(()=>{
-        console.log(isInfoOpened)
-    }, [isInfoOpened])
     return(
         <div>
         <div className = {'introbar'}>

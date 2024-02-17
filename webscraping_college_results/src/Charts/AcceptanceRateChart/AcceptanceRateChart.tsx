@@ -27,15 +27,11 @@ const AcceptanceRateChart = () => {
       }, [admissionData]);
 
     useEffect(()=>{
-        console.log(selectedUnis)
         let acceptcount = selectedUnis.map((x : string)=>Object.values(admissionDataCopy['acceptances']).filter((i)=>i.includes(x.toLowerCase())).length)
-        let rejectcount = selectedUnis.map((x : string) =>Object.values(admissionDataCopy['rejections']).filter((i)=>i.includes(x.toLowerCase())).length)
-        console.log(acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100)))
-        setAcceptanceRate(acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100)))
+        let rejectcount = selectedUnis.map((x : string) =>Object.values(admissionDataCopy['rejections']).filter((i)=>i.includes(x.toLowerCase())).length)        setAcceptanceRate(acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100)))
     }, [selectedUnis, admissionDataCopy])
 
     useEffect(()=>{
-        console.log(acceptanceRate)
     }, [acceptanceRate])
     
     let uniOptions = unilist.map(acceptances => <MenuItem value={acceptances} key={acceptances}>{acceptances}</MenuItem>)

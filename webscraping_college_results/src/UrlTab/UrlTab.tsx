@@ -16,7 +16,6 @@ const UrlTab = ({loUrl, setOpened} : {loUrl : string[], setOpened: React.Dispatc
     const closeTab =(event: React.ChangeEvent<HTMLInputElement>):void => {
         
         setOpened(false)
-        console.log(close)
     }
 
     

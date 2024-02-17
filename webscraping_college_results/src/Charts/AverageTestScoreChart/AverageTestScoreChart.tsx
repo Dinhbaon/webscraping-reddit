@@ -26,7 +26,6 @@ const AverageTestScoreChart = () => {
       }, [admissionData]);
 
     useEffect(()=>{
-        console.log(selectedUnis)
         let satdatafiltered = selectedUnis.map(x=>Object.entries(admissionDataCopy['acceptances']).filter(([k,i])=>i.includes(x.toLowerCase()))).map(a=>a.map(b=> admissionDataCopy[testScoreType][b[0]]).filter( Number ))
         setAverageTestScore(satdatafiltered.map((x,i)=>Math.round(x.reduce((a,b)=>parseInt(a)+parseInt(b),0)/(satdatafiltered[i].length)*10)/10))
 

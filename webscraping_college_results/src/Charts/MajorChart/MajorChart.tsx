@@ -81,14 +81,12 @@ const MajorChart = () => {
     }
 
     const onClick = (event: MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-        console.log(getElementsAtEvent(chartRef.current, event)[0]);
         const datasetIndexNum =  getElementsAtEvent(chartRef.current, event)[0].datasetIndex
         const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index
 
 
         let chosenIndex = Object.keys(admissionDataCopy['major']).filter((id : string) => admissionDataCopy['major'][id] == data.labels[dataPoint])
         setLoUrl(Object.values(chosenIndex.map(x=> {return admissionDataCopy['url'][x]}).reverse()))
-        console.log(Object.values(chosenIndex.map(x=> {return admissionDataCopy['url'][x]}).reverse()))
         setOpened(true)
     }
 

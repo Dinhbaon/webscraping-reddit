@@ -79,7 +79,6 @@ const AdmissionDataProvider = ({children} : {children : React.ReactNode}) => {
                     fetch('https://dinhbaon.pythonanywhere.com/api/URL')
                   ]).then((value) => Promise.all(value.map(r => r.json()))
                   ).then((value) => {
-                    console.log(value)
                     setAdmissionData({
                       gender: value[0],
                       major: value[1], 
