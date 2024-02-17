@@ -28,7 +28,8 @@ const AcceptanceRateChart = () => {
 
     useEffect(()=>{
         let acceptcount = selectedUnis.map((x : string)=>Object.values(admissionDataCopy['acceptances']).filter((i)=>i.includes(x.toLowerCase())).length)
-        let rejectcount = selectedUnis.map((x : string) =>Object.values(admissionDataCopy['rejections']).filter((i)=>i.includes(x.toLowerCase())).length)        setAcceptanceRate(acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100)))
+        let rejectcount = selectedUnis.map((x : string) =>Object.values(admissionDataCopy['rejections']).filter((i)=>i.includes(x.toLowerCase())).length)        
+        setAcceptanceRate(acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100)))
     }, [selectedUnis, admissionDataCopy])
 
     useEffect(()=>{
