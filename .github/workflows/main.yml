@@ -8,9 +8,11 @@ on:
 env: 
   AWS_REGION: us-east-2
   ECR_REPOSITORY: webscrapingcollegeresults
-  permissions:
-    id-token: write   # This is required for requesting the JWT
-    contents: read    # This is required for actions/checkout
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+
 jobs:
   Deployment:
     name: Deploy
