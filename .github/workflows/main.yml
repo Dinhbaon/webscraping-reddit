@@ -2,8 +2,9 @@ name: Deploy to AWS ECR
 
 on: 
   push:
-    branch:
+    branches:
       - main
+
 env: 
   AWS_REGION: us-east-2
   ECR_REPOSITORY: webscrapingcollegeresults
@@ -16,13 +17,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::203615242357:role/github
-        role-session-name: GitHub_to_AWS_via_FederatedOIDC
-        aws-region: us-east-2
+        with:
+          role-to-assume: arn:aws:iam::203615242357:role/github
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: us-east-2
       - name: Login to Amazon ECR
-          id: login-ecr
-          uses: aws-actions/amazon-ecr-login@v1
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image
         env:
@@ -36,4 +37,3 @@ jobs:
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-          
