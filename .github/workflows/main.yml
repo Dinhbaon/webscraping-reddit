@@ -35,7 +35,9 @@ jobs:
           IMAGE_TAG: latest
         run: |
           # Build a docker container and push it to ECR 
-          cd back_end/WebScrapingCollegeResults/WebScrapingCollegeResults
+          cd back_end/
+          cd webscrapingcollegeresults/
+          cd webscrapingcollegeresults-spring/
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
