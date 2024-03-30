@@ -1,6 +1,6 @@
 FROM amazoncorretto:17-alpine-jdk
 MAINTAINER baeldung.com
-COPY ./root.crt /root/.postgresql/root.crt
+RUN curl --create-dirs -o $HOME/.postgresql/root.crt 'https://cockroachlabs.cloud/clusters/1385aaf7-3b26-4af7-aaf3-12ebc865bdf3/cert'
 RUN apk update
 RUN apk upgrade --available
 RUN apk add --upgrade --no-cache ca-certificates && update-ca-certificates
