@@ -15,11 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::203615242357:role/github
-          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          role-session-name: github
           aws-region: us-east-2
       - name: Login to Amazon ECR
         id: login-ecr
