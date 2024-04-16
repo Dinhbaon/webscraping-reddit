@@ -27,7 +27,10 @@ jobs:
           distribution: 'temurin'
           architecture: x64
       - name: Run the Maven verify phase
-          run: mvn -DskipTests=true  package
+        run: |
+          cd back_end/
+          cd webscrapingcollegeresults-spring/
+          mvn -DskipTests=true  package
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::203615242357:role/github
