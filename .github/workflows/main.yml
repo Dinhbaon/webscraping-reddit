@@ -30,6 +30,7 @@ jobs:
         run: |
           cd back_end/
           cd webscrapingcollegeresults-spring/
+          mvn clean install -DskipTests
           mvn -DskipTests=true  package
       - uses: aws-actions/configure-aws-credentials@v4
         with:
