@@ -173,8 +173,8 @@ public class ApplicationsController {
         return new ResponseEntity<>(resultDict, HttpStatus.OK);
     }
 
-    @PostMapping("api/Gender")
-    Public boolean postGender()
+    // @PostMapping("api/Gender")
+    // Public boolean postGender()
 
 
 
