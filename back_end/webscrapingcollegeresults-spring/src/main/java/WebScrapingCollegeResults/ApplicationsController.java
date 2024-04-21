@@ -148,7 +148,6 @@ public class ApplicationsController {
 
         return new ResponseEntity<>(resultDict, HttpStatus.OK);
     }
-
     @GetMapping("api/Extracurriculars")
     public ResponseEntity<Map<Long, List<String>>> getExtracurriculars() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
