@@ -54,5 +54,5 @@ jobs:
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       - name: Deploy Amazon ECS task definition
         run: |
-          aws ecs update-cluster --cluster=arn:aws:ecs:us-east-2:203615242357:cluster/RedditCollegeResults --service=arn:aws:ecs:us-east-2:203615242357:service/RedditCollegeResults/RedditCollegeResultsService --force-new-deployment
+          aws ecs update-service --cluster=arn:aws:ecs:us-east-2:203615242357:cluster/RedditCollegeResults --service=arn:aws:ecs:us-east-2:203615242357:service/RedditCollegeResults/RedditCollegeResultsService --force-new-deployment
 
