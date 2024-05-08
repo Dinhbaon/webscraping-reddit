@@ -69,14 +69,14 @@ const AdmissionDataProvider = ({children} : {children : React.ReactNode}) => {
   }
 
      useEffect(()=>{
-      Promise.all([ fetch('http://ec2-3-20-42-127.us-east-2.compute.amazonaws.com:8080/api/Gender'), 
-                    fetch('http://ec2-3-20-42-127.us-east-2.compute.amazonaws.com:8080/api/Major'), 
-                    fetch('http://ec2-3-20-42-127.us-east-2.compute.amazonaws.com:8080/api/SAT'), 
-                    fetch('http://ec2-3-20-42-127.us-east-2.compute.amazonaws.com:8080/api/ACT'), 
-                    fetch('http://ec2-3-20-42-127.us-east-2.compute.amazonaws.com:8080/api/Acceptances'), 
-                    fetch('http://ec2-3-20-42-127.us-east-2.compute.amazonaws.com:8080/api/Rejections'), 
-                    fetch('http://ec2-3-20-42-127.us-east-2.compute.amazonaws.com:8080/api/Extracurriculars'),
-                    fetch('http://ec2-3-20-42-127.us-east-2.compute.amazonaws.com:8080/api/URL')
+      Promise.all([ fetch('https://dinhbaon.pythonanywhere.com/api/Gender'), 
+                    fetch('https://dinhbaon.pythonanywhere.com/api/Majors'), 
+                    fetch('https://dinhbaon.pythonanywhere.com/api/SAT'), 
+                    fetch('https://dinhbaon.pythonanywhere.com/api/ACT'), 
+                    fetch('https://dinhbaon.pythonanywhere.com/api/Acceptances'), 
+                    fetch('https://dinhbaon.pythonanywhere.com/api/Rejections'), 
+                    fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars'),
+                    fetch('https://dinhbaon.pythonanywhere.com/api/URL')
                   ]).then((value) => Promise.all(value.map(r => r.json()))
                   ).then((value) => {
                     setAdmissionData({
