@@ -69,14 +69,14 @@ const AdmissionDataProvider = ({children} : {children : React.ReactNode}) => {
   }
 
      useEffect(()=>{
-      Promise.all([ fetch('https://dinhbaon.pythonanywhere.com/api/Gender'), 
-                    fetch('https://dinhbaon.pythonanywhere.com/api/Majors'), 
-                    fetch('https://dinhbaon.pythonanywhere.com/api/SAT'), 
-                    fetch('https://dinhbaon.pythonanywhere.com/api/ACT'), 
-                    fetch('https://dinhbaon.pythonanywhere.com/api/Acceptances'), 
-                    fetch('https://dinhbaon.pythonanywhere.com/api/Rejections'), 
-                    fetch('https://dinhbaon.pythonanywhere.com/api/Extracurriculars'),
-                    fetch('https://dinhbaon.pythonanywhere.com/api/URL')
+      Promise.all([ fetch('https://d2pje8jcti8hs.cloudfront.net/api/Gender'), 
+                    fetch('https://d2pje8jcti8hs.cloudfront.net/api/Major'), 
+                    fetch('https://d2pje8jcti8hs.cloudfront.net/api/SAT'), 
+                    fetch('https://d2pje8jcti8hs.cloudfront.net/api/ACT'), 
+                    fetch('https://d2pje8jcti8hs.cloudfront.net/api/Acceptances'), 
+                    fetch('https://d2pje8jcti8hs.cloudfront.net/api/Rejections'), 
+                    fetch('https://d2pje8jcti8hs.cloudfront.net/api/Extracurriculars'),
+                    fetch('https://d2pje8jcti8hs.cloudfront.net/api/URL')
                   ]).then((value) => Promise.all(value.map(r => r.json()))
                   ).then((value) => {
                     setAdmissionData({
