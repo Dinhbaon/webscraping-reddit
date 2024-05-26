@@ -4,12 +4,11 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Filter from '../../Filters/Filters'
 import '../.././App.css'
 import { MouseEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
-
 import { DataContext } from "../../context";
 import UrlTab from "../../UrlTab/UrlTab";
-import { FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Radio, RadioGroup, Select, Slider, Typography } from "@mui/material";
-import AcceptanceFilter from "../../Filters/AcceptanceFilter";
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { unilist } from "../../Filters/FilterOptions";
+
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, Title, SubTitle, CategoryScale, ...registerables )
 
 const AcceptanceRateChart = () => {
@@ -19,16 +18,15 @@ const AcceptanceRateChart = () => {
     const [selectedUnis, setSelectedUnis] = useState<string[]>(['Harvard', 'Princeton'])
     const [loUrl, setLoUrl] = useState<string[]>([])
     const [opened, setOpened] = useState(false)
-    const [testScoreType, setTestScoreType] = useState<string>('sat')
-    const [scoreRange, setScoreRange] = useState<number[]>([800, 1600])
+    const testScoreType = 'sat'; 
     const chartRef = useRef();
     useMemo(() => {
         setAdmissionDataCopy(admissionData['admissionData']);
       }, [admissionData]);
 
     useEffect(()=>{
-        let acceptcount = selectedUnis.map((x : string)=>Object.values(admissionDataCopy['acceptances']).filter((i)=>i.includes(x.toLowerCase())).length)
-        let rejectcount = selectedUnis.map((x : string) =>Object.values(admissionDataCopy['rejections']).filter((i)=>i.includes(x.toLowerCase())).length)        
+        let acceptcount = selectedUnis.map((x : string)=>Object.values(admissionDataCopy['acceptances']).filter((i: string[])=>i.includes(x.toLowerCase())).length)
+        let rejectcount = selectedUnis.map((x : string) =>Object.values(admissionDataCopy['rejections']).filter((i: string[])=>i.includes(x.toLowerCase())).length)        
         setAcceptanceRate(acceptcount.map((x,i)=>Math.round(x/(x+rejectcount[i])*100)))
     }, [selectedUnis, admissionDataCopy])
 
@@ -85,8 +83,7 @@ const AcceptanceRateChart = () => {
     
     }
 
-    const onClick = (event: MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-        const datasetIndexNum =  getElementsAtEvent(chartRef.current, event)[0].datasetIndex
+    const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
         const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index
         let chosenIndex = Object.keys(admissionDataCopy['acceptances']).filter((id : string) => 
             admissionDataCopy['acceptances'][id].includes(data.labels[dataPoint].toLowerCase()))
@@ -94,7 +91,7 @@ const AcceptanceRateChart = () => {
         setOpened(true)
     }
 
-    const handleChange = (event: Event, newValue: string | string[]) => {
+    const handleChange = (event: SelectChangeEvent<string[]>) => {
         let chosenMajor = typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
 
         setSelectedUnis(chosenMajor);
@@ -104,12 +101,12 @@ const AcceptanceRateChart = () => {
         <div>
             <div className={'container'}>
                 <div>
-                    <Filter chartType={['acceptances', testScoreType]} admissionData={admissionDataCopy} setAdmissionData={setAdmissionDataCopy}></Filter>
+                    <Filter chartType={['acceptances', testScoreType]} setAdmissionData={setAdmissionDataCopy}></Filter>
                 </div>
                 <div className="graph"> 
                         <Bar data={data}
                             ref={chartRef}
-                            options={options}
+                            options={options as any}
                             height="500px"
                             width="500px"
                             onClick={onClick}

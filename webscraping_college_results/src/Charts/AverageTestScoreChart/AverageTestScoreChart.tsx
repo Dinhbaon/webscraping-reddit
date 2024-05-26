@@ -4,11 +4,9 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Filter from '../../Filters/Filters'
 import '../.././App.css'
 import { MouseEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
-
 import { DataContext } from "../../context";
 import UrlTab from "../../UrlTab/UrlTab";
-import { FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Radio, RadioGroup, Select, Slider, Typography } from "@mui/material";
-import AcceptanceFilter from "../../Filters/AcceptanceFilter";
+import { FormControl, FormControlLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { unilist } from "../../Filters/FilterOptions";
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, Title, SubTitle, CategoryScale, ...registerables )
 
@@ -26,7 +24,7 @@ const AverageTestScoreChart = () => {
       }, [admissionData]);
 
     useEffect(()=>{
-        let satdatafiltered = selectedUnis.map(x=>Object.entries(admissionDataCopy['acceptances']).filter(([k,i])=>i.includes(x.toLowerCase()))).map(a=>a.map(b=> admissionDataCopy[testScoreType][b[0]]).filter( Number ))
+        let satdatafiltered = selectedUnis.map(x=>Object.entries(admissionDataCopy['acceptances']).filter(([_k,i])=>(i as string[]).includes(x.toLowerCase()))).map(a=>a.map(b=> admissionDataCopy[testScoreType][b[0]]).filter( Number ))
         setAverageTestScore(satdatafiltered.map((x,i)=>Math.round(x.reduce((a,b)=>parseInt(a)+parseInt(b),0)/(satdatafiltered[i].length)*10)/10))
 
     }, [selectedUnis, testScoreType, admissionDataCopy])
@@ -82,8 +80,7 @@ const AverageTestScoreChart = () => {
     
     }
 
-    const onClick = (event: MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-        const datasetIndexNum =  getElementsAtEvent(chartRef.current, event)[0].datasetIndex
+    const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
         const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index
         let chosenIndex = Object.keys(admissionDataCopy['acceptances']).filter((id : string) => 
             admissionDataCopy['acceptances'][id].includes(data.labels[dataPoint].toLowerCase()))
@@ -91,27 +88,24 @@ const AverageTestScoreChart = () => {
         setOpened(true)
     }
 
-    const acceptanceChange = (event: Event, newValue: string | string[]) => {
+    const acceptanceChange = (event: SelectChangeEvent<string[]>) => {
         let chosenMajor = typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
 
         setSelectedUnis(chosenMajor);
 
     }
 
-    const scoreChange = (event: Event, newValue: number | number[]) => {
-        setScoreRange(newValue as number[]);
-    }
 
     return (
         <div>
             <div className={'container'}>
                 <div>
-                    <Filter chartType={['acceptances', testScoreType]} admissionData={admissionDataCopy} setAdmissionData={setAdmissionDataCopy}></Filter>
+                    <Filter chartType={['acceptances', testScoreType]} setAdmissionData={setAdmissionDataCopy}></Filter>
                 </div>
                 <div className="graph"> 
                         <Bar data={data}
                             ref={chartRef}
-                            options={options}
+                            options={options as any}
                             height="500px"
                             width="500px"
                             onClick={onClick}

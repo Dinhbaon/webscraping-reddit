@@ -7,7 +7,7 @@ import { MouseEvent, useContext, useEffect, useMemo, useRef, useState } from "re
 
 import { DataContext } from "../../context";
 import UrlTab from "../../UrlTab/UrlTab";
-import { FormControlLabel, FormGroup, Radio, RadioGroup, Slider, Typography } from "@mui/material";
+import { FormControlLabel, Radio, RadioGroup, Slider, Typography } from "@mui/material";
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, Title, SubTitle, CategoryScale, ...registerables)
 
 
@@ -25,7 +25,7 @@ const TestScoreHistogramChart = () => {
     const chartRef = useRef();
     useMemo(() => {
         setAdmissionDataCopy(admissionData['admissionData']);
-        const valuesArray: string[] = Object.values(admissionData['admissionData'][testScoreType]).map((score)=>score.replace(/\D/g, "")).filter((score)=> score!='');
+        const valuesArray: string[] = Object.values(admissionData['admissionData'][testScoreType]).map((score: string)=>score.replace(/\D/g, "")).filter((score)=> score!='');
         let tempMap: CountMap = {}
         valuesArray.forEach((value) => {
             if (typeof value === 'string' && value !== "[]") {
@@ -39,7 +39,6 @@ const TestScoreHistogramChart = () => {
         setInitialMap(tempMap)
         setCountMap(tempMap)
     }, [admissionData, testScoreType]);
-    let scoreData: any = admissionDataCopy[testScoreType]
 
     type CountMap = { [key: string]: number };
 
@@ -101,8 +100,7 @@ const TestScoreHistogramChart = () => {
 
     }
 
-    const onClick = (event: MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-        const datasetIndexNum = getElementsAtEvent(chartRef.current, event)[0].datasetIndex
+    const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
         const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index
 
 
@@ -111,7 +109,7 @@ const TestScoreHistogramChart = () => {
         setOpened(true)
     }
 
-    const handleChange = (event: Event, newValue: number | number[]) => {
+    const handleChange = (_event: Event, newValue: number | number[]) => {
         setCountMap(initialMap)
         setScoreRange(newValue as number[]);
 
@@ -128,12 +126,12 @@ const TestScoreHistogramChart = () => {
         <div>
             <div className={'container'}>
                 <div>
-                    <Filter chartType={[testScoreType]} admissionData={admissionDataCopy} setAdmissionData={setAdmissionDataCopy}></Filter>
+                    <Filter chartType={[testScoreType]} setAdmissionData={setAdmissionDataCopy}></Filter>
                 </div>
                 <div className="graph">
                     <Bar data={data}
                         ref={chartRef}
-                        options={options}
+                        options={options as any}
                         height="500px"
                         width="500px"
                         onClick={onClick}
@@ -151,18 +149,17 @@ const TestScoreHistogramChart = () => {
                                 <Typography >SAT Range:</Typography>
                             </div>
                             <div style={{ transform: 'translateX(-50%)', left: '50%', width: '400px', position: "relative" }}>
-                                <Slider
-                                    getAriaLabel={() => 'SAT range'}
-                                    display="flex"
-                                    direction="row"
-                                    alignItems="center"
-                                    justifyContent="center"
-                                    value={scoreRange}
-                                    min={800}
-                                    max={1600}
-                                    step={10}
-                                    onChange={handleChange}
-                                />
+                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Slider
+                                        aria-label="SAT range"
+                                        value={scoreRange}
+                                        min={800}
+                                        max={1600}
+                                        step={10}
+                                        onChange={handleChange}
+                                        valueLabelDisplay="auto"
+                                    />
+                                </div>
                             </div>
 
                             <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
@@ -174,18 +171,17 @@ const TestScoreHistogramChart = () => {
                                 <Typography >ACT Range:</Typography>
                             </div>
                             <div style={{ transform: 'translateX(-50%)', left: '50%', width: '400px', position: "relative" }}>
-                                <Slider
-                                    getAriaLabel={() => 'SAT range'}
-                                    display="flex"
-                                    direction="row"
-                                    alignItems="center"
-                                    justifyContent="center"
-                                    value={scoreRange}
-                                    min={18}
-                                    max={36}
-                                    step={10}
-                                    onChange={handleChange}
-                                />
+                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Slider
+                                        aria-label="SAT range"
+                                        value={scoreRange}
+                                        min={800}
+                                        max={1600}
+                                        step={10}
+                                        onChange={handleChange}
+                                        valueLabelDisplay="auto"
+                                    />
+                                </div>
                             </div>
 
                             <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>

@@ -13,7 +13,7 @@ import RejectionFilter from './RejectionFilter';
 import ExtracurricularFilter from './ExtracurricularsFilter';
 import { isMobile } from 'react-device-detect';
 
-const Filter = ({ chartType, admissionData, setAdmissionData }: { chartType: string[], admissionData: AdmissionData, setAdmissionData: React.Dispatch<React.SetStateAction<AdmissionData>> }) => {
+const Filter = ({ chartType, setAdmissionData }: { chartType: string[], setAdmissionData: React.Dispatch<React.SetStateAction<AdmissionData>> }) => {
     let filters = ['gender', 'sat', 'act', 'major', 'acceptances', 'rejections', 'ecs']
 
     const [applicableFilters, setApplicableFilters] = useState({

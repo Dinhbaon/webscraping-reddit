@@ -1,9 +1,8 @@
 import { Checkbox, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material"
-import { useContext, useEffect, useState } from "react"
+import { useState } from "react"
 import { eclist } from "./FilterOptions"
 import React from "react"
 import { AdmissionData } from "../App"
-import { DataContext } from "../context"
 import useFilter from "./useFilter"
 
 const ExtracurricularFilter =({ setApplicableFilters, chartType }: { setApplicableFilters : React.Dispatch<React.SetStateAction<{

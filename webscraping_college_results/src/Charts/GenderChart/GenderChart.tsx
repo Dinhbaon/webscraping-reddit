@@ -1,9 +1,9 @@
-import { Doughnut, getDatasetAtEvent, getElementAtEvent, getElementsAtEvent } from "react-chartjs-2";
+import { Doughnut, getElementsAtEvent } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title, SubTitle } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Filter from '../../Filters/Filters'
 import '../.././App.css'
-import { MouseEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { MouseEvent, useContext, useMemo, useRef, useState } from "react";
 
 import { DataContext } from "../../context";
 import UrlTab from "../../UrlTab/UrlTab";
@@ -67,8 +67,7 @@ const FetchGender = () => {
 
     }
 
-    const onClick = (event: MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-        const datasetIndexNum = getElementsAtEvent(chartRef.current, event)[0].datasetIndex
+    const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
         const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index
 
 
@@ -80,12 +79,12 @@ const FetchGender = () => {
     return (
         <div className={'container'}>
             <div>
-                <Filter chartType={['gender']} admissionData={admissionDataCopy} setAdmissionData={setAdmissionDataCopy}></Filter>
+                <Filter chartType={['gender']} setAdmissionData={setAdmissionDataCopy}></Filter>
             </div>
             <div className="graph">
                 <Doughnut data={data}
                     ref={chartRef}
-                    options={options}
+                    options={options as any}
                     height="500px"
                     width="500px"
                     onClick={onClick} />

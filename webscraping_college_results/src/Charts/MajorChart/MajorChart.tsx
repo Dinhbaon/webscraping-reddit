@@ -3,7 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title, SubTitle, Categor
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Filter from '../../Filters/Filters'
 import '../.././App.css'
-import { MouseEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { MouseEvent, useContext, useMemo, useRef, useState } from "react";
 
 import { DataContext } from "../../context";
 import UrlTab from "../../UrlTab/UrlTab";
@@ -80,8 +80,7 @@ const MajorChart = () => {
     
     }
 
-    const onClick = (event: MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-        const datasetIndexNum =  getElementsAtEvent(chartRef.current, event)[0].datasetIndex
+    const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
         const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index
 
 
@@ -93,13 +92,13 @@ const MajorChart = () => {
     return (
         <div className={'container'}>
             <div>
-                <Filter chartType={['major']} admissionData={admissionDataCopy} setAdmissionData={setAdmissionDataCopy}></Filter>
+                <Filter chartType={['major']} setAdmissionData={setAdmissionDataCopy}></Filter>
             </div>
             <div className="graph"  style={{overflow: 'scroll'}}> 
                 <div style={{height: '5000px'}}>
                     <Bar data={data}
                         ref={chartRef}
-                        options={options}
+                        options={options as any}
                         height="5000px"
                         width="500px"
                         onClick={onClick}
