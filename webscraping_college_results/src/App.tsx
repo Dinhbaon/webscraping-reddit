@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense } from 'react'
 import './App.css'
 import GenderChart from './Charts/GenderChart/GenderChart'
 import Navbar from './Navbar/Navbar'

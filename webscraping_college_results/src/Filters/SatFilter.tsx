@@ -1,9 +1,7 @@
-import { Checkbox, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Typography } from "@mui/material"
-import { useContext, useState } from "react"
-import { majorlist } from "./FilterOptions"
+import { Checkbox, Slider, Typography } from "@mui/material"
+import { useState } from "react"
 import React from "react"
 import { AdmissionData } from "../App"
-import { DataContext } from "../context"
 import useFilter from "./useFilter"
 
 const SatFilter = ({ setApplicableFilters, chartType }: { setApplicableFilters : React.Dispatch<React.SetStateAction<{
@@ -38,7 +36,7 @@ const SatFilter = ({ setApplicableFilters, chartType }: { setApplicableFilters :
           }
     }
 
-    const handleChange = (event: Event, newValue: number | number[]) => {
+    const handleChange = (_event: Event, newValue: number | number[]) => {
         setSatRange(newValue as number[]);
 
         const filter = (admissionDataInput : AdmissionData) => {
