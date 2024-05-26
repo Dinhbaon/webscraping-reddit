@@ -1,6 +1,6 @@
 import './Navbar.css'
 import Infotab from './Infotab'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 const Navbar = () => {
     const [isInfoOpened, setIsInfoOpened] = useState<boolean>(false)
 
