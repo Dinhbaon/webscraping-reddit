@@ -6,12 +6,7 @@ import time
 df = pd.read_csv("back_end/csvfiles/processeddata.csv", header=None, index_col = None)
 
 reddit = praw.Reddit(
-    client_id="sFrh8LTFghvT1hTi1_fuBg",
-    client_secret="Z9lv8U8J08iE07o3s-xxzvMevoaV2Q",
-    user_agent="redditcollegeresults.com (by /u/Dinhbaon)",
-    username="Dinhbaon",
-    password="Kimthanh142!?",
-    ratelimit_seconds=300
+
 )
 
 urllist = df.iloc[:, 8].to_list()
